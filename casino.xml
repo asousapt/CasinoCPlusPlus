@@ -1,0 +1,511 @@
+<casino>
+    <nome>Casino 123</nome>
+    <horaAbertura>19:00</horaAbertura>
+    <horafecho>04:00</horafecho>
+    <clienteslista>
+        <cliente>
+            <numero>1</numero>
+            <nome>Luís Almeida</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>2</numero>
+            <nome>Carla Oliveira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>3</numero>
+            <nome>Rodrigo Dias</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>4</numero>
+            <nome>Marta Gomes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>5</numero>
+            <nome>Gabriel Martins</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>6</numero>
+            <nome>Lara Rodrigues</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>7</numero>
+            <nome>Miguel Correia</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>8</numero>
+            <nome>Sofia Cardoso</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>9</numero>
+            <nome>Rafael Nunes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>10</numero>
+            <nome>Bruna Marques</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>11</numero>
+            <nome>Gustavo Rocha</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>12</numero>
+            <nome>Leticia Lima</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>13</numero>
+            <nome>Vinicius Costa</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>14</numero>
+            <nome>Alice Monteiro</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>15</numero>
+            <nome>Beatriz Ribeiro</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>16</numero>
+            <nome>Lucas Carvalho</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>17</numero>
+            <nome>Isabela Moreira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>18</numero>
+            <nome>Arthur Teixeira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>19</numero>
+            <nome>Laura Pereira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>20</numero>
+            <nome>Matheus Oliveira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>21</numero>
+            <nome>Júlia Mendes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>22</numero>
+            <nome>Davi Santos</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>23</numero>
+            <nome>Lara Fernandes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>24</numero>
+            <nome>Gabriel Silva</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>25</numero>
+            <nome>João Ferreira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>26</numero>
+            <nome>Clara Sousa</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>27</numero>
+            <nome>Leonardo Silva</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>28</numero>
+            <nome>Bianca Santos</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>29</numero>
+            <nome>Felipe Costa</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>30</numero>
+            <nome>Maria Silva</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>31</numero>
+            <nome>João Santos</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>32</numero>
+            <nome>Ana Ferreira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>33</numero>
+            <nome>Carlos Dias</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>34</numero>
+            <nome>Rita Sousa</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>35</numero>
+            <nome>Pedro Martins</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>36</numero>
+            <nome>Paulo Ribeiro</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>37</numero>
+            <nome>Beatriz Lima</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>38</numero>
+            <nome>Leonardo Nunes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>39</numero>
+            <nome>Isabel Cardoso</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>40</numero>
+            <nome>Fernando Mendes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>41</numero>
+            <nome>Juliana Moreira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>42</numero>
+            <nome>Rafael Correia</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>43</numero>
+            <nome>Lara Monteiro</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>44</numero>
+            <nome>Gabriel Fonseca</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>45</numero>
+            <nome>Alice Vieira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>46</numero>
+            <nome>Vinicius Barros</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>47</numero>
+            <nome>Mariana Costa</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>48</numero>
+            <nome>Guilherme Oliveira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>49</numero>
+            <nome>Bianca Castro</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>50</numero>
+            <nome>Mateus Sousa</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>51</numero>
+            <nome>Leticia Carvalho</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>52</numero>
+            <nome>Gustavo Silva</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>53</numero>
+            <nome>Camila Santos</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>54</numero>
+            <nome>Lucas Pinto</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>55</numero>
+            <nome>Julia Ferreira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>56</numero>
+            <nome>Miguel Rodrigues</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>57</numero>
+            <nome>Laura Lima</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>58</numero>
+            <nome>Daniel Alves</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>59</numero>
+            <nome>Amanda Souza</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>60</numero>
+            <nome>Arthur Costa</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>61</numero>
+            <nome>Bruna Oliveira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>62</numero>
+            <nome>Felipe Dias</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>63</numero>
+            <nome>Larissa Martins</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>64</numero>
+            <nome>Rodrigo Silva</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>65</numero>
+            <nome>Nicole Castro</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>66</numero>
+            <nome>Eduardo Nunes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>67</numero>
+            <nome>Melissa Carvalho</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>68</numero>
+            <nome>Thiago Araújo</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>69</numero>
+            <nome>Renata Lopes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>70</numero>
+            <nome>Diego Santos</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>71</numero>
+            <nome>Isadora Reis</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>72</numero>
+            <nome>Fábio Gomes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>73</numero>
+            <nome>Tatiana Ribeiro</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>74</numero>
+            <nome>Ricardo Almeida</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>75</numero>
+            <nome>Júlia Marques</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>76</numero>
+            <nome>Bruno Fernandes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>77</numero>
+            <nome>Aline Freitas</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>78</numero>
+            <nome>Rafaela Silva</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>79</numero>
+            <nome>Marcos Oliveira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>80</numero>
+            <nome>Fernanda Souza</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>81</numero>
+            <nome>Gabriela Costa</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>82</numero>
+            <nome>Vitor Dias</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>83</numero>
+            <nome>Carolina Rocha</nome>
+            <saldo>100</saldo>
+        </cliente>
+
+        <cliente>
+            <numero>84</numero>
+            <nome>Leonardo Silva</nome>
+            <saldo>100</saldo>
+        </cliente>
+
+        <cliente>
+            <numero>85</numero>
+            <nome>Isabela Santos</nome>
+            <saldo>100</saldo>
+        </cliente>
+
+        <cliente>
+            <numero>86</numero>
+            <nome>Matheus Costa</nome>
+            <saldo>100</saldo>
+        </cliente>
+
+        <cliente>
+            <numero>87</numero>
+            <nome>Lorena Lima</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>88</numero>
+            <nome>Henrique Oliveira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>89</numero>
+            <nome>Natália Alves</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>90</numero>
+            <nome>Lucas Dias</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>91</numero>
+            <nome>Sara Gomes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>92</numero>
+            <nome>Gabriel Araújo</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>93</numero>
+            <nome>Amanda Lopes</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>94</numero>
+            <nome>Bruno Pinto</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>95</numero>
+            <nome>Maria Eduarda Ferreira</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>96</numero>
+            <nome>Pedro Henrique Martins</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>97</numero>
+            <nome>Larissa Reis</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>98</numero>
+            <nome>João Silva</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>99</numero>
+            <nome>Maria Santos</nome>
+            <saldo>100</saldo>
+        </cliente>
+        <cliente>
+            <numero>100</numero>
+            <nome>Pedro Costa</nome>
+            <saldo>100</saldo>
+        </cliente>
+    </clienteslista>
+</casino>
