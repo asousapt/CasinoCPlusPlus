@@ -1,28 +1,35 @@
 #ifndef XMLREADER_H
 #define XMLREADER_H
 #include <iostream>
-#include <string>
+#include <sstream>
+#include <map>
 #include <list>
 
 using namespace std;
 
-class Cliente;
-
 class XmlReader {
-   public:
-        string nomeFicheiro;
-        string textoCompleto; 
-        string noClientes;
-        string noMaquinas;
-
-    XmlReader() {};
-    ~XmlReader() {};
-    XmlReader(string ficheiro);
-    string getNoUnico(string tagNo);
-    list<Cliente*>* getListaClientes();
-    //static string getNode(string texto, string tagNo);
-    
-
+    private: 
+        std::string nome;
+        std::map<std::string, std::string> dados; 
+        list<XmlReader> filhos;
+        XmlReader* anterior;
+    public: 
+        XmlReader();
+        ~XmlReader();
+        XmlReader(string nome, XmlReader* anterior);
+        string getNome();
+        void setNome(string nome);
+        void parseXML(std::istringstream& iss, XmlReader* parent, bool root);
+        XmlReader* getAnterior();
+        void getTag(const string& linha, string &tag, string &valor, bool &dados, bool &abertura, bool &fecho);
+        void adicionarDados(string chave, string valor);
+        int temDados();
+        map<string, string>* getDados();
+        int temFilhos();
+        void setParent(XmlReader* _parent);
+        XmlReader* getParent();
+        void addFilho(XmlReader  filho);
+        void showlista();
 };
 
-#endif // XMLREADER_H
+#endif
