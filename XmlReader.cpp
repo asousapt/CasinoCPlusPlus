@@ -40,7 +40,7 @@ void XmlReader::parseXML(std::istringstream& iss, XmlReader* parent, bool root =
         if (root) {
             if (eAbertura && tag.length() > 0) {
                 this->setNome(tag);
-                cout << "Passei aqui" << endl;
+                //cout << "Passei aqui" << endl;
                 root = false;
                 parent = this;
             } else {
@@ -51,21 +51,22 @@ void XmlReader::parseXML(std::istringstream& iss, XmlReader* parent, bool root =
             cout << linha << " " << eDados << " " << eAbertura<< " " << eFecho << " " << tag << endl; 
             // No caso de nao ser raiz 
             if (eDados == true) {
-                this->adicionarDados(tag, valor);
-                cout << "Passei em dados" << endl;
-                //parent = this;
+                parent->adicionarDados(tag, valor);
+                //cout << "Passei em dados" << endl;
+                //parent = parent->anterior;
             }
             if (eAbertura == true) {
-                XmlReader novoNo = XmlReader(tag, this);
-                this->addFilho(novoNo);
-                 cout << "Passei em Abertura" << endl;
+                XmlReader novoNo = XmlReader(tag, parent);
+                parent->addFilho(novoNo);
+                //cout << "Passei em Abertura" << endl;
                 parent = &novoNo;
             }
             if (eFecho == true) {
-                cout << "Passei em fecho" << endl;
-                parent = this;
+                //cout << "Passei em fecho" << endl;
+                parent = parent->anterior;
             }
         }
+    //cout << parent->nome << endl;
     parseXML(iss, parent, false);
     };
 };
