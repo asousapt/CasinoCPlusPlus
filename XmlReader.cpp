@@ -48,7 +48,7 @@ void XmlReader::parseXML(std::istringstream& iss, XmlReader* parent, bool root =
                 return;
             }
         } else {
-            cout << linha << " " << eDados << " " << eAbertura<< " " << eFecho << " " << tag << endl; 
+            //cout << linha << " " << eDados << " " << eAbertura<< " " << eFecho << " " << tag << endl; 
             // No caso de nao ser raiz 
             if (eDados == true) {
                 parent->adicionarDados(tag, valor);
@@ -66,8 +66,8 @@ void XmlReader::parseXML(std::istringstream& iss, XmlReader* parent, bool root =
                 parent = parent->anterior;
             }
         }
-    //cout << parent->nome << endl;
-    parseXML(iss, parent, false);
+        //cout << parent->nome << endl;
+        parseXML(iss, parent, false);
     };
 };
 
@@ -129,23 +129,26 @@ int XmlReader::temDados() {
  }
 
  int XmlReader::temFilhos() {
-    return this->filhos.size();
+    return filhos.size();
  }
 
  void XmlReader::setParent(XmlReader* _parent) {
-    this->anterior = _parent;
+    anterior = _parent;
  }
 
  void XmlReader::addFilho(XmlReader filho) {
-    this->filhos.push_back(filho);
+    filhos.push_back(filho);
  }
 
  XmlReader* XmlReader::getParent() {
-    return this->anterior;
+    return anterior;
  }
  
  void XmlReader::showlista() {
-    for(auto it = filhos.begin(); it != filhos.end(); ++it ) {
+    for(auto it = filhos.begin(); it != filhos.end(); ++it) {
         cout << it->nome << endl;
+
+        cout << it->temFilhos() << endl;
+        cout << it->temDados() << endl;
     }
  }
