@@ -18,5 +18,5 @@ map<string, string>* dado = xmlObj.getDados();
         cout << it->first << " - " << it->second << endl;
     }
     //  cout << xmlObj.temFilhos() << endl ;
-     //xmlObj.showlista();
+     xmlObj.showlista();
 }
