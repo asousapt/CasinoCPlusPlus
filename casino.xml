@@ -418,25 +418,21 @@
             <nome>Carolina Rocha</nome>
             <saldo>100</saldo>
         </cliente>
-
         <cliente>
             <numero>84</numero>
             <nome>Leonardo Silva</nome>
             <saldo>100</saldo>
         </cliente>
-
         <cliente>
             <numero>85</numero>
             <nome>Isabela Santos</nome>
             <saldo>100</saldo>
         </cliente>
-
         <cliente>
             <numero>86</numero>
             <nome>Matheus Costa</nome>
             <saldo>100</saldo>
         </cliente>
-
         <cliente>
             <numero>87</numero>
             <nome>Lorena Lima</nome>
@@ -508,4 +504,16 @@
             <saldo>100</saldo>
         </cliente>
     </clienteslista>
+    <maquinas>
+        <maquina>
+            <numero>1</numero>
+            <serie>1</serie>
+            <tipo>aaaa</tipo>
+        </maquina>
+        <maquina>
+            <numero>2</numero>
+            <serie>2</serie>
+            <tipo>bbb</tipo>
+        </maquina>
+    </maquinas>
 </casino>

@@ -6,17 +6,19 @@
 using namespace std;
 
 int main(){
+    //string nomeFicheiro = "casino.xml";
     string nomeFicheiro = "casino.xml";
     Uteis util = Uteis();
-    string testoXml = util.loadFileToString(nomeFicheiro);
-    XmlReader xmlObj = XmlReader("", nullptr);
-    std::istringstream iss(testoXml);
-    xmlObj.parseXML(iss, &xmlObj, true);
-map<string, string>* dado = xmlObj.getDados();
+    string textoXml = util.loadFileToString(nomeFicheiro);
+    XmlReader xmlObj;
     
-    for(auto it= dado->begin(); it != dado->end(); ++it) {
-        cout << it->first << " - " << it->second << endl;
-    }
+    xmlObj.parseXML(textoXml, nullptr);
+    
+    
+    
     //  cout << xmlObj.temFilhos() << endl ;
-     xmlObj.showlista();
+    xmlObj.showlista();
+    //xmlObj.mostraDados();
+
+    
 }

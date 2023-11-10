@@ -4,13 +4,14 @@
 #include <fstream>
 #include "XmlReader.h"
 
-XmlReader::XmlReader() {};
+XmlReader::XmlReader(){}
 
 XmlReader::~XmlReader() {};
 
 XmlReader::XmlReader(string nome, XmlReader *anterior) {
     this->nome = nome;
     this->anterior = anterior;
+    this->dados = std::map<std::string, std::string>();
 };
 
 string XmlReader::getNome() {
@@ -25,9 +26,11 @@ XmlReader* XmlReader::getAnterior() {
     return this->anterior;
 };
 
-void XmlReader::parseXML(std::istringstream& iss, XmlReader* parent, bool root = true) {
-    
+void XmlReader::parseXML(string textoXml, XmlReader* parent) {
+    std::istringstream iss(textoXml);
     std::string linha;
+    XmlReader* _parent = parent;
+    int root = 0;
 
     while (std::getline(iss, linha)) {
         string tag = "";
@@ -35,39 +38,37 @@ void XmlReader::parseXML(std::istringstream& iss, XmlReader* parent, bool root =
         bool eDados = false; 
         bool eAbertura = false; 
         bool eFecho = false;
+        XmlReader * ultimaLista = nullptr;
+
         getTag(linha, tag, valor, eDados, eAbertura, eFecho);
         
-        if (root) {
+        if (root == 0) {
             if (eAbertura && tag.length() > 0) {
                 this->setNome(tag);
-                //cout << "Passei aqui" << endl;
-                root = false;
-                parent = this;
+                this->setParent(this);
+                _parent = this;
             } else {
                 cout << "O ficheiro XML nao contem raiz" << endl; 
                 return;
             }
         } else {
-            //cout << linha << " " << eDados << " " << eAbertura<< " " << eFecho << " " << tag << endl; 
             // No caso de nao ser raiz 
             if (eDados == true) {
-                parent->adicionarDados(tag, valor);
-                //cout << "Passei em dados" << endl;
-                //parent = parent->anterior;
+                this->adicionarDados(tag, valor, _parent);
             }
-            if (eAbertura == true) {
-                XmlReader novoNo = XmlReader(tag, parent);
-                parent->addFilho(novoNo);
-                //cout << "Passei em Abertura" << endl;
-                parent = &novoNo;
+
+           if (eAbertura == true) {
+                XmlReader* novoNo = new XmlReader(tag, _parent);
+                _parent->addFilho(novoNo);
+                _parent = novoNo;
             }
+
             if (eFecho == true) {
-                //cout << "Passei em fecho" << endl;
-                parent = parent->anterior;
+                // Vai para o no anterior
+                _parent = _parent->getAnterior();
             }
         }
-        //cout << parent->nome << endl;
-        parseXML(iss, parent, false);
+       root++;
     };
 };
 
@@ -93,8 +94,8 @@ void XmlReader::getTag(const string& linha, string &tag, string &valor, bool &da
         dados = false; 
         abertura = true;;
         fecho = false;
-        // cout << linha << " - abertura" << endl;
     }
+
     // no caso de fecho de tag 
     if (posicaoInicial != std::string::npos && posicaoFinal != std::string::npos && posicaoInicial3 != std::string::npos and posicaoInicial3 == posicaoInicial) {
         tag = "";
@@ -102,7 +103,6 @@ void XmlReader::getTag(const string& linha, string &tag, string &valor, bool &da
         dados = false; 
         abertura = false;;
         fecho = true;
-        // cout << linha << " - fecho" << endl;
     }
     
      // no caso de ler-mos atributos
@@ -112,13 +112,14 @@ void XmlReader::getTag(const string& linha, string &tag, string &valor, bool &da
         dados = true; 
         abertura = false;
         fecho = false;
-        // cout << linha << " - dados" << endl;
     }
 };
 
-void XmlReader::adicionarDados(string chave, string valor) {
-    this->dados[chave] = valor;
- }
+void XmlReader::adicionarDados(string chave, string valor, XmlReader * parent) {
+    parent->dados[chave] = valor;
+}
+
+
 
 int XmlReader::temDados() {
     return this->dados.size();
@@ -133,22 +134,29 @@ int XmlReader::temDados() {
  }
 
  void XmlReader::setParent(XmlReader* _parent) {
-    anterior = _parent;
+    this->anterior = _parent;
  }
 
- void XmlReader::addFilho(XmlReader filho) {
+void XmlReader::addFilho(XmlReader* filho) {
     filhos.push_back(filho);
- }
+}
+
+
 
  XmlReader* XmlReader::getParent() {
-    return anterior;
+    return this->anterior;
  }
  
- void XmlReader::showlista() {
-    for(auto it = filhos.begin(); it != filhos.end(); ++it) {
-        cout << it->nome << endl;
-
-        cout << it->temFilhos() << endl;
-        cout << it->temDados() << endl;
+void XmlReader::mostraDados() {
+    for (const auto& dado : this->dados) {
+        cout << dado.first << " - " << dado.second << endl;
     }
- }
+}
+
+void XmlReader::showlista() {
+    cout << endl;
+    for (auto it = filhos.begin(); it != filhos.end(); ++it) {
+        cout << (*it)->getNome() << " " << (*it)->temFilhos() << endl;
+    }
+}
+

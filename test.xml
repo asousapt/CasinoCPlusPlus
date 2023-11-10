@@ -1,0 +1,19 @@
+<casino>
+    <hora1>15:00</hora1>
+    <listaClientes>
+        <cliente>
+            <nome>aaa</nome>
+            <morada>bbbb</morada>
+        </cliente>
+        <cliente>
+            <nome>bbb</nome>
+            <morada>cccc</morada>
+        </cliente>
+    </listaClientes>
+    <maquinas>
+        <maquina>
+            <numero>1</numero>
+            <nome>bbbbbb</nome>
+        </maquina>
+    </maquinas>
+</casino>
