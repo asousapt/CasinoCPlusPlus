@@ -3,6 +3,7 @@
 #include <fstream>
 #include "uteis.h"
 
+// Funcao que carrega ficheiro para string passando apemas o nome do ficheiro
 string Uteis::loadFileToString(string nomeFicheiro) {
     string buffer;
     char c;
@@ -10,7 +11,7 @@ string Uteis::loadFileToString(string nomeFicheiro) {
     ifstream in(nomeFicheiro );
     if ( !in ) {
         cout << nomeFicheiro << "Ficheiro não encontrado";   
-        exit(1);
+        return "";
     }
 
     while ( in.get( c ) ) buffer += c;

@@ -4,28 +4,35 @@
 #include <fstream>
 #include "XmlReader.h"
 
-XmlReader::XmlReader(){}
+XmlReader::XmlReader(){};
 
-XmlReader::~XmlReader() {};
+XmlReader::~XmlReader() {
+    for(auto it = filhos.begin(); it != filhos.end(); ++it) {
+        delete *it;
+    };
+};
 
 XmlReader::XmlReader(string nome, XmlReader *anterior) {
     this->nome = nome;
     this->anterior = anterior;
-    this->dados = std::map<std::string, std::string>();
 };
 
+// Obtém o atributo nome
 string XmlReader::getNome() {
     return this->nome;
 }
 
+// faz set do atributo nome 
 void XmlReader::setNome(string nome) {
     this->nome = nome;
 } ;
 
+// retorna um ponteiro para o objecto anterior
 XmlReader* XmlReader::getAnterior() {
     return this->anterior;
 };
 
+// método que faz o parse do XML. Recebe o texto do XML carregado numa string e uma referencia para o parante
 void XmlReader::parseXML(string textoXml, XmlReader* parent) {
     std::istringstream iss(textoXml);
     std::string linha;
@@ -72,7 +79,7 @@ void XmlReader::parseXML(string textoXml, XmlReader* parent) {
     };
 };
 
-// funcao vai buscar os dados todos verifica se é abertura, fecho, ou dados 
+// Método recebe uma string, analisa a sua composição e retorna o valor da tag, valor e se é do tipo abertura, fecho ou dados
 void XmlReader::getTag(const string& linha, string &tag, string &valor, bool &dados, bool &abertura, bool &fecho) {
     std::size_t posicaoInicial = linha.find("<",0);
     std::size_t posicaoFinal = linha.find(">",0);
@@ -115,48 +122,73 @@ void XmlReader::getTag(const string& linha, string &tag, string &valor, bool &da
     }
 };
 
+// Método que adiciona dados ao hashmap 
 void XmlReader::adicionarDados(string chave, string valor, XmlReader * parent) {
     parent->dados[chave] = valor;
 }
 
-
-
+// Métoso que indica se o nó tem ou não dados
 int XmlReader::temDados() {
     return this->dados.size();
  }
 
- map<string, string>* XmlReader::getDados() {
+// retorna o hashmap do nosso objecto que contém os dados do nosso XML
+map<string, string>* XmlReader::getDados() {
     return &this->dados;
- }
+}
 
- int XmlReader::temFilhos() {
+// método que indica se o nó tem dependentes, isto é, elementos na lista
+int XmlReader::temFilhos() {
     return filhos.size();
- }
+}
 
- void XmlReader::setParent(XmlReader* _parent) {
+// Método para atribuir um parente ao nó corrente
+void XmlReader::setParent(XmlReader* _parent) {
     this->anterior = _parent;
- }
+}
 
+// Método para adicionar objectos à lista 
 void XmlReader::addFilho(XmlReader* filho) {
     filhos.push_back(filho);
 }
 
-
-
- XmlReader* XmlReader::getParent() {
-    return this->anterior;
- }
- 
+// mostra os dados de um mapa 
 void XmlReader::mostraDados() {
     for (const auto& dado : this->dados) {
         cout << dado.first << " - " << dado.second << endl;
     }
 }
 
+// Mostra o conteudo dento da lista do objecto e se o objecto dentro da lista tem filhos
 void XmlReader::showlista() {
-    cout << endl;
     for (auto it = filhos.begin(); it != filhos.end(); ++it) {
         cout << (*it)->getNome() << " " << (*it)->temFilhos() << endl;
     }
 }
 
+// retorna uma objecto XMLReader* cpm um bloco de nós agrupados pelo tagName. Caso retorne nulo o bloco nao existe
+XmlReader* XmlReader::getNodeBlockByTagName(string tagName) {
+    for (auto it = filhos.begin(); it != filhos.end(); ++it) {
+        int res = (*it)->getNome().compare(tagName);
+        if (res == 0) {
+            return (*it);
+        }
+    }
+    return nullptr;
+}
+
+// Recebe a key do map e retorna o valor guardado. Caso seja uma string vazia a key nao existe
+string XmlReader::extractDataFromMap(string key) {
+    for (const auto& dado : this->dados) {
+        int res = dado.first.compare(key);
+        if (res == 0) {
+            return dado.second;
+        }
+    }
+    return "";
+}
+
+// Faz um return de uma lista de XMLReader
+list<XmlReader*> XmlReader::getFilhos() {
+    return this->filhos;
+}

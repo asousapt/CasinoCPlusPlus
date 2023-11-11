@@ -23,6 +23,7 @@ class XmlReader {
         XmlReader* getAnterior();
         void getTag(const string& linha, string &tag, string &valor, bool &dados, bool &abertura, bool &fecho);
         void adicionarDados(string chave, string valor, XmlReader * parent);
+        list<XmlReader*> getFilhos();
         int temDados();
         map<string, string>* getDados();
         int temFilhos();
@@ -31,6 +32,10 @@ class XmlReader {
         void addFilho(XmlReader* filho);
         void showlista();
         void mostraDados();
+        XmlReader* getNodeBlockByTagName(string tagName); 
+        string extractDataFromMap(string key);
+
+
 };
 
 #endif
