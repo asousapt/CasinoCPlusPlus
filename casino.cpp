@@ -1,8 +1,10 @@
 #include <iostream>
+#include <cmath>
 #include "casino.h"
 #include "XmlReader.h"
 #include "uteis.h"
 #include "cliente.h"
+#include "relogio.h"
 
 casino::casino(string _nome){
     nome = _nome;
@@ -53,7 +55,11 @@ bool casino::Add(maquina *m){
 
 // Listar o estado atual do Casino 
 void casino::Listar(ostream &f = std::cout){
-
+    if (aberto){
+        f<<"O casino encontra-se aberto!\n";
+    }else {
+        f << "O casino encontra-se fechado!\n";
+    }
 }
 
 // Desligar uma dada máquina, dado o seu ID
@@ -142,12 +148,36 @@ list<maquina *>* casino::Ranking_Das_Mais_Trabalhadores(){
 
 // Quais os jogadores que mais TEMPO passaram no casino a jogar, deve devolver uma lista (ordenada)
 list<Cliente *>* casino::Jogadores_Mais_Frequentes(){
+    list<Cliente *>* listaR = ListaCl;
+    for (auto it = listaR->begin(); it != listaR->end(); ++it){
+        int nJog1 = (*it)->getNJogadas();
+        for (auto it2 = it; it2 != listaR->end(); ++it2){
+            int nJog2 = (*it2)->getNJogadas();
 
+            if (nJog1 > nJog2){
+                swap(*it2,*it);
+            }
+        }
+    }
+
+    return listaR;
 }
 
 // Quais os jogadores que mais PRÉMIOS ganharam no casino, deve devolver uma lista (ordenada)
 list<Cliente *>* casino::Jogadores_Mais_Ganhos(){
-    
+    list<Cliente *>* listaR = ListaCl;
+    for (auto it = listaR->begin(); it != listaR->end(); ++it){
+        int nVezes1 = (*it)->getNVezesGanhou();
+        for (auto it2 = it; it2 != listaR->end(); ++it2){
+            int nVezes2 = (*it2)->getNVezesGanhou();
+
+            if (nVezes1 > nVezes2){
+                swap(*it2,*it);
+            }
+        }
+    }
+
+    return listaR;
 }
 
 // Enviar um relatório em XML, do estado do Casino; O relatório deverá ter a informação do estado atual de cada máquina nesse dia
@@ -158,16 +188,36 @@ void casino::Relatorio(string fich_xml){
 // Quando uma máquina tem um prémio, devem ser aumentada a probabilidade de ganho das outras máquinas
 // que estão em redor dela, à distância máxima de R. O método deve devolver (por parâmetro) a lista das
 // máquinas onde foi feita a alteração da probabilidade de ganhar
-void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float R,list<maquina *> &lmvizinhas){
-    
+void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float distancia,list<maquina *> &lmvizinhas){
+    int y2,y1 = M_ganhou->getPosY();
+    int x2,x1 = M_ganhou->getPosX();
+
+    for (auto it = lmvizinhas.begin(); it != lmvizinhas.end(); ++it){
+        y2 = (*it)->getPosY();
+        x2 = (*it)->getPosX();
+
+        float Xs = x2-x1;
+        float Ys = y2-y1;
+        if (Xs < 0) Xs = Xs * (-1);
+        if (Ys < 0) Ys = Ys * (-1);
+        Xs = Xs*Xs;
+        Ys = Ys*Ys;
+        float debaixoRaiz = Xs+Ys;
+        float distanciaMaqs = sqrt(debaixoRaiz);
+        if (distanciaMaqs <= distancia){
+            float percent = (*it)->getPercentGanhar();
+            percent = percent+2;
+            (*it)->setPercentagemGanhar(percent);
+        }
+    }
 }
 
 // Listar todas as máquinas onde a probabilidade de ganhar é superior a X.
-void casino::Listar(float X, ostream &f = std::cout){
+void casino::Listar(float prob, ostream &f = std::cout){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina *mQ = *it;
         float percent = mQ->getPercentGanhar();
-        if (percent > X){
+        if (percent > prob){
             mQ->exportMQ(f);
         }
     }
@@ -177,5 +227,71 @@ void casino::Listar(float X, ostream &f = std::cout){
 // sempre a correr e quando se pretende introduzir alterações, deve-se carregar numa tecla ‘M’ de modo a
 // aparecer um menu (nesse instante o simulador deve estar parado, até a opção ser executada!) 
 void casino::Run(bool Debug = true){
+    //Hora inicio do casino
+    time_t inicio;
+    time_t fim;
+    if (Debug){
+        struct tm *tmp;
+        tmp->tm_hour = 9;
+        tmp->tm_min = 0;
+        inicio = mktime(tmp);
+    }else{
+        inicio = hora_abertura;
+    }
+
+    //Hora Fim do casino
+    if (Debug){
+        struct tm *tmp;
+        tmp->tm_hour = 14;
+        tmp->tm_min = 0;
+        fim = mktime(tmp);
+    }else{
+        fim = hora_fecho;
+    }
+    
+    //Cria relogio 
+    relogio *R = new relogio(120,inicio);
+    
+    //Cria hora de comparação 
+    time_t horaRelogio = R->getHoraAtual();
+
+    bool encerrar = 0;
+    while (encerrar == 0) {
+        //Conteudo Loop
+        bool FazProcessos = VerificarHoras(horaRelogio);
+
+        R->verHoraAtual();
+        horaRelogio = R->getHoraAtual();
+
+        R->Wait(2);
+    }
+}
+
+// Verifica se o casino esta aberto
+bool casino::VerificarHoras(time_t horas){
+    double diffFecho = difftime(hora_fecho, horas);
+    double diffAbrir = difftime(horas,hora_abertura);
+
+    if(diffFecho > 0 && diffAbrir > 0){
+        if (diffFecho <= 30){
+            cout << "Falta "<<diffFecho<<" minutos para fechar o casino!\n";
+        }
+
+        aberto = 1;
+        return 1;
+    }else if (diffAbrir < 0){
+        double diff = diffAbrir*(-1);
+
+        diff = diff/60;
+        if (diff <= 30){
+            cout << "Falta "<<diff<<" minutos para abrir o casino!\n";
+        }
+
+        aberto = 0;
+        return 0;
+    }else{
+        aberto = 0;
+        return 0;
+    }
 
 }

@@ -23,6 +23,9 @@ public:
     int getID();
     int compareNUsos(maquina *MQ);
     float getPercentGanhar();
+    void setPercentagemGanhar(float percent);
+    int getPosY();
+    int getPosX();
 };
 
 

@@ -18,4 +18,7 @@ int Cliente::getNVezesGanhou(){
     return nVezesGanhou;
 }
 
+int Cliente::getNJogadas(){
+    return nJogadas;
+}
 

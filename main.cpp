@@ -31,29 +31,29 @@ int main(){
 
 
     //Hora inicio do casino
-    // struct tm *tmp;
-    // tmp->tm_hour = 9;
-    // tmp->tm_min = 0;
-    // time_t inicio = mktime(tmp);
+    struct tm *tmp;
+    tmp->tm_hour = 9;
+    tmp->tm_min = 0;
+    time_t inicio = mktime(tmp);
 
-    // //Hora Fim do casino
-    // tmp->tm_hour = 14;
-    // tmp->tm_min = 0;
-    // time_t fim = mktime(tmp);
+    //Hora Fim do casino
+    tmp->tm_hour = 14;
+    tmp->tm_min = 0;
+    time_t fim = mktime(tmp);
     
-    // //Cria relogio 
-    // relogio *R = new relogio(120,inicio);
+    //Cria relogio 
+    relogio *R = new relogio(120,inicio);
     
-    // //Cria hora de comparação 
-    // time_t horaRelogio = R->getHoraAtual();
+    //Cria hora de comparação 
+    time_t horaRelogio = R->getHoraAtual();
 
-    // while (difftime(horaRelogio,fim) < 0) {
-    //     //Conteudo Loop
-    //     R->verHoraAtual();
-    //     horaRelogio = R->getHoraAtual();
+    while (difftime(horaRelogio,fim) < 0) {
+        //Conteudo Loop
+        R->verHoraAtual();
+        horaRelogio = R->getHoraAtual();
 
-    //     R->Wait(2);
-    // }
+        R->Wait(2);
+    }
 
     
     //  cout << xmlObj.temFilhos() << endl ;
