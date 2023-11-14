@@ -137,7 +137,7 @@ void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float R,list<maquina 
 
 // Listar todas as máquinas onde a probabilidade de ganhar é superior a X.
 void casino::Listar(float X, ostream &f = std::cout){
-    for (auto it = ListaMq.begin(); it != ListaMq.end(); ++it){
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina *mQ = *it;
         float percent = mQ->getPercentGanhar();
         if (percent > X){
