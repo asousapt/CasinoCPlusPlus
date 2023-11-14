@@ -40,3 +40,15 @@ float maquina::getPercentGanhar(){
     return percentGanhar;
 }
 
+void maquina::setPercentagemGanhar(float percent){
+    percentGanhar = percent;
+}
+
+int maquina::getPosY(){
+    return posY;
+}
+
+int maquina::getPosX(){
+    return posX;
+}
+

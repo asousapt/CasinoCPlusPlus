@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include "casino.h"
 
 casino::casino(string _nome){
@@ -115,12 +116,36 @@ list<maquina *>* casino::Ranking_Das_Mais_Trabalhadores(){
 
 // Quais os jogadores que mais TEMPO passaram no casino a jogar, deve devolver uma lista (ordenada)
 list<Cliente *>* casino::Jogadores_Mais_Frequentes(){
+    list<Cliente *>* listaR = ListaCl;
+    for (auto it = listaR->begin(); it != listaR->end(); ++it){
+        int nJog1 = (*it)->getNJogadas();
+        for (auto it2 = it; it2 != listaR->end(); ++it2){
+            int nJog2 = (*it2)->getNJogadas();
 
+            if (nJog1 > nJog2){
+                swap(*it2,*it);
+            }
+        }
+    }
+
+    return listaR;
 }
 
 // Quais os jogadores que mais PRÉMIOS ganharam no casino, deve devolver uma lista (ordenada)
 list<Cliente *>* casino::Jogadores_Mais_Ganhos(){
-    
+    list<Cliente *>* listaR = ListaCl;
+    for (auto it = listaR->begin(); it != listaR->end(); ++it){
+        int nVezes1 = (*it)->getNVezesGanhou();
+        for (auto it2 = it; it2 != listaR->end(); ++it2){
+            int nVezes2 = (*it2)->getNVezesGanhou();
+
+            if (nVezes1 > nVezes2){
+                swap(*it2,*it);
+            }
+        }
+    }
+
+    return listaR;
 }
 
 // Enviar um relatório em XML, do estado do Casino; O relatório deverá ter a informação do estado atual de cada máquina nesse dia
@@ -131,16 +156,36 @@ void casino::Relatorio(string fich_xml){
 // Quando uma máquina tem um prémio, devem ser aumentada a probabilidade de ganho das outras máquinas
 // que estão em redor dela, à distância máxima de R. O método deve devolver (por parâmetro) a lista das
 // máquinas onde foi feita a alteração da probabilidade de ganhar
-void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float R,list<maquina *> &lmvizinhas){
-    
+void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float distancia,list<maquina *> &lmvizinhas){
+    int y2,y1 = M_ganhou->getPosY();
+    int x2,x1 = M_ganhou->getPosX();
+
+    for (auto it = lmvizinhas.begin(); it != lmvizinhas.end(); ++it){
+        y2 = (*it)->getPosY();
+        x2 = (*it)->getPosX();
+
+        float Xs = x2-x1;
+        float Ys = y2-y1;
+        if (Xs < 0) Xs = Xs * (-1);
+        if (Ys < 0) Ys = Ys * (-1);
+        Xs = Xs*Xs;
+        Ys = Ys*Ys;
+        float debaixoRaiz = Xs+Ys;
+        float distanciaMaqs = sqrt(debaixoRaiz);
+        if (distanciaMaqs <= distancia){
+            float percent = (*it)->getPercentGanhar();
+            percent = percent+2;
+            (*it)->setPercentagemGanhar(percent);
+        }
+    }
 }
 
 // Listar todas as máquinas onde a probabilidade de ganhar é superior a X.
-void casino::Listar(float X, ostream &f = std::cout){
+void casino::Listar(float prob, ostream &f = std::cout){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina *mQ = *it;
         float percent = mQ->getPercentGanhar();
-        if (percent > X){
+        if (percent > prob){
             mQ->exportMQ(f);
         }
     }

@@ -22,7 +22,6 @@ int main(){
     
     xmlObj.parseXML(textoXml, nullptr);
 
-
     //Hora inicio do casino
     struct tm *tmp;
     tmp->tm_hour = 9;
@@ -40,7 +39,9 @@ int main(){
     //Cria hora de comparação 
     time_t horaRelogio = R->getHoraAtual();
 
-    while (difftime(horaRelogio,fim) < 0) {
+    bool fechar = 0;
+
+    while (fechar == 0) {
         //Conteudo Loop
         R->verHoraAtual();
         horaRelogio = R->getHoraAtual();
