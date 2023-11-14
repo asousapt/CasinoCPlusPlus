@@ -1,5 +1,8 @@
 #include <iostream>
 #include "casino.h"
+#include "XmlReader.h"
+#include "uteis.h"
+#include "cliente.h"
 
 casino::casino(string _nome){
     nome = _nome;
@@ -11,7 +14,31 @@ casino::~casino(){
 
 // As configurações do Casino dadas em ficheiro XML, com todas as informações
 bool casino::Load(const string &ficheiro){
+    Uteis util = Uteis();
+    // Carrega o ficheiro XML para dentro de uma string
+    string textoXml = util.loadFileToString(ficheiro);
+    //Faz a criação de um objecto do tipo XML reader que vai servir para fazer a nossa arvore XML
+    XmlReader xmlObj = XmlReader();
+    // Faz o parse do ficheiro e coloca os dados da árvore
+    xmlObj.parseXML(textoXml, nullptr);
 
+    // Vamos carregar o bloco de clientes 
+    XmlReader* listaClientes = xmlObj.getNodeBlockByTagName("clienteslista");
+    if (listaClientes != nullptr) { 
+        list<XmlReader*> filhos = listaClientes->getFilhos();
+        if (!filhos.empty()) { 
+            for (auto it = filhos.begin(); it != filhos.end(); ++it) {
+                XmlReader* temp = (*it);
+                Cliente* cl = new Cliente(
+                    stoi(temp->extractDataFromMap("numero")), 
+                    temp->extractDataFromMap("nome"), 
+                    stoi(temp->extractDataFromMap("saldo"))
+                    );
+                this->Add(cl);
+            }
+        }
+    }    
+    return true;
 }
 
 // Adicionar Utilizadores

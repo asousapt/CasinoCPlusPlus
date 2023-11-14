@@ -1,6 +1,6 @@
 #include "cliente.h"
 
-Cliente::Cliente(/* args */){
+Cliente::Cliente(){
 
 }
 

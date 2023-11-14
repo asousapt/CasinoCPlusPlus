@@ -4,7 +4,7 @@
 #include "uteis.h"
 
 // Funcao que carrega ficheiro para string passando apemas o nome do ficheiro
-string Uteis::loadFileToString(string nomeFicheiro) {
+ string Uteis::loadFileToString(string nomeFicheiro) {
     string buffer;
     char c;
 
@@ -18,5 +18,17 @@ string Uteis::loadFileToString(string nomeFicheiro) {
     in.close();
     return buffer;
 }
+
+// Função que pede um valor ao utilizador passando a mensagem
+string Uteis::pedeValor(string mensagem) {
+    string valor =""; 
+    while (valor.length() == 0)
+    {
+        cout << mensagem << endl;
+        cin >> valor;
+    }
+    return valor;
+}
+
 
 

@@ -7,7 +7,8 @@ class maquina{
 private:
     static int id;
     estado estadoMaq;
-    float percentGanhar,percentAvaria;
+    float percentGanhar,percentAvaria, temperaturaMax;
+    float temperaturaAtual;
     int nAvarias,nUsos;
     int posX,posY;
     string TipoMaq;

@@ -9,6 +9,7 @@ class Uteis {
     public: 
         Uteis() {};
         string loadFileToString(string nomeFicheiro);
+        string pedeValor(string mensagem);
 
 };
 
