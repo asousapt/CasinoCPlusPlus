@@ -12,6 +12,7 @@ private:
     time_t hora_fecho;
     list<Cliente *>* ListaCl;
     list<maquina *>* ListaMq;
+    bool aberto = 0;
 public:
     casino(string _nome);
     ~casino();
@@ -31,5 +32,6 @@ public:
     void SubirProbabilidadeVizinhas(maquina *M_ganhou, float R,list<maquina *> &lmvizinhas);
     void Listar(float X, ostream &f = std::cout);
     void Run(bool Debug = true);
+    bool VerificarHoras(time_t horas);
 };
 

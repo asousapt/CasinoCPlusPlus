@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include "casino.h"
+#include "relogio.h"
 
 casino::casino(string _nome){
     nome = _nome;
@@ -27,7 +28,11 @@ bool casino::Add(maquina *m){
 
 // Listar o estado atual do Casino 
 void casino::Listar(ostream &f = std::cout){
-
+    if (aberto){
+        f<<"O casino encontra-se aberto!\n";
+    }else {
+        f << "O casino encontra-se fechado!\n";
+    }
 }
 
 // Desligar uma dada máquina, dado o seu ID
@@ -195,5 +200,71 @@ void casino::Listar(float prob, ostream &f = std::cout){
 // sempre a correr e quando se pretende introduzir alterações, deve-se carregar numa tecla ‘M’ de modo a
 // aparecer um menu (nesse instante o simulador deve estar parado, até a opção ser executada!) 
 void casino::Run(bool Debug = true){
+    //Hora inicio do casino
+    time_t inicio;
+    time_t fim;
+    if (Debug){
+        struct tm *tmp;
+        tmp->tm_hour = 9;
+        tmp->tm_min = 0;
+        inicio = mktime(tmp);
+    }else{
+        inicio = hora_abertura;
+    }
+
+    //Hora Fim do casino
+    if (Debug){
+        struct tm *tmp;
+        tmp->tm_hour = 14;
+        tmp->tm_min = 0;
+        fim = mktime(tmp);
+    }else{
+        fim = hora_fecho;
+    }
+    
+    //Cria relogio 
+    relogio *R = new relogio(120,inicio);
+    
+    //Cria hora de comparação 
+    time_t horaRelogio = R->getHoraAtual();
+
+    bool encerrar = 0;
+    while (encerrar == 0) {
+        //Conteudo Loop
+        bool FazProcessos = VerificarHoras(horaRelogio);
+
+        R->verHoraAtual();
+        horaRelogio = R->getHoraAtual();
+
+        R->Wait(2);
+    }
+}
+
+// Verifica se o casino esta aberto
+bool casino::VerificarHoras(time_t horas){
+    double diffFecho = difftime(hora_fecho, horas);
+    double diffAbrir = difftime(horas,hora_abertura);
+
+    if(diffFecho > 0 && diffAbrir > 0){
+        if (diffFecho <= 30){
+            cout << "Falta "<<diffFecho<<" minutos para fechar o casino!\n";
+        }
+
+        aberto = 1;
+        return 1;
+    }else if (diffAbrir < 0){
+        double diff = diffAbrir*(-1);
+
+        diff = diff/60;
+        if (diff <= 30){
+            cout << "Falta "<<diff<<" minutos para abrir o casino!\n";
+        }
+
+        aberto = 0;
+        return 0;
+    }else{
+        aberto = 0;
+        return 0;
+    }
 
 }
