@@ -9,10 +9,12 @@ private:
     int numero; 
     string nome; 
     int saldo;
+    int nVezesGanhou;
 public:
     Cliente();
     ~Cliente();
     Cliente(int numeroCl, string nomeCl, int saldoCl);
+    int getNVezesGanhou();
 };
 
 #endif // CLIENTE_H
