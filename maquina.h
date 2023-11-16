@@ -19,7 +19,7 @@ public:
     void desligarMq();
     bool compareId(int num);
     estado getEstado();
-    void exportMQ(ostream &f = std::cout);
+    void exportMQ(ostream &f);
     int getID();
     int compareNUsos(maquina *MQ);
     float getPercentGanhar();

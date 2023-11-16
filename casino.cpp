@@ -1,10 +1,9 @@
 #include <iostream>
 #include <cmath>
 #include "casino.h"
-#include "XmlReader.h"
-#include "uteis.h"
-#include "cliente.h"
-#include "relogio.h"
+#include "XmlReader.cpp"
+#include "uteis.cpp"
+#include "relogio.cpp"
 
 casino::casino(string _nome){
     nome = _nome;
@@ -46,17 +45,19 @@ bool casino::Load(const string &ficheiro){
 // Adicionar Utilizadores
 bool casino::Add(Cliente *ut){
     ListaCl->push_back(ut);
+    return true;
 }
 
 // Adicionar Máquina 
 bool casino::Add(maquina *m){
     ListaMq->push_back(m);
+    return true;
 }
 
 // Listar o estado atual do Casino 
 void casino::Listar(ostream &f = std::cout){
     if (aberto){
-        f<<"O casino encontra-se aberto!\n";
+        f <<"O casino encontra-se aberto!\n";
     }else {
         f << "O casino encontra-se fechado!\n";
     }
@@ -227,25 +228,21 @@ void casino::Listar(float prob, ostream &f = std::cout){
 // sempre a correr e quando se pretende introduzir alterações, deve-se carregar numa tecla ‘M’ de modo a
 // aparecer um menu (nesse instante o simulador deve estar parado, até a opção ser executada!) 
 void casino::Run(bool Debug = true){
-    //Hora inicio do casino
     time_t inicio;
     time_t fim;
     if (Debug){
+        //Hora inicio do casino
         struct tm *tmp;
         tmp->tm_hour = 9;
         tmp->tm_min = 0;
         inicio = mktime(tmp);
-    }else{
-        inicio = hora_abertura;
-    }
-
-    //Hora Fim do casino
-    if (Debug){
-        struct tm *tmp;
+        
+        //Hora Fim do casino
         tmp->tm_hour = 14;
         tmp->tm_min = 0;
         fim = mktime(tmp);
     }else{
+        inicio = hora_abertura;
         fim = hora_fecho;
     }
     
