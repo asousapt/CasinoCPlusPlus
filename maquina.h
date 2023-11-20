@@ -13,7 +13,6 @@ private:
     float temperaturaAtual;
     int nAvarias,nUsos;
     int posX,posY;
-    string TipoMaq;
 public:
     static int id;
     maquina();
@@ -23,7 +22,6 @@ public:
     bool compareId(int num);
     estado getEstado();
     void exportMQ(ostream &f);
-    int getID();
     int compareNUsos(maquina *MQ);
     float getPercentGanhar();
     void setPercentagemGanhar(float percent);

@@ -27,7 +27,7 @@ estado maquina::getEstado(){
 }
 
 void maquina::exportMQ(ostream &f = std::cout){
-    f <<  "ID: [" << id << "]  Tipo: [" << TipoMaq << "]  Estado [" << estadoMaq << endl;
+    f <<  "ID: [" << id << "]  Tipo: [Maquina]  Estado [" << estadoMaq << endl;
 }
 
 int maquina::compareNUsos(maquina *MQ){
@@ -51,6 +51,6 @@ int maquina::getPosX(){
 }
 
 string maquina::getTipo() {
-    return this->TipoMaq;
+    return "Maquina";
 }
 

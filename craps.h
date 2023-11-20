@@ -2,11 +2,11 @@
 #include "maquina.h"
 #include "cliente.h"
 
-class blackJack : public maquina {
+class craps : public maquina {
 private:
     list<Cliente *>* Jogadores;
 public:
-    blackJack();
-    ~blackJack();
+    craps();
+    ~craps();
     string getTipo();
 };
