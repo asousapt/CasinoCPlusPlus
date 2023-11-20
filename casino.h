@@ -3,6 +3,7 @@
 #include <ctime>
 #include "cliente.h"
 #include "maquina.h"
+
 using namespace std;
 
 class casino{

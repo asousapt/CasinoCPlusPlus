@@ -1,9 +1,11 @@
 #include <iostream>
 #include <cmath>
 #include "casino.h"
-#include "XmlReader.cpp"
-#include "uteis.cpp"
-#include "relogio.cpp"
+#include "uteis.h"
+#include "relogio.h"
+#include "XmlReader.h"
+#include "cliente.h"
+
 
 casino::casino(string _nome){
     nome = _nome;
@@ -78,7 +80,7 @@ estado casino::Get_Estado(int id_maq){
     estado e;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina *mQ = *it;
-        if (mQ->compareId(id_maq) == 1){
+        if (mQ->compareId(id_maq) == true){
             e = mQ->getEstado();
             break;
         }
@@ -112,7 +114,7 @@ list<string>* casino::Ranking_Dos_Fracos(){
     list<string>* listaR;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina *mQ = *it;
-        string id = to_string(mQ->getID());
+        string id = to_string(mQ->id);
         listaR->push_back(id);
     }
     

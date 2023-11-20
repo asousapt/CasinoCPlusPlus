@@ -1,11 +1,13 @@
+#ifndef MAQUINA_H
+#define MAQUINA_H
 #include <iostream>
+
 using namespace std;
 
 enum estado {ON = 1,OFF = 0,AVARIADA = 2};
 
 class maquina{
 private:
-    static int id;
     estado estadoMaq;
     float percentGanhar,percentAvaria, temperaturaMax;
     float temperaturaAtual;
@@ -13,6 +15,7 @@ private:
     int posX,posY;
     string TipoMaq;
 public:
+    static int id;
     maquina();
     ~maquina();
     virtual string getTipo();
@@ -27,5 +30,6 @@ public:
     int getPosY();
     int getPosX();
 };
+#endif
 
 

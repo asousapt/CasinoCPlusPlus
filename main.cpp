@@ -5,8 +5,10 @@
 #include "XmlReader.h"
 #include "uteis.h"
 #include "casino.h"
+#include "maquina.h"
 using namespace std;
 
+int maquina::id = 1;
 
 int main(){
     /** INICIO DO PROGRAMA **/

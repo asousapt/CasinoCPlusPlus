@@ -1,6 +1,8 @@
+#include <iostream>
+#include <string>
 #include "maquina.h"
 
-maquina::maquina(/* args */){
+maquina::maquina(){
     
 }
 
@@ -28,10 +30,6 @@ void maquina::exportMQ(ostream &f = std::cout){
     f <<  "ID: [" << id << "]  Tipo: [" << TipoMaq << "]  Estado [" << estadoMaq << endl;
 }
 
-int maquina::getID(){
-    return id;
-}
-
 int maquina::compareNUsos(maquina *MQ){
     return nUsos-(MQ->nUsos);
 }
@@ -50,5 +48,9 @@ int maquina::getPosY(){
 
 int maquina::getPosX(){
     return posX;
+}
+
+string maquina::getTipo() {
+    return this->TipoMaq;
 }
 
