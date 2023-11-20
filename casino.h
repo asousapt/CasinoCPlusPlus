@@ -11,6 +11,8 @@ private:
     string nome;
     time_t hora_abertura;
     time_t hora_fecho;
+    int comprimento;
+    int largura;
     list<Cliente *>* ListaCl;
     list<maquina *>* ListaMq;
     bool aberto = 0;
@@ -34,5 +36,9 @@ public:
     void Listar(float X, ostream &f);
     void Run(bool Debug);
     bool VerificarHoras(time_t horas);
+    void setComprimento(int posX);
+    void setLargura(int posY);
+    int getComprimento();
+    int getLargura();
 };
 

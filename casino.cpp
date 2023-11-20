@@ -24,7 +24,14 @@ bool casino::Load(const string &ficheiro){
     XmlReader xmlObj = XmlReader();
     // Faz o parse do ficheiro e coloca os dados da árvore
     xmlObj.parseXML(textoXml, nullptr);
+    string horaAbertura = xmlObj.extractDataFromMap("horaAbertura");
+    string horafecho = xmlObj.extractDataFromMap("horafecho");
+    int posX = stoi(xmlObj.extractDataFromMap("posicaoesX"));
+    int posY = stoi(xmlObj.extractDataFromMap("posicaoesY"));
 
+    this->comprimento = posX;
+    this->largura = posY;
+   
     // Vamos carregar o bloco de clientes 
     XmlReader* listaClientes = xmlObj.getNodeBlockByTagName("clienteslista");
     if (listaClientes != nullptr) { 
@@ -46,7 +53,7 @@ bool casino::Load(const string &ficheiro){
 
 // Adicionar Utilizadores
 bool casino::Add(Cliente *ut){
-    ListaCl->push_back(ut);
+    this->ListaCl->push_back(ut);
     return true;
 }
 
@@ -293,4 +300,20 @@ bool casino::VerificarHoras(time_t horas){
         return 0;
     }
 
+}
+
+ void casino::setComprimento(int posX) {
+    this->comprimento = posX;
+ }
+
+void casino::setLargura(int posY) {
+     this->largura = posY;
+}
+
+int casino::getComprimento() {
+    return this->comprimento;
+}
+
+int casino::getLargura() {
+     return this->largura;
 }

@@ -1,6 +1,8 @@
 <casino>
     <horaAbertura>19:00</horaAbertura>
     <horafecho>04:00</horafecho>
+    <posicaoesX>40</posicaoesX>
+    <posicaoesY>40</posicaoesY>
     <clienteslista>
         <cliente>
             <numero>1</numero>
@@ -506,6 +508,8 @@
     <maquinasLista>
         <maquina>
             <tipo>SLOTS</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>10</percentGanhar>
             <percentAvaria>40</percentAvaria>
             <temperaturaMax>100</temperaturaMax>
@@ -513,6 +517,8 @@
         </maquina>
         <maquina>
             <tipo>SLOTS</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>10</percentGanhar>
             <percentAvaria>40</percentAvaria>
             <temperaturaMax>100</temperaturaMax>
@@ -520,6 +526,8 @@
         </maquina>
         <maquina>
             <tipo>SLOTS</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>10</percentGanhar>
             <percentAvaria>40</percentAvaria>
             <temperaturaMax>100</temperaturaMax>
@@ -527,6 +535,8 @@
         </maquina>
         <maquina>
             <tipo>SLOTS</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>10</percentGanhar>
             <percentAvaria>40</percentAvaria>
             <temperaturaMax>100</temperaturaMax>
@@ -534,6 +544,8 @@
         </maquina>
         <maquina>
             <tipo>SLOTS</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>10</percentGanhar>
             <percentAvaria>40</percentAvaria>
             <temperaturaMax>100</temperaturaMax>
@@ -541,6 +553,8 @@
         </maquina>
         <maquina>
             <tipo>SLOTS</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>10</percentGanhar>
             <percentAvaria>40</percentAvaria>
             <temperaturaMax>100</temperaturaMax>
@@ -548,6 +562,8 @@
         </maquina>
         <maquina>
             <tipo>ROLETA</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>47.7</percentGanhar>
             <percentAvaria>50</percentAvaria>
             <temperaturaMax>150</temperaturaMax>
@@ -555,6 +571,8 @@
         </maquina>
         <maquina>
             <tipo>ROLETA</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>47.7</percentGanhar>
             <percentAvaria>50</percentAvaria>
             <temperaturaMax>150</temperaturaMax>
@@ -562,6 +580,8 @@
         </maquina>
         <maquina>
             <tipo>ROLETA</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>47.7</percentGanhar>
             <percentAvaria>50</percentAvaria>
             <temperaturaMax>150</temperaturaMax>
@@ -569,6 +589,8 @@
         </maquina>
         <maquina>
             <tipo>ROLETA</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>47.7</percentGanhar>
             <percentAvaria>50</percentAvaria>
             <temperaturaMax>150</temperaturaMax>
@@ -576,6 +598,8 @@
         </maquina>
         <maquina>
             <tipo>ROLETA</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>47.7</percentGanhar>
             <percentAvaria>50</percentAvaria>
             <temperaturaMax>150</temperaturaMax>
@@ -583,6 +607,8 @@
         </maquina>
         <maquina>
             <tipo>CRAPS</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>10</percentGanhar>
             <percentAvaria>10</percentAvaria>
             <temperaturaMax>50</temperaturaMax>
@@ -590,6 +616,8 @@
         </maquina>
         <maquina>
             <tipo>CRAPS</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>10</percentGanhar>
             <percentAvaria>10</percentAvaria>
             <temperaturaMax>50</temperaturaMax>
@@ -597,6 +625,8 @@
         </maquina>
         <maquina>
             <tipo>CRAPS</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>10</percentGanhar>
             <percentAvaria>10</percentAvaria>
             <temperaturaMax>50</temperaturaMax>
@@ -604,6 +634,8 @@
         </maquina>
         <maquina>
             <tipo>CRAPS</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>10</percentGanhar>
             <percentAvaria>10</percentAvaria>
             <temperaturaMax>50</temperaturaMax>
@@ -611,6 +643,8 @@
         </maquina>
         <maquina>
             <tipo>BLACKJACK</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>1</percentGanhar>
             <percentAvaria>10</percentAvaria>
             <temperaturaMax>75</temperaturaMax>
@@ -618,6 +652,8 @@
         </maquina>
         <maquina>
             <tipo>BLACKJACK</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>1</percentGanhar>
             <percentAvaria>10</percentAvaria>
             <temperaturaMax>75</temperaturaMax>
@@ -625,6 +661,8 @@
         </maquina>
         <maquina>
             <tipo>BLACKJACK</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>1</percentGanhar>
             <percentAvaria>10</percentAvaria>
             <temperaturaMax>75</temperaturaMax>
@@ -632,6 +670,8 @@
         </maquina>
         <maquina>
             <tipo>BLACKJACK</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>1</percentGanhar>
             <percentAvaria>10</percentAvaria>
             <temperaturaMax>75</temperaturaMax>
@@ -639,6 +679,8 @@
         </maquina>
         <maquina>
             <tipo>BLACKJACK</tipo>
+            <posX>0</posX>
+            <posY>0</posY>
             <percentGanhar>1</percentGanhar>
             <percentAvaria>10</percentAvaria>
             <temperaturaMax>75</temperaturaMax>
