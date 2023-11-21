@@ -9,4 +9,5 @@ public:
     blackJack(int X, int Y);
     ~blackJack();
     string getTipo();
+    void addCl(Cliente *utl);
 };

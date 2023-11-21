@@ -9,4 +9,5 @@ public:
     craps(int X, int Y);
     ~craps();
     string getTipo();
+    void addCl(Cliente *utl);
 };

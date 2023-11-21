@@ -8,6 +8,7 @@ public:
     slots(int X, int Y);
     ~slots();
     string getTipo();
+    void setCl(Cliente *utl);
 };
 
 

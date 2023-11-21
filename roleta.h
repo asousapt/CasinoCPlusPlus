@@ -9,4 +9,5 @@ public:
     roleta(int X, int Y);
     ~roleta();
     string getTipo();
+    void addCl(Cliente *utl);
 };
