@@ -16,8 +16,8 @@
 
 casino::casino(string _nome){
     nome = _nome;
-    ListaCl = new list<Cliente*>();
-    ListaMq = new list<maquina*>();
+    ListaCl = new list<Cliente*>;
+    ListaMq = new list<maquina*>;
 }
 
 casino::~casino(){
@@ -82,6 +82,8 @@ bool casino::Load(const string &ficheiro){
                     temp->extractDataFromMap("nome"), 
                     stoi(temp->extractDataFromMap("saldo"))
                     );
+                    
+                //cl->exportCl();
                 if (this->Add(cl) == false) {
                     cout << "Erro ao inserir o cliente " << temp->extractDataFromMap("numero") << " na lista" << endl;
                     return false;
@@ -118,19 +120,19 @@ bool casino::Load(const string &ficheiro){
 
                 if (tipo.compare("SLOTS") == 0) {
                     slots *S = new slots(X,Y);
-                    //S->exportMQ(cout);
+                    //S->exportMQ();
                     this->Add(S);
                 }else if(tipo.compare("ROLETA") == 0){
                     roleta *R = new roleta(X,Y);
-                    //R->exportMQ(cout);
+                    //R->exportMQ();
                     this->Add(R);
                 }else if(tipo.compare("CRAPS") == 0){
                     craps *C = new craps(X,Y);
-                    //C->exportMQ(cout);
+                    //C->exportMQ();
                     this->Add(C);
                 }else if(tipo.compare("BLACKJACK") == 0){
                     blackJack *B = new blackJack(X,Y);
-                    //B->exportMQ(cout);
+                    //B->exportMQ();
                     this->Add(B);
                 }
             }

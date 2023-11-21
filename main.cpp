@@ -32,10 +32,6 @@ int main(){
     if (cas.Load(nomeFicheiro) == false) {
         cout << "Erro ao carregar os dados do casino!" << endl;
     }
-    cout << cas.getComprimento() << endl;
-    cout << cas.getComprimento() << endl;
-
-
     
     //  cout << xmlObj.temFilhos() << endl ;
     //xmlObj.showlista();
