@@ -20,12 +20,17 @@ public:
     void desligarMq();
     bool compareId(int num);
     estado getEstado();
+    void setEstado(estado stt);
     void exportMQ(ostream &f = std::cout);
     int compareNUsos(maquina *MQ);
     float getPercentGanhar();
     void setPercentagemGanhar(float percent);
     int getPosY();
     int getPosX();
+    bool ganhou();
+    bool avaria();
+    bool reparar();
+    void AvisarPercentGanhar();
 };
 #endif
 

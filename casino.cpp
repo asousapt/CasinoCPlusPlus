@@ -308,6 +308,8 @@ void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float distancia,list<
             float percent = (*it)->getPercentGanhar();
             percent = percent+2;
             (*it)->setPercentagemGanhar(percent);
+
+            (*it)->AvisarPercentGanhar();
         }
     }
 }
@@ -417,4 +419,47 @@ maquina* casino::getMaquinaPorPos(int X, int Y){
         }
     }
     return MQ;
+}
+
+void casino::checkGanhou(){
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        if ((*it)->ganhou()){
+            //this->SubirProbabilidadeVizinhas((*it),1,ListaMq);
+        }
+    }
+}
+
+void casino::checkAvarias(){
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        if ((*it)->avaria()){
+            //(*it)->removerUsers();
+
+            estado e = AVARIADA;
+            (*it)->setEstado(e);
+        }
+    }
+}
+
+maquina* casino::randomMaquina(){
+    Uteis U;
+    int icr = 1,valor = U.valorRand(0,ListaMq->size());
+
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        if (icr == valor){
+            return (*it);
+        }
+        icr++;
+    }
+
+}
+
+void casino::AssociarUsersMaquina(Cliente *utl){
+    maquina* MQ;
+    estado e;
+
+    while(e > 0){
+        MQ = randomMaquina();
+        e = Get_Estado(MQ->id);
+    }
+    //MQ->addCl();
 }

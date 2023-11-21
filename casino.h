@@ -41,5 +41,9 @@ public:
     int getComprimento();
     int getLargura();
     maquina* getMaquinaPorPos(int X, int Y);
+    void checkGanhou();
+    void checkAvarias();
+    maquina* randomMaquina();
+    void AssociarUsersMaquina(Cliente *utl);
 };
 

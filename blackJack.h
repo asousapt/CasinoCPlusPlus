@@ -8,6 +8,6 @@ private:
 public:
     blackJack(int X, int Y);
     ~blackJack();
-    string getTipo();
+    string getTipo() override;
     void addCl(Cliente *utl);
 };

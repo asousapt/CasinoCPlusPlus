@@ -8,6 +8,6 @@ private:
 public:
     craps(int X, int Y);
     ~craps();
-    string getTipo();
+    string getTipo() override;
     void addCl(Cliente *utl);
 };

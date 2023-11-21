@@ -7,7 +7,7 @@ private:
 public:
     slots(int X, int Y);
     ~slots();
-    string getTipo();
+    string getTipo() override;
     void setCl(Cliente *utl);
 };
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "maquina.h"
+#include "uteis.h"
 
 maquina::maquina(int X, int Y, float percGanhar, float percAvaria, float tempMax, float tempAtual, float percAviso){
     id = id+1;
@@ -34,6 +35,10 @@ estado maquina::getEstado(){
     return estadoMaq;
 }
 
+void maquina::setEstado(estado stt){
+    estadoMaq = stt;
+}
+
 void maquina::exportMQ(ostream &f){
     f <<  "ID: [" << id << "]  Tipo: ["<< this->getTipo() << "]  Estado [" << estadoMaq << "]\n";
 }
@@ -60,5 +65,39 @@ int maquina::getPosX(){
 
 string maquina::getTipo() {
     return "Maquina";
+}
+
+bool maquina::ganhou(){
+    Uteis U;
+
+    int valor = U.valorRand(0,100);
+    if (valor <= percentGanhar){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool maquina::avaria(){
+    Uteis U;
+
+    int valor = U.valorRand(0,100);
+    if (valor <= percentAvaria){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool maquina::reparar(){
+    estado e = ON;
+    this->setEstado(e);
+}
+
+
+void maquina::AvisarPercentGanhar(){
+    if (percentGanhar >= percentagemAviso){
+        cout << "A maquina Nº ["<< id <<"] ultrapassou a percentagem adequada para ganhos!\n";
+    }
 }
 
