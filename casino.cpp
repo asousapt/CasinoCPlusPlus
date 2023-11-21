@@ -9,10 +9,12 @@
 
 casino::casino(string _nome){
     nome = _nome;
+    ListaCl = new list<Cliente *>;
+    ListaMq = new list<maquina *>;
 }
 
 casino::~casino(){
-    
+    delete ListaCl;
 }
 
 // As configurações do Casino dadas em ficheiro XML, com todas as informações
@@ -26,9 +28,10 @@ bool casino::Load(const string &ficheiro){
     xmlObj.parseXML(textoXml, nullptr);
     string horaAbertura = xmlObj.extractDataFromMap("horaAbertura");
     string horafecho = xmlObj.extractDataFromMap("horafecho");
+    
+    //faz set do tamanho da matriz
     int posX = stoi(xmlObj.extractDataFromMap("posicaoesX"));
     int posY = stoi(xmlObj.extractDataFromMap("posicaoesY"));
-
     this->comprimento = posX;
     this->largura = posY;
    
@@ -44,10 +47,28 @@ bool casino::Load(const string &ficheiro){
                     temp->extractDataFromMap("nome"), 
                     stoi(temp->extractDataFromMap("saldo"))
                     );
-                this->Add(cl);
+                if (this->Add(cl) == false) {
+                    cout << "Erro ao inserir o cliente " << temp->extractDataFromMap("numero") << " na lista" << endl;
+                    return false;
+                }
             }
         }
-    }    
+    }
+
+
+    // Faz o import das maquinas para o objecto casino
+    XmlReader* listaMaquinas = xmlObj.getNodeBlockByTagName("maquinasLista");
+    if (listaMaquinas != nullptr) {
+        list<XmlReader*> filhos = listaMaquinas->getFilhos();
+        if (!filhos.empty()) { 
+            for (auto it = filhos.begin(); it != filhos.end(); ++it) {
+                XmlReader* temp = (*it);
+               
+            }
+        }
+    }
+    
+     
     return true;
 }
 

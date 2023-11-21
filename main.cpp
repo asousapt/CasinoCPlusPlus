@@ -18,13 +18,18 @@ int main(){
     
     cout << "Bem-vindo ao Casino" << endl;
     cout << "#### --------- ####" << endl;
-    string nomeCasino = utils.pedeValor("Por valor introduza um nome para o casino");
+    string nomeCasino = utils.pedeValor("Por favor introduza um nome para o casino");
 
     // Faz a criação do objecto casino 
     casino cas = casino(nomeCasino);
     string nomeFicheiro = "casino.xml";
+
     // Faz o load dos dados para dentro do casino 
-    cas.Load(nomeFicheiro);
+    if (cas.Load(nomeFicheiro) == false) {
+        cout << "Erro ao carregar os dados do casino!" << endl;
+    }
+    cout << cas.getComprimento() << endl;
+    cout << cas.getComprimento() << endl;
 
 
     
