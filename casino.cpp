@@ -120,20 +120,28 @@ bool casino::Load(const string &ficheiro){
 
                 if (tipo.compare("SLOTS") == 0) {
                     slots *S = new slots(X,Y);
-                    //S->exportMQ();
-                    this->Add(S);
+                    if (this->Add(S) == false ) {
+                        cout << "Erro ao inserir maquina" << endl;
+                        return false;
+                    }
                 }else if(tipo.compare("ROLETA") == 0){
                     roleta *R = new roleta(X,Y);
-                    //R->exportMQ();
-                    this->Add(R);
+                    if (this->Add(R) == false) {
+                        cout << "Erro ao inserir maquina" << endl;
+                        return false;
+                    }
                 }else if(tipo.compare("CRAPS") == 0){
                     craps *C = new craps(X,Y);
-                    //C->exportMQ();
-                    this->Add(C);
+                    if (this->Add(C) == false) {
+                        cout << "Erro ao inserir maquina" << endl;
+                        return false;
+                    }
                 }else if(tipo.compare("BLACKJACK") == 0){
                     blackJack *B = new blackJack(X,Y);
-                    //B->exportMQ();
-                    this->Add(B);
+                    if (this->Add(B)) {
+                        cout << "Erro ao inserir maquina" << endl;
+                        return false;
+                    }
                 }
             }
         }
@@ -141,13 +149,13 @@ bool casino::Load(const string &ficheiro){
     return true;
 }
 
-// Adicionar Utilizadores
+// Adicionar Clientes à lista de clientes
 bool casino::Add(Cliente *ut){
     ListaCl->push_back(ut);
     return true;
 }
 
-// Adicionar Máquina 
+// Adicionar Máquinas 
 bool casino::Add(maquina *m){
     ListaMq->push_back(m);
     return true;
@@ -462,4 +470,17 @@ void casino::AssociarUsersMaquina(Cliente *utl){
         e = Get_Estado(MQ->id);
     }
     //MQ->addCl();
+}
+
+bool casino::ExportCasino() {
+    // cria o objecto XML
+    XmlReader xmlWR =  XmlReader(this->nome, nullptr);
+     std::time_t abertura = this->hora_abertura;
+    std::tm * ptm = std::localtime(&abertura);
+    char buffer[32];
+    // Format: Mo, 15.06.2009 20:20:00
+    std::strftime(buffer, 32, "%H:%M", ptm); 
+    cout << buffer << endl;
+    return true;
+
 }

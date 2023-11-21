@@ -45,5 +45,6 @@ public:
     void checkAvarias();
     maquina* randomMaquina();
     void AssociarUsersMaquina(Cliente *utl);
+    bool ExportCasino();
 };
 

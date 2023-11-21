@@ -32,6 +32,9 @@ int main(){
     if (cas.Load(nomeFicheiro) == false) {
         cout << "Erro ao carregar os dados do casino!" << endl;
     }
+
+   cas.ExportCasino();
+   
     
     //  cout << xmlObj.temFilhos() << endl ;
     //xmlObj.showlista();
