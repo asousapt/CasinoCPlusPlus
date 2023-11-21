@@ -8,6 +8,8 @@ private:
 public:
     roleta(int X, int Y);
     ~roleta();
-    string getTipo() override;
+    string getTipo();
     void addCl(Cliente *utl);
+    void removeCl();
+    void incrementarTemp();
 };

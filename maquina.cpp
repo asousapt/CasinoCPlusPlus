@@ -37,6 +37,7 @@ estado maquina::getEstado(){
 
 void maquina::setEstado(estado stt){
     estadoMaq = stt;
+    cout << "Estado mudado para ["<< stt <<"]\n";
 }
 
 void maquina::exportMQ(ostream &f){
@@ -89,15 +90,39 @@ bool maquina::avaria(){
     }
 }
 
-bool maquina::reparar(){
+void maquina::reparar(){
     estado e = ON;
     this->setEstado(e);
 }
 
+void maquina::incrementarTemp(){
+
+}
+
+void maquina::adicionarTemp(int icr){
+    temperaturaAtual = temperaturaAtual + icr;
+}
+    
+bool maquina::checkTemp(){
+    if (temperaturaAtual >= temperaturaMax) {
+        cout << "A maquina Nº ["<< id <<"] ultrapassou a temperatura adequada!\n";
+        return true;
+    }else{
+        return false;
+    }
+}
 
 void maquina::AvisarPercentGanhar(){
     if (percentGanhar >= percentagemAviso){
         cout << "A maquina Nº ["<< id <<"] ultrapassou a percentagem adequada para ganhos!\n";
     }
+}
+
+void maquina::addCl(){
+
+}
+
+void maquina::removeCl(){
+    
 }
 
