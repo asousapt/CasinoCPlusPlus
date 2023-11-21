@@ -39,6 +39,8 @@ bool casino::Load(const string &ficheiro){
     xmlObj.parseXML(textoXml, nullptr);
     string horaAbertura = xmlObj.extractDataFromMap("horaAbertura");
     string horafecho = xmlObj.extractDataFromMap("horafecho");
+    
+    //faz set do tamanho da matriz
     int posX = stoi(xmlObj.extractDataFromMap("posicaoesX"));
     int posY = stoi(xmlObj.extractDataFromMap("posicaoesY"));
 
@@ -80,15 +82,17 @@ bool casino::Load(const string &ficheiro){
                     temp->extractDataFromMap("nome"), 
                     stoi(temp->extractDataFromMap("saldo"))
                     );
-                //cl->exportCl();
-                this->Add(cl);
+                if (this->Add(cl) == false) {
+                    cout << "Erro ao inserir o cliente " << temp->extractDataFromMap("numero") << " na lista" << endl;
+                    return false;
+                }
             }
         }
     }
-    
-    // Vamos carregar o bloco de clientes 
+
+    // Faz o import das maquinas para o objecto casino
     XmlReader* listaMaquinas = xmlObj.getNodeBlockByTagName("maquinasLista");
-    if (listaMaquinas != nullptr) { 
+    if (listaMaquinas != nullptr) {
         list<XmlReader*> filhos = listaMaquinas->getFilhos();
         if (!filhos.empty()) { 
             for (auto it = filhos.begin(); it != filhos.end(); ++it) {
