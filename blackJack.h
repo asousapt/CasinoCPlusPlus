@@ -6,7 +6,7 @@ class blackJack : public maquina {
 private:
     list<Cliente *>* Jogadores;
 public:
-    blackJack();
+    blackJack(int X, int Y);
     ~blackJack();
     string getTipo();
 };

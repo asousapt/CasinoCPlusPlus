@@ -1,27 +1,40 @@
 #include <iostream>
 #include <cmath>
+#include <ctime>
+#include <sstream>
+#include <iomanip>
 #include "casino.h"
 #include "uteis.h"
 #include "relogio.h"
 #include "XmlReader.h"
 #include "cliente.h"
+#include "slots.h"
+#include "roleta.h"
+#include "craps.h"
+#include "blackJack.h"
 
 
 casino::casino(string _nome){
     nome = _nome;
+    ListaCl = new list<Cliente*>();
+    ListaMq = new list<maquina*>();
 }
 
 casino::~casino(){
-    
+    delete ListaCl;
+    delete ListaMq;
 }
 
 // As configurações do Casino dadas em ficheiro XML, com todas as informações
 bool casino::Load(const string &ficheiro){
     Uteis util = Uteis();
+
     // Carrega o ficheiro XML para dentro de uma string
     string textoXml = util.loadFileToString(ficheiro);
+
     //Faz a criação de um objecto do tipo XML reader que vai servir para fazer a nossa arvore XML
     XmlReader xmlObj = XmlReader();
+
     // Faz o parse do ficheiro e coloca os dados da árvore
     xmlObj.parseXML(textoXml, nullptr);
     string horaAbertura = xmlObj.extractDataFromMap("horaAbertura");
@@ -29,6 +42,29 @@ bool casino::Load(const string &ficheiro){
     int posX = stoi(xmlObj.extractDataFromMap("posicaoesX"));
     int posY = stoi(xmlObj.extractDataFromMap("posicaoesY"));
 
+    struct tm ts;
+
+    //Parse string para time_t da hora de abertura
+    istringstream ha(horaAbertura);
+    ha >> get_time(&ts, "%H:%M");
+    if (ha.fail()) {
+        cerr << "Erro a transformar as horas" << endl;
+        return 1; 
+    }
+    time_t abertura = std::mktime(&ts);
+
+    //Parse string para time_t da hora de fecho
+    istringstream hf(horafecho);
+    hf >> get_time(&ts, "%H:%M");
+    if (hf.fail()) {
+        cerr << "Erro a transformar as horas" << endl;
+        return 1; 
+    }
+    time_t fecho = std::mktime(&ts);
+
+    //set as variaveis do casino
+    this->hora_abertura = abertura;
+    this->hora_fecho = fecho;
     this->comprimento = posX;
     this->largura = posY;
    
@@ -44,16 +80,64 @@ bool casino::Load(const string &ficheiro){
                     temp->extractDataFromMap("nome"), 
                     stoi(temp->extractDataFromMap("saldo"))
                     );
+                //cl->exportCl();
                 this->Add(cl);
             }
         }
-    }    
+    }
+    
+    // Vamos carregar o bloco de clientes 
+    XmlReader* listaMaquinas = xmlObj.getNodeBlockByTagName("maquinasLista");
+    if (listaMaquinas != nullptr) { 
+        list<XmlReader*> filhos = listaMaquinas->getFilhos();
+        if (!filhos.empty()) { 
+            for (auto it = filhos.begin(); it != filhos.end(); ++it) {
+                XmlReader* temp = (*it);
+                string tipo = temp->extractDataFromMap("tipo");
+
+                int max,min = this->largura;
+                if (min > this->comprimento){
+                    min = this->comprimento;
+                    max = this->largura;
+                }else{
+                    max = this->comprimento;
+                }
+                
+                //Loop para encontrar uma posicao vazia
+                int X,Y;
+                maquina* MQ = 0;
+                while(MQ != nullptr) {
+                    X = util.valorRand(min,max);
+                    Y = util.valorRand(min,max);
+                    MQ = getMaquinaPorPos(X,Y);
+                }
+
+                if (tipo.compare("SLOTS") == 0) {
+                    slots *S = new slots(X,Y);
+                    //S->exportMQ(cout);
+                    this->Add(S);
+                }else if(tipo.compare("ROLETA") == 0){
+                    roleta *R = new roleta(X,Y);
+                    //R->exportMQ(cout);
+                    this->Add(R);
+                }else if(tipo.compare("CRAPS") == 0){
+                    craps *C = new craps(X,Y);
+                    //C->exportMQ(cout);
+                    this->Add(C);
+                }else if(tipo.compare("BLACKJACK") == 0){
+                    blackJack *B = new blackJack(X,Y);
+                    //B->exportMQ(cout);
+                    this->Add(B);
+                }
+            }
+        }
+    }
     return true;
 }
 
 // Adicionar Utilizadores
 bool casino::Add(Cliente *ut){
-    this->ListaCl->push_back(ut);
+    ListaCl->push_back(ut);
     return true;
 }
 
@@ -64,7 +148,7 @@ bool casino::Add(maquina *m){
 }
 
 // Listar o estado atual do Casino 
-void casino::Listar(ostream &f = std::cout){
+void casino::Listar(ostream &f){
     if (aberto){
         f <<"O casino encontra-se aberto!\n";
     }else {
@@ -102,7 +186,7 @@ int casino::Memoria_Total(){
 }
 
 // Listar e devolver todas as máquinas de um dado Tipo
-list<maquina *>* casino::Listar_Tipo(string Tipo, ostream &f = std::cout){
+list<maquina *>* casino::Listar_Tipo(string Tipo, ostream &f){
     list<maquina *>* listaR;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina *mQ = *it;
@@ -223,7 +307,7 @@ void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float distancia,list<
 }
 
 // Listar todas as máquinas onde a probabilidade de ganhar é superior a X.
-void casino::Listar(float prob, ostream &f = std::cout){
+void casino::Listar(float prob, ostream &f){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina *mQ = *it;
         float percent = mQ->getPercentGanhar();
@@ -236,7 +320,7 @@ void casino::Listar(float prob, ostream &f = std::cout){
 // O Casino tem um método Run, que coloca todo o processo em funcionamento! O Simulador deve estar
 // sempre a correr e quando se pretende introduzir alterações, deve-se carregar numa tecla ‘M’ de modo a
 // aparecer um menu (nesse instante o simulador deve estar parado, até a opção ser executada!) 
-void casino::Run(bool Debug = true){
+void casino::Run(bool Debug){
     time_t inicio;
     time_t fim;
     if (Debug){
@@ -316,4 +400,15 @@ int casino::getComprimento() {
 
 int casino::getLargura() {
      return this->largura;
+}
+
+maquina* casino::getMaquinaPorPos(int X, int Y){
+    maquina* MQ = nullptr;
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        MQ = (*it);
+        if (MQ->getPosY() == Y && MQ->getPosX() == X){
+            return MQ;
+        }
+    }
+    return MQ;
 }

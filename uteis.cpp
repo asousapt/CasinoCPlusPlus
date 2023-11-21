@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <cstdlib> 
 #include "uteis.h"
 
 // Funcao que carrega ficheiro para string passando apemas o nome do ficheiro
@@ -30,5 +31,7 @@ string Uteis::pedeValor(string mensagem) {
     return valor;
 }
 
-
+int Uteis::valorRand(int min,int max){
+    return min + std::rand() % (max - min + 1);
+}
 

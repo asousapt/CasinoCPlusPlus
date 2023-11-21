@@ -5,7 +5,7 @@ class slots : public maquina {
 private:
     Cliente *C;
 public:
-    slots();
+    slots(int X, int Y);
     ~slots();
     string getTipo();
 };

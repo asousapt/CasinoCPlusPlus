@@ -2,8 +2,16 @@
 #include <string>
 #include "maquina.h"
 
-maquina::maquina(){
-    
+maquina::maquina(int X, int Y, float percGanhar, float percAvaria, float tempMax, float tempAtual, float percAviso){
+    id = id+1;
+    estadoMaq = ON;
+    percentGanhar = percGanhar;
+    percentAvaria = percAvaria;
+    temperaturaMax = tempMax;
+    temperaturaAtual = tempAtual;
+    percentagemAviso = percAviso;
+    posX = X;
+    posY = Y;
 }
 
 maquina::~maquina(){
@@ -26,8 +34,8 @@ estado maquina::getEstado(){
     return estadoMaq;
 }
 
-void maquina::exportMQ(ostream &f = std::cout){
-    f <<  "ID: [" << id << "]  Tipo: [Maquina]  Estado [" << estadoMaq << endl;
+void maquina::exportMQ(ostream &f){
+    f <<  "ID: [" << id << "]  Tipo: ["<< this->getTipo() << "]  Estado [" << estadoMaq << "]\n";
 }
 
 int maquina::compareNUsos(maquina *MQ){

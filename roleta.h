@@ -6,7 +6,7 @@ class roleta : public maquina {
 private:
     list<Cliente *>* Jogadores;
 public:
-    roleta();
+    roleta(int X, int Y);
     ~roleta();
     string getTipo();
 };

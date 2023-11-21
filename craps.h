@@ -6,7 +6,7 @@ class craps : public maquina {
 private:
     list<Cliente *>* Jogadores;
 public:
-    craps();
+    craps(int X, int Y);
     ~craps();
     string getTipo();
 };

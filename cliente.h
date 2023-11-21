@@ -15,6 +15,7 @@ public:
     Cliente();
     ~Cliente();
     Cliente(int numeroCl, string nomeCl, int saldoCl);
+    void exportCl(ostream &f = std::cout);
     int getNVezesGanhou();
     int getNJogadas();
 };

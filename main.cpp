@@ -2,16 +2,20 @@
 #include <fstream>
 #include <map>
 #include <ctime>
+#include <cstdlib> 
 #include "XmlReader.h"
 #include "uteis.h"
 #include "casino.h"
 #include "maquina.h"
+
 using namespace std;
 
-int maquina::id = 1;
+int maquina::id = 0;
 
 int main(){
     /** INICIO DO PROGRAMA **/
+    srand(time(nullptr));
+
     /* Vamos pedir ao utilzador que indique um nome para o casino*/
     Uteis utils = Uteis();
 
