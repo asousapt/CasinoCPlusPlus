@@ -17,6 +17,7 @@ public:
     maquina(int X, int Y, float percGanhar, float percAvaria, float tempMax, float tempAtual, float percAviso);
     ~maquina();
     virtual string getTipo();
+    virtual void addCl();
     void desligarMq();
     bool compareId(int num);
     estado getEstado();
@@ -29,8 +30,12 @@ public:
     int getPosX();
     bool ganhou();
     bool avaria();
-    bool reparar();
+    void reparar();
+    virtual void incrementarTemp();
+    void adicionarTemp(int icr);
+    bool checkTemp();
     void AvisarPercentGanhar();
+    void removeCl();
 };
 #endif
 

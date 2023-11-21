@@ -296,11 +296,11 @@ void casino::Relatorio(string fich_xml){
 // Quando uma máquina tem um prémio, devem ser aumentada a probabilidade de ganho das outras máquinas
 // que estão em redor dela, à distância máxima de R. O método deve devolver (por parâmetro) a lista das
 // máquinas onde foi feita a alteração da probabilidade de ganhar
-void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float distancia,list<maquina *> &lmvizinhas){
+void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float distancia,list<maquina *>* &lmvizinhas){
     int y2,y1 = M_ganhou->getPosY();
     int x2,x1 = M_ganhou->getPosX();
 
-    for (auto it = lmvizinhas.begin(); it != lmvizinhas.end(); ++it){
+    for (auto it = lmvizinhas->begin(); it != lmvizinhas->end(); ++it){
         y2 = (*it)->getPosY();
         x2 = (*it)->getPosX();
 
@@ -432,7 +432,7 @@ maquina* casino::getMaquinaPorPos(int X, int Y){
 void casino::checkGanhou(){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         if ((*it)->ganhou()){
-            //this->SubirProbabilidadeVizinhas((*it),1,ListaMq);
+            SubirProbabilidadeVizinhas((*it),1,ListaMq);
         }
     }
 }
@@ -440,11 +440,18 @@ void casino::checkGanhou(){
 void casino::checkAvarias(){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         if ((*it)->avaria()){
-            //(*it)->removerUsers();
+            (*it)->removeCl();
 
             estado e = AVARIADA;
             (*it)->setEstado(e);
         }
+    }
+}
+
+void casino::checkTemp(){
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        (*it)->incrementarTemp();
+        (*it)->checkTemp();
     }
 }
 
@@ -458,18 +465,17 @@ maquina* casino::randomMaquina(){
         }
         icr++;
     }
-
 }
 
 void casino::AssociarUsersMaquina(Cliente *utl){
     maquina* MQ;
     estado e;
 
-    while(e > 0){
+    while(e != 1){
         MQ = randomMaquina();
         e = Get_Estado(MQ->id);
     }
-    //MQ->addCl();
+    MQ->addCl();
 }
 
 bool casino::ExportCasino() {

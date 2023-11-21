@@ -32,7 +32,7 @@ public:
     list<Cliente *>* Jogadores_Mais_Frequentes();
     list<Cliente *>* Jogadores_Mais_Ganhos();
     void Relatorio(string fich_xml);
-    void SubirProbabilidadeVizinhas(maquina *M_ganhou, float R,list<maquina *> &lmvizinhas);
+    void SubirProbabilidadeVizinhas(maquina *M_ganhou, float R,list<maquina *>* &lmvizinhas);
     void Listar(float X, ostream &f = std::cout);
     void Run(bool Debug = true);
     bool VerificarHoras(time_t horas);
@@ -43,6 +43,7 @@ public:
     maquina* getMaquinaPorPos(int X, int Y);
     void checkGanhou();
     void checkAvarias();
+    void checkTemp();
     maquina* randomMaquina();
     void AssociarUsersMaquina(Cliente *utl);
     bool ExportCasino();
