@@ -140,7 +140,7 @@ bool casino::Load(const string &ficheiro){
                     }
                 }else if(tipo.compare("BLACKJACK") == 0){
                     blackJack *B = new blackJack(X,Y);
-                    if (this->Add(B)) {
+                    if (this->Add(B) == false) {
                         cout << "Erro ao inserir maquina" << endl;
                         return false;
                     }
@@ -478,6 +478,7 @@ maquina* casino::randomMaquina(){
         }
         icr++;
     }
+    return nullptr;
 }
 
 // Associa um utilizador à máquina
@@ -540,7 +541,7 @@ bool casino::ExportCasino() {
     std::tm * ptm = std::localtime(&abertura);
     char buffer[32];
     // Format: Mo, 15.06.2009 20:20:00
-    std::strftime(buffer, 32, "%H:%M", ptm); 
+    std::strftime(buffer, 32, "%a, %d.%m.%Y %H:%M:%S", ptm); 
     cout << buffer << endl;
     return true;
 
