@@ -33,3 +33,16 @@ void craps::incrementarTemp(){
 
     this->adicionarTemp(Valor);
 }
+
+Cliente* craps::pesquisaCl(int numero){
+    for (auto it = Jogadores->begin(); it != Jogadores->end(); ++it){
+        if ((*it)->getNumero() == numero){
+            return (*it);
+        }
+    }
+    return nullptr;
+}
+
+int craps::contagemCl(){
+    return Jogadores->size();
+}

@@ -32,3 +32,11 @@ int Cliente::getNumero(){
     return numero;
 }
 
+void Cliente::incrJogadas(){
+    nJogadas = nJogadas+1;
+}
+
+void Cliente::incrVezesGanhas(){
+    nVezesGanhou = nVezesGanhou+1;
+}
+

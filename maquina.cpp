@@ -127,3 +127,11 @@ void maquina::removeCl(){
     
 }
 
+Cliente* maquina::pesquisaCl(int numero){
+    return nullptr;
+}
+
+int maquina::contagemCl(){
+    return 0;
+}
+

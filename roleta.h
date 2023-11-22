@@ -12,4 +12,6 @@ public:
     void addCl(Cliente *utl);
     void removeCl();
     void incrementarTemp();
+    Cliente* pesquisaCl(int numero);
+    int contagemCl();
 };

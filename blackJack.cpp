@@ -33,3 +33,16 @@ void blackJack::incrementarTemp(){
 
     this->adicionarTemp(Valor);
 }
+
+Cliente* blackJack::pesquisaCl(int numero){
+    for (auto it = Jogadores->begin(); it != Jogadores->end(); ++it){
+        if ((*it)->getNumero() == numero){
+            return (*it);
+        }
+    }
+    return nullptr;
+}
+
+int blackJack::contagemCl(){
+    return Jogadores->size();
+}

@@ -19,6 +19,8 @@ public:
     ~maquina();
     virtual string getTipo();
     virtual void addCl(Cliente *utl);
+    virtual Cliente* pesquisaCl(int numero);
+    virtual int contagemCl();
     void desligarMq();
     bool compareId(int num);
     estado getEstado();

@@ -47,10 +47,13 @@ public:
     void checkAvarias();
     void checkTemp();
     maquina* randomMaquina();
-    void AssociarUsersMaquina(Cliente *utl);
+    bool AssociarUsersMaquina(Cliente *utl);
+    maquina* getMaquinaPorCliente(Cliente *utl);
     Cliente* randomCl();
+    Cliente* randomClCasino();
     Cliente* getClCasino(int numero);
     void AddUsersCasinoBatch();
+    void AddUsersMaquinaBatch();
     bool ExportCasino();
 };
 

@@ -482,15 +482,40 @@ maquina* casino::randomMaquina(){
 }
 
 // Associa um utilizador à máquina
-void casino::AssociarUsersMaquina(Cliente *utl){
+bool casino::AssociarUsersMaquina(Cliente *utl){
     maquina* MQ;
     estado e;
 
+    if(getMaquinaPorCliente(utl)){
+        return false;
+    }
+    
     while(e != 1){
         MQ = randomMaquina();
-        e = Get_Estado(MQ->id);
+        if (!MQ) break;
+        if (MQ->getTipo().compare("blackjack") != 0 && MQ->contagemCl() < 5){
+            e = Get_Estado(MQ->id);
+        }else{
+            e = OFF;
+        }
     }
-    MQ->addCl(utl);
+
+    if(MQ){
+        MQ->addCl(utl);
+        return true;
+    }else{
+        return false;
+    }
+}
+
+// Devolve a maquina onde o cliente esta a jogar
+maquina* casino::getMaquinaPorCliente(Cliente *utl){
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        if((*it)->pesquisaCl(utl->getNumero())){
+            return (*it);
+        }
+    }
+    return nullptr;
 }
 
 // Devolve um cliente random
@@ -507,6 +532,20 @@ Cliente* casino::randomCl(){
     return nullptr;
 }
 
+Cliente* casino::randomClCasino(){
+    Uteis U;
+    int icr = 1,valor = U.valorRand(1,ClNoCasino->size());
+    
+    for (auto it = ClNoCasino->begin(); it != ClNoCasino->end(); ++it){
+        if (icr == valor){
+            return (*it);
+        }
+        icr++;
+    }
+    return nullptr;
+}
+
+// Pesquisa e devolve um cliente no casino pelo numero
 Cliente* casino::getClCasino(int numero){
     for (auto it = ClNoCasino->begin(); it != ClNoCasino->end(); ++it){
         if ((*it)->getNumero() == numero){
@@ -516,6 +555,7 @@ Cliente* casino::getClCasino(int numero){
     return nullptr;
 }
 
+// Adiciona vários clientes ao casino
 void casino::AddUsersCasinoBatch(){
     Uteis U;
     Cliente* Cl,*ClTemp;
@@ -524,13 +564,30 @@ void casino::AddUsersCasinoBatch(){
 
     for(int i = 1; i <= valor; i++){
         Cl = randomCl();
+        if (!Cl) break;
         ClTemp = getClCasino(Cl->getNumero());
 
         while(ClTemp){
             Cl = randomCl();
+            if (!Cl) break;
             ClTemp = getClCasino(Cl->getNumero());
         }
+        
+        if (!Cl) break;
         AddUserCasino(Cl);
+    }
+}
+
+void casino::AddUsersMaquinaBatch(){
+    Uteis U;
+    Cliente* Cl,*ClTemp;
+
+    int valor = U.valorRand(1,ClNoCasino->size());
+    
+    for(int i = 1; i <= valor; i++){
+        Cl = randomClCasino();
+        if (!Cl) break;
+        AssociarUsersMaquina(Cl);
     }
 }
 

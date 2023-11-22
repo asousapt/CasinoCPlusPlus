@@ -32,3 +32,19 @@ void slots::incrementarTemp(){
     this->adicionarTemp(Valor);
 }
 
+Cliente* slots::pesquisaCl(int numero){
+    if (C->getNumero() == numero){
+        return C;
+    }else{
+        return nullptr;
+    }
+}
+
+int slots::contagemCl(){
+    if (C){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+

@@ -34,3 +34,16 @@ void roleta::incrementarTemp(){
     this->adicionarTemp(Valor);
 }
 
+Cliente* roleta::pesquisaCl(int numero){
+    for (auto it = Jogadores->begin(); it != Jogadores->end(); ++it){
+        if ((*it)->getNumero() == numero){
+            return (*it);
+        }
+    }
+    return nullptr;
+}
+
+int roleta::contagemCl(){
+    return Jogadores->size();
+}
+

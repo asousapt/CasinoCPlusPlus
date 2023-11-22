@@ -19,6 +19,8 @@ public:
     int getNVezesGanhou();
     int getNJogadas();
     int getNumero();
+    void incrJogadas();
+    void incrVezesGanhas();
 };
 
 #endif // CLIENTE_H
