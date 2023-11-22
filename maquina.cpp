@@ -84,6 +84,7 @@ bool maquina::avaria(){
 
     int valor = U.valorRand(0,100);
     if (valor <= percentAvaria){
+        nAvarias = nAvarias + 1;
         return true;
     }else{
         return false;
@@ -118,7 +119,7 @@ void maquina::AvisarPercentGanhar(){
     }
 }
 
-void maquina::addCl(){
+void maquina::addCl(Cliente *utl){
 
 }
 

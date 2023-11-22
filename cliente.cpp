@@ -28,3 +28,7 @@ int Cliente::getNJogadas(){
     return nJogadas;
 }
 
+int Cliente::getNumero(){
+    return numero;
+}
+

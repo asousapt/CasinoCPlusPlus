@@ -17,11 +17,13 @@
 casino::casino(string _nome){
     nome = _nome;
     ListaCl = new list<Cliente*>;
+    ClNoCasino = new list<Cliente*>;
     ListaMq = new list<maquina*>;
 }
 
 casino::~casino(){
     delete ListaCl;
+    delete ClNoCasino;
     delete ListaMq;
 }
 
@@ -149,6 +151,12 @@ bool casino::Load(const string &ficheiro){
     return true;
 }
 
+// Entrada de um Cliente no Casino
+bool casino::AddUserCasino(Cliente *ut){
+    ClNoCasino->push_back(ut);
+    return true;
+}
+
 // Adicionar Clientes à lista de clientes
 bool casino::Add(Cliente *ut){
     ListaCl->push_back(ut);
@@ -170,7 +178,7 @@ void casino::Listar(ostream &f){
     }
 }
 
-// Desligar uma dada máquina, dado o seu ID
+// Desligar uma dada máquina a partir do seu ID
 void casino::Desligar(int id_maq){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina *mQ = *it;
@@ -180,7 +188,7 @@ void casino::Desligar(int id_maq){
     }
 }
 
-// Saber o estado de uma dada Máquina, dado o seu ID
+// Saber o estado de uma dada Máquina a partir do seu ID
 estado casino::Get_Estado(int id_maq){
     estado e;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
@@ -214,7 +222,7 @@ list<maquina *>* casino::Listar_Tipo(string Tipo, ostream &f){
     return listaR;
 }
 
-// Quais as Maquinas que mais avariam, deve devolver uma lista (ordenada) da que mais avaria para a mais fiável
+// Devolver uma lista (ordenada) das maquinas que mais avariáram para a mais fiável
 list<string>* casino::Ranking_Dos_Fracos(){
     list<string>* listaR;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
@@ -238,7 +246,7 @@ list<string>* casino::Ranking_Dos_Fracos(){
     return listaR;
 }
 
-// Quais máquinas mais usadas (que mais trabalham), deve devolver uma lista (ordenada)
+// Devolver uma lista (ordenada) das máquinas mais usadas para as menos usadas
 list<maquina *>* casino::Ranking_Das_Mais_Trabalhadores(){
     list<maquina *>* listaR = ListaMq;
     for (auto it = listaR->begin(); it != listaR->end(); ++it){
@@ -254,7 +262,7 @@ list<maquina *>* casino::Ranking_Das_Mais_Trabalhadores(){
     return listaR;
 }
 
-// Quais os jogadores que mais TEMPO passaram no casino a jogar, deve devolver uma lista (ordenada)
+// Devolver uma lista (ordenada) com os jogadores que passaram mais tempo no casino a jogar
 list<Cliente *>* casino::Jogadores_Mais_Frequentes(){
     list<Cliente *>* listaR = ListaCl;
     for (auto it = listaR->begin(); it != listaR->end(); ++it){
@@ -271,7 +279,7 @@ list<Cliente *>* casino::Jogadores_Mais_Frequentes(){
     return listaR;
 }
 
-// Quais os jogadores que mais PRÉMIOS ganharam no casino, deve devolver uma lista (ordenada)
+// Devolver uma lista (ordenada) dos jogadores que ganharam mais
 list<Cliente *>* casino::Jogadores_Mais_Ganhos(){
     list<Cliente *>* listaR = ListaCl;
     for (auto it = listaR->begin(); it != listaR->end(); ++it){
@@ -288,14 +296,12 @@ list<Cliente *>* casino::Jogadores_Mais_Ganhos(){
     return listaR;
 }
 
-// Enviar um relatório em XML, do estado do Casino; O relatório deverá ter a informação do estado atual de cada máquina nesse dia
+// Enviar um relatório em XML, do estado do Casino; Exporta a informação do estado atual de cada máquina nesse dia
 void casino::Relatorio(string fich_xml){
 
 }
 
-// Quando uma máquina tem um prémio, devem ser aumentada a probabilidade de ganho das outras máquinas
-// que estão em redor dela, à distância máxima de R. O método deve devolver (por parâmetro) a lista das
-// máquinas onde foi feita a alteração da probabilidade de ganhar
+// Subir a probabilidade da ganho das maquinas vizinhas de uma determinada distancia 
 void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float distancia,list<maquina *>* &lmvizinhas){
     int y2,y1 = M_ganhou->getPosY();
     int x2,x1 = M_ganhou->getPosX();
@@ -322,7 +328,7 @@ void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float distancia,list<
     }
 }
 
-// Listar todas as máquinas onde a probabilidade de ganhar é superior a X.
+// Mostra todas as máquinas onde a probabilidade de ganhar é superior a X.
 void casino::Listar(float prob, ostream &f){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina *mQ = *it;
@@ -333,9 +339,7 @@ void casino::Listar(float prob, ostream &f){
     }
 }
 
-// O Casino tem um método Run, que coloca todo o processo em funcionamento! O Simulador deve estar
-// sempre a correr e quando se pretende introduzir alterações, deve-se carregar numa tecla ‘M’ de modo a
-// aparecer um menu (nesse instante o simulador deve estar parado, até a opção ser executada!) 
+// Função da simulação com e relogio e operações a fazer, ao clicar na tecla 'M' mostra o menu com várias operações a fazer
 void casino::Run(bool Debug){
     time_t inicio;
     time_t fim;
@@ -402,22 +406,27 @@ bool casino::VerificarHoras(time_t horas){
 
 }
 
- void casino::setComprimento(int posX) {
+//Determina o comprimento
+void casino::setComprimento(int posX) {
     this->comprimento = posX;
- }
+}
 
+//Determina a largura
 void casino::setLargura(int posY) {
      this->largura = posY;
 }
 
+// Devolve o comprimento
 int casino::getComprimento() {
     return this->comprimento;
 }
 
+// Devolve a largura
 int casino::getLargura() {
      return this->largura;
 }
 
+// Procura e devolve uma maquina numa determinada posição
 maquina* casino::getMaquinaPorPos(int X, int Y){
     maquina* MQ = nullptr;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
@@ -429,6 +438,7 @@ maquina* casino::getMaquinaPorPos(int X, int Y){
     return MQ;
 }
 
+// Verifica se utilizador ganhou
 void casino::checkGanhou(){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         if ((*it)->ganhou()){
@@ -437,6 +447,7 @@ void casino::checkGanhou(){
     }
 }
 
+// Verifica se as maquinas avariáram
 void casino::checkAvarias(){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         if ((*it)->avaria()){
@@ -448,6 +459,7 @@ void casino::checkAvarias(){
     }
 }
 
+// Verifica e aumenta a temperatura da máquina
 void casino::checkTemp(){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         (*it)->incrementarTemp();
@@ -455,9 +467,10 @@ void casino::checkTemp(){
     }
 }
 
+// Devolve uma máquina random
 maquina* casino::randomMaquina(){
     Uteis U;
-    int icr = 1,valor = U.valorRand(0,ListaMq->size());
+    int icr = 1,valor = U.valorRand(1,ListaMq->size());
 
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         if (icr == valor){
@@ -467,6 +480,7 @@ maquina* casino::randomMaquina(){
     }
 }
 
+// Associa um utilizador à máquina
 void casino::AssociarUsersMaquina(Cliente *utl){
     maquina* MQ;
     estado e;
@@ -475,7 +489,48 @@ void casino::AssociarUsersMaquina(Cliente *utl){
         MQ = randomMaquina();
         e = Get_Estado(MQ->id);
     }
-    MQ->addCl();
+    MQ->addCl(utl);
+}
+
+// Devolve um cliente random
+Cliente* casino::randomCl(){
+    Uteis U;
+    int icr = 1,valor = U.valorRand(1,ListaCl->size());
+    
+    for (auto it = ListaCl->begin(); it != ListaCl->end(); ++it){
+        if (icr == valor){
+            return (*it);
+        }
+        icr++;
+    }
+    return nullptr;
+}
+
+Cliente* casino::getClCasino(int numero){
+    for (auto it = ClNoCasino->begin(); it != ClNoCasino->end(); ++it){
+        if ((*it)->getNumero() == numero){
+            return (*it);
+        }
+    }
+    return nullptr;
+}
+
+void casino::AddUsersCasinoBatch(){
+    Uteis U;
+    Cliente* Cl,*ClTemp;
+    
+    int valor = U.valorRand(1,10);
+
+    for(int i = 1; i <= valor; i++){
+        Cl = randomCl();
+        ClTemp = getClCasino(Cl->getNumero());
+
+        while(ClTemp){
+            Cl = randomCl();
+            ClTemp = getClCasino(Cl->getNumero());
+        }
+        AddUserCasino(Cl);
+    }
 }
 
 bool casino::ExportCasino() {

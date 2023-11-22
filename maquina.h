@@ -1,6 +1,7 @@
 #ifndef MAQUINA_H
 #define MAQUINA_H
 #include <iostream>
+#include "cliente.h"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ public:
     maquina(int X, int Y, float percGanhar, float percAvaria, float tempMax, float tempAtual, float percAviso);
     ~maquina();
     virtual string getTipo();
-    virtual void addCl();
+    virtual void addCl(Cliente *utl);
     void desligarMq();
     bool compareId(int num);
     estado getEstado();

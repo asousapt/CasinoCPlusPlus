@@ -14,12 +14,14 @@ private:
     int comprimento;
     int largura;
     list<Cliente *>* ListaCl;
+    list<Cliente *>* ClNoCasino;
     list<maquina *>* ListaMq;
     bool aberto = 0;
 public:
     casino(string _nome);
     ~casino();
     bool Load(const string &ficheiro);
+    bool AddUserCasino(Cliente *ut);
     bool Add(Cliente *ut);
     bool Add(maquina *m);
     void Listar(ostream &f = std::cout);
@@ -46,6 +48,9 @@ public:
     void checkTemp();
     maquina* randomMaquina();
     void AssociarUsersMaquina(Cliente *utl);
+    Cliente* randomCl();
+    Cliente* getClCasino(int numero);
+    void AddUsersCasinoBatch();
     bool ExportCasino();
 };
 

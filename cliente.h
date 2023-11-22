@@ -18,6 +18,7 @@ public:
     void exportCl(ostream &f = std::cout);
     int getNVezesGanhou();
     int getNJogadas();
+    int getNumero();
 };
 
 #endif // CLIENTE_H
