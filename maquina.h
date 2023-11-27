@@ -39,6 +39,9 @@ public:
     bool checkTemp();
     void AvisarPercentGanhar();
     void removeCl();
+    float getPercentAvaria();
+    float getTemperaturaMax(); 
+    float getPercentagemAviso();
 };
 #endif
 

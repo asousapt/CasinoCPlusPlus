@@ -19,6 +19,8 @@ public:
     int getNVezesGanhou();
     int getNJogadas();
     int getNumero();
+    string getNome();
+    int getSaldo();
     void incrJogadas();
     void incrVezesGanhas();
 };

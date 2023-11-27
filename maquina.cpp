@@ -135,3 +135,15 @@ int maquina::contagemCl(){
     return 0;
 }
 
+float maquina::getPercentAvaria() {
+    return this->percentAvaria;
+}
+
+float maquina::getTemperaturaMax() {
+    return this->temperaturaMax;
+}
+
+float maquina::getPercentagemAviso() {
+    return this->percentagemAviso;
+}
+

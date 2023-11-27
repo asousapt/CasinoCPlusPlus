@@ -35,3 +35,22 @@ int Uteis::valorRand(int min,int max){
     return min + std::rand() % (max - min + 1);
 }
 
+ string Uteis::retornaStrHoras(int hora, int minutos) {
+    string horasTemp = "";
+    string minutosTemp = "";
+    
+    if (hora < 10) {
+        horasTemp = "0" + to_string(hora);
+    } else {
+        horasTemp = to_string(hora);
+    }
+
+    if (minutos < 10 ) {
+        minutosTemp = "0" + to_string(minutos);
+    } else {
+        minutosTemp =  to_string(minutos);
+    }
+    
+    return horasTemp + ":" + minutosTemp;
+ }
+

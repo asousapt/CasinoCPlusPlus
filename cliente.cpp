@@ -40,3 +40,10 @@ void Cliente::incrVezesGanhas(){
     nVezesGanhou = nVezesGanhou+1;
 }
 
+string Cliente::getNome() {
+    return this->nome;
+}
+
+int Cliente::getSaldo(){
+    return this->saldo;
+}

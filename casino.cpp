@@ -592,14 +592,56 @@ void casino::AddUsersMaquinaBatch(){
 }
 
 bool casino::ExportCasino() {
+    Uteis ut = Uteis();
     // cria o objecto XML
     XmlReader xmlWR =  XmlReader(this->nome, nullptr);
+    // Vai buscar a hora de abertura
     std::time_t abertura = this->hora_abertura;
     std::tm *ltm = std::localtime(&abertura);
-    string hora_abertura = "";
+    string hora_abertura = ut.retornaStrHoras(ltm->tm_hour, ltm->tm_min);
+   
+   // vai buscar a hora de fecho 
     std::time_t fecho = this->hora_fecho;
-    std::tm *ltm = std::localtime(&fecho);
+    ltm = std::localtime(&fecho);
+    string hora_fecho = ut.retornaStrHoras(ltm->tm_hour, ltm->tm_min);
     
+    xmlWR.adicionarDados("horaAbertura", hora_abertura, &xmlWR);
+    xmlWR.adicionarDados("horaFecho", hora_fecho, &xmlWR);
+    xmlWR.adicionarDados("posicaoesX", to_string(this->comprimento), &xmlWR);
+    xmlWR.adicionarDados("posicaoesX", to_string(this->largura), &xmlWR);
+    
+    //Gera o no da lista de clientes
+    XmlReader * filloClientes = new XmlReader("clienteslista", &xmlWR);
+    xmlWR.addFilho(filloClientes);
+
+    list<Cliente *> * lc = this->ListaCl;
+
+    for (auto it = lc->begin(); it != lc->end(); ++it){
+        Cliente * cl = (*it);
+        XmlReader * objCl = new XmlReader("cliente", filloClientes);
+        objCl->adicionarDados("numero", to_string(cl->getNumero()), objCl);
+        objCl->adicionarDados("nome", cl->getNome(), objCl);
+        objCl->adicionarDados("saldo", to_string(cl->getSaldo()), objCl);
+        filloClientes->addFilho(objCl);
+    }
+
+    XmlReader * filloMaquinas = new XmlReader("clienteslista", &xmlWR);
+    xmlWR.addFilho(filloMaquinas);
+    
+    list<maquina *> * lm = this->ListaMq;
+    for (auto it = lm->begin(); it != lm->end(); ++it){
+        maquina * mq = (*it);
+        XmlReader * objmq = new XmlReader("maquina", filloMaquinas);
+        objmq->adicionarDados("tipo", mq->getTipo(), objmq);
+        objmq->adicionarDados("posX", to_string(mq->getPosX()), objmq);
+        objmq->adicionarDados("posY", to_string(mq->getPosY()), objmq);
+        objmq->adicionarDados("percentAvaria", to_string(mq->getPercentAvaria()), objmq);
+        objmq->adicionarDados("percentGanhar", to_string(mq->getPercentGanhar()), objmq);
+        objmq->adicionarDados("temperaturaMax", to_string(mq->getTemperaturaMax()), objmq);
+        objmq->adicionarDados("percentagemAviso", to_string(mq->getPercentagemAviso()), objmq);
+        filloMaquinas->addFilho(objmq);
+    }
+
     return true;
 
 }
