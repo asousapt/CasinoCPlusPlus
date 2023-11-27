@@ -6,6 +6,7 @@
 #include <list>
 
 using namespace std;
+class casino;
 
 class XmlReader {
     private: 
@@ -34,7 +35,7 @@ class XmlReader {
         void mostraDados();
         XmlReader* getNodeBlockByTagName(string tagName); 
         string extractDataFromMap(string key);
-
+      
 
 };
 

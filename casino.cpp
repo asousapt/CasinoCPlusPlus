@@ -46,7 +46,7 @@ bool casino::Load(const string &ficheiro){
     int posX = stoi(xmlObj.extractDataFromMap("posicaoesX"));
     int posY = stoi(xmlObj.extractDataFromMap("posicaoesY"));
 
-    struct tm ts;
+    std::tm ts = {};
 
     //Parse string para time_t da hora de abertura
     istringstream ha(horaAbertura);
@@ -56,7 +56,7 @@ bool casino::Load(const string &ficheiro){
         return 1; 
     }
     time_t abertura = std::mktime(&ts);
-
+    
     //Parse string para time_t da hora de fecho
     istringstream hf(horafecho);
     hf >> get_time(&ts, "%H:%M");
@@ -594,12 +594,12 @@ void casino::AddUsersMaquinaBatch(){
 bool casino::ExportCasino() {
     // cria o objecto XML
     XmlReader xmlWR =  XmlReader(this->nome, nullptr);
-     std::time_t abertura = this->hora_abertura;
-    std::tm * ptm = std::localtime(&abertura);
-    char buffer[32];
-    // Format: Mo, 15.06.2009 20:20:00
-    std::strftime(buffer, 32, "%a, %d.%m.%Y %H:%M:%S", ptm); 
-    cout << buffer << endl;
+    std::time_t abertura = this->hora_abertura;
+    std::tm *ltm = std::localtime(&abertura);
+    string hora_abertura = "";
+    std::time_t fecho = this->hora_fecho;
+    std::tm *ltm = std::localtime(&fecho);
+    
     return true;
 
 }
