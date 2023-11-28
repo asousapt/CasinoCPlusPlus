@@ -56,5 +56,9 @@ public:
     void AddUsersMaquinaBatch();
     void ApostasUsers();
     bool ExportCasino();
+    void VerificaUsersTemSaldo();
+    void saidaUsersMaquinas();
+    int contagemUsersMaquinas();
+    Cliente* randomClMaquina();
 };
 

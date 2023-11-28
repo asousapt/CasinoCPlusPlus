@@ -9,11 +9,12 @@ public:
     ~slots();
     string getTipo();
     void setCl(Cliente *utl);
-    void removeCl();
+    void removeTodosCl();
     void incrementarTemp();
     Cliente* pesquisaCl(int numero);
     int contagemCl();
     list<Cliente *>* getCl();
+    void removeCl(Cliente *Cl);
 };
 
 

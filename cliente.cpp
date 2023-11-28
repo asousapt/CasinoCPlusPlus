@@ -60,3 +60,12 @@ void Cliente::incrSaldo(float incr){
 float Cliente::percentSaldo(){
     return saldo * (percentAposta/100);
 }
+
+void Cliente::setApostaPendente(float aposta){
+    apostaPendente = aposta;
+}
+    
+float Cliente::getApostaPendente(){
+    return apostaPendente;
+}
+

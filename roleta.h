@@ -10,9 +10,10 @@ public:
     ~roleta();
     string getTipo();
     void addCl(Cliente *utl);
-    void removeCl();
+    void removeTodosCl();
     void incrementarTemp();
     Cliente* pesquisaCl(int numero);
     int contagemCl();
     list<Cliente *>* getCl();
+    void removeCl(Cliente *Cl);
 };
