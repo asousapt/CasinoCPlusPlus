@@ -14,4 +14,5 @@ public:
     void incrementarTemp();
     Cliente* pesquisaCl(int numero);
     int contagemCl();
+    list<Cliente *>* getCl();
 };

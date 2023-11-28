@@ -1,6 +1,7 @@
 #ifndef MAQUINA_H
 #define MAQUINA_H
 #include <iostream>
+#include <list>
 #include "cliente.h"
 
 using namespace std;
@@ -21,6 +22,7 @@ public:
     virtual void addCl(Cliente *utl);
     virtual Cliente* pesquisaCl(int numero);
     virtual int contagemCl();
+    virtual list<Cliente *>* getCl();
     void desligarMq();
     bool compareId(int num);
     estado getEstado();

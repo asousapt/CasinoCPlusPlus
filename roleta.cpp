@@ -47,3 +47,7 @@ int roleta::contagemCl(){
     return Jogadores->size();
 }
 
+list<Cliente *>* roleta::getCl(){
+    return Jogadores;
+}
+

@@ -54,6 +54,7 @@ public:
     Cliente* getClCasino(int numero);
     void AddUsersCasinoBatch();
     void AddUsersMaquinaBatch();
+    void ApostasUsers();
     bool ExportCasino();
 };
 

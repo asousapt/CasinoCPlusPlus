@@ -46,3 +46,8 @@ Cliente* blackJack::pesquisaCl(int numero){
 int blackJack::contagemCl(){
     return Jogadores->size();
 }
+
+list<Cliente *>* blackJack::getCl(){
+    return Jogadores;
+}
+

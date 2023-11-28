@@ -46,3 +46,8 @@ Cliente* craps::pesquisaCl(int numero){
 int craps::contagemCl(){
     return Jogadores->size();
 }
+
+list<Cliente *>* craps::getCl(){
+    return Jogadores;
+}
+

@@ -135,6 +135,11 @@ int maquina::contagemCl(){
     return 0;
 }
 
+list<Cliente *>* maquina::getCl(){
+    list<Cliente *>* ListaRtn = new list<Cliente*>;
+    return ListaRtn;
+}
+
 float maquina::getPercentAvaria() {
     return this->percentAvaria;
 }

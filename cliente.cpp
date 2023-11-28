@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "cliente.h"
+#include "uteis.h"
 
 Cliente::Cliente(){
 
@@ -11,9 +12,13 @@ Cliente::~Cliente(){
 }
 
 Cliente::Cliente(int numeroCl, string nomeCl, int saldoCl) {
-    this->numero = numeroCl;
-    this->nome = nomeCl;
-    this->saldo = saldoCl;
+    numero = numeroCl;
+    nome = nomeCl;
+    saldo = saldoCl;
+
+    Uteis U;
+    int valor = U.valorRand(25,100);
+    percentAposta = valor;
 }
 
 void Cliente::exportCl(ostream &f){
@@ -44,6 +49,14 @@ string Cliente::getNome() {
     return this->nome;
 }
 
-int Cliente::getSaldo(){
+float Cliente::getSaldo(){
     return this->saldo;
+}
+
+void Cliente::incrSaldo(float incr){
+    saldo = saldo + incr;
+}
+
+float Cliente::percentSaldo(){
+    return saldo * (percentAposta/100);
 }

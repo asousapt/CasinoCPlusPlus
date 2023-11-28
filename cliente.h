@@ -8,9 +8,10 @@ class Cliente{
 private:
     int numero; 
     string nome; 
-    int saldo;
+    float saldo;
     int nVezesGanhou;
     int nJogadas;
+    float percentAposta;
 public:
     Cliente();
     ~Cliente();
@@ -20,9 +21,11 @@ public:
     int getNJogadas();
     int getNumero();
     string getNome();
-    int getSaldo();
+    float getSaldo();
     void incrJogadas();
     void incrVezesGanhas();
+    void incrSaldo(float incr);
+    float percentSaldo();
 };
 
 #endif // CLIENTE_H

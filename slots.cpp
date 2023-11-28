@@ -48,3 +48,9 @@ int slots::contagemCl(){
     }
 }
 
+list<Cliente *>* slots::getCl(){
+    list<Cliente *>* ListaRtn = new list<Cliente*>;
+    ListaRtn->push_back(C);
+    return ListaRtn;
+}
+

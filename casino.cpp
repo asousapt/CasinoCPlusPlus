@@ -578,6 +578,7 @@ void casino::AddUsersCasinoBatch(){
     }
 }
 
+// Adiciona vários clientes às maquinas
 void casino::AddUsersMaquinaBatch(){
     Uteis U;
     Cliente* Cl,*ClTemp;
@@ -588,6 +589,22 @@ void casino::AddUsersMaquinaBatch(){
         Cl = randomClCasino();
         if (!Cl) break;
         AssociarUsersMaquina(Cl);
+    }
+}
+
+// Faz as apostas dos Clientes nas maquinas
+void casino::ApostasUsers(){
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        if ((*it)->getEstado() == ON){
+            list<Cliente *>* Lista = (*it)->getCl();
+            
+            for (auto it2 = Lista->begin(); it2 != Lista->end(); ++it2){
+                float aposta = (*it2)->percentSaldo();
+                aposta = aposta * (-1);
+                (*it2)->incrSaldo(aposta);
+                (*it2)->incrJogadas();
+            }
+        }
     }
 }
 
