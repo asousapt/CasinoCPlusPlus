@@ -17,7 +17,7 @@ void slots::setCl(Cliente *utl){
     C = utl;
 }
 
-void slots::removeCl(){
+void slots::removeTodosCl(){
     C = nullptr;
 }
 
@@ -52,5 +52,11 @@ list<Cliente *>* slots::getCl(){
     list<Cliente *>* ListaRtn = new list<Cliente*>;
     ListaRtn->push_back(C);
     return ListaRtn;
+}
+
+void slots::removeCl(Cliente *Cl){
+    if (C->getNumero() == Cl->getNumero()){
+        C = nullptr;
+    }
 }
 

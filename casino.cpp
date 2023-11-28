@@ -283,11 +283,11 @@ list<Cliente *>* casino::Jogadores_Mais_Frequentes(){
 list<Cliente *>* casino::Jogadores_Mais_Ganhos(){
     list<Cliente *>* listaR = ListaCl;
     for (auto it = listaR->begin(); it != listaR->end(); ++it){
-        int nVezes1 = (*it)->getNVezesGanhou();
+        float saldo1 = (*it)->getSaldo();
         for (auto it2 = it; it2 != listaR->end(); ++it2){
-            int nVezes2 = (*it2)->getNVezesGanhou();
+            float saldo2 = (*it2)->getSaldo();
 
-            if (nVezes1 > nVezes2){
+            if (saldo1 > saldo2){
                 swap(*it2,*it);
             }
         }
@@ -441,8 +441,21 @@ maquina* casino::getMaquinaPorPos(int X, int Y){
 // Verifica se utilizador ganhou
 void casino::checkGanhou(){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
-        if ((*it)->ganhou()){
-            SubirProbabilidadeVizinhas((*it),1,ListaMq);
+        if ((*it)->getEstado() == ON){
+            list<Cliente *>* Lista = (*it)->getCl();
+            
+            for (auto it2 = Lista->begin(); it2 != Lista->end(); ++it2){
+                if ((*it)->ganhou()){
+                    float aposta = (*it2)->getApostaPendente();
+                    aposta = aposta *2;
+                    (*it2)->incrSaldo(aposta);
+                    (*it2)->setApostaPendente(0);
+
+                    SubirProbabilidadeVizinhas((*it),1,ListaMq);
+                }else{
+                    (*it2)->setApostaPendente(0);
+                }
+            }
         }
     }
 }
@@ -451,7 +464,7 @@ void casino::checkGanhou(){
 void casino::checkAvarias(){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         if ((*it)->avaria()){
-            (*it)->removeCl();
+            (*it)->removeTodosCl();
 
             estado e = AVARIADA;
             (*it)->setEstado(e);
@@ -599,7 +612,10 @@ void casino::ApostasUsers(){
             list<Cliente *>* Lista = (*it)->getCl();
             
             for (auto it2 = Lista->begin(); it2 != Lista->end(); ++it2){
+                (*it)->incrVezesJogadas();
+                
                 float aposta = (*it2)->percentSaldo();
+                (*it2)->setApostaPendente(aposta);
                 aposta = aposta * (-1);
                 (*it2)->incrSaldo(aposta);
                 (*it2)->incrJogadas();
@@ -663,3 +679,75 @@ bool casino::ExportCasino() {
     return true;
 
 }
+
+// Verifica se os clientes tem saldo para continuar a jogar
+void casino::VerificaUsersTemSaldo(){
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        if ((*it)->getEstado() == ON){
+            list<Cliente *>* Lista = (*it)->getCl();
+            
+            for (auto it2 = Lista->begin(); it2 != Lista->end(); ++it2){
+                if((*it2)->getApostaPendente() == 0 && (*it2)->getSaldo() == 0){
+                    (*it)->removeCl((*it2));
+                }
+
+                for (auto it3 = ClNoCasino->begin(); it3 != ClNoCasino->end(); ++it3){
+                    if ((*it3)->getNumero() == (*it2)->getNumero()){
+                        ClNoCasino->erase(it3);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Faz a saida de clientes das maquinas random
+void casino::saidaUsersMaquinas(){
+    Uteis U;
+    int valor = U.valorRand(1,contagemUsersMaquinas());
+
+    Cliente *Cl;
+    maquina *Mq;
+
+    for(int i = 1; i <= valor; i++){
+        Cl = randomClMaquina();
+        if (!Cl) break;
+        Mq = getMaquinaPorCliente(Cl);
+        Mq->removeCl(Cl);
+    }
+}
+
+// Devolve uma Contagem de Clientes nas Máquinas
+int casino::contagemUsersMaquinas(){
+    int icr;
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        if ((*it)->getEstado() == ON){
+            list<Cliente *>* Lista = (*it)->getCl();
+            icr = icr + Lista->size();
+        }
+    }
+
+    return icr;
+}
+
+// Devolve cliente na máquina random
+Cliente* casino::randomClMaquina(){
+    Uteis U;
+    int icr = 1,valor = U.valorRand(1,contagemUsersMaquinas());
+
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        if ((*it)->getEstado() == ON){
+            list<Cliente *>* Lista = (*it)->getCl();
+            
+            for (auto it2 = Lista->begin(); it2 != Lista->end(); ++it2){
+                if (icr == valor){
+                    return (*it2);
+                }
+                icr++;
+            }
+        }
+    }
+
+    return nullptr;
+}
+

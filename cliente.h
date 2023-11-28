@@ -9,6 +9,7 @@ private:
     int numero; 
     string nome; 
     float saldo;
+    float apostaPendente;
     int nVezesGanhou;
     int nJogadas;
     float percentAposta;
@@ -26,6 +27,8 @@ public:
     void incrVezesGanhas();
     void incrSaldo(float incr);
     float percentSaldo();
+    void setApostaPendente(float aposta);
+    float getApostaPendente();
 };
 
 #endif // CLIENTE_H

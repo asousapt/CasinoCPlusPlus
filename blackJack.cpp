@@ -6,7 +6,7 @@ blackJack::blackJack(int X, int Y) : maquina(X, Y, (float)1, (float)10, (float)3
 }
 
 blackJack::~blackJack(){
-
+    delete Jogadores;
 }
 
 string blackJack::getTipo(){
@@ -17,7 +17,7 @@ void blackJack::addCl(Cliente *utl){
     Jogadores->push_back(utl);
 }
 
-void blackJack::removeCl(){
+void blackJack::removeTodosCl(){
     for (auto it = Jogadores->end(); it != Jogadores->end(); --it){
         Jogadores->erase(it);
     }
@@ -51,3 +51,11 @@ list<Cliente *>* blackJack::getCl(){
     return Jogadores;
 }
 
+void blackJack::removeCl(Cliente *Cl){
+    for (auto it = Jogadores->begin(); it != Jogadores->end(); ++it){
+        if ((*it)->getNumero() == Cl->getNumero()){
+            Jogadores->erase(it);
+            break;
+        }
+    }
+}

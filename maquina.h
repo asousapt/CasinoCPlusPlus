@@ -40,10 +40,12 @@ public:
     void adicionarTemp(int icr);
     bool checkTemp();
     void AvisarPercentGanhar();
-    void removeCl();
+    virtual void removeTodosCl();
     float getPercentAvaria();
     float getTemperaturaMax(); 
     float getPercentagemAviso();
+    void incrVezesJogadas();
+    virtual void removeCl(Cliente *Cl);
 };
 #endif
 

@@ -6,7 +6,7 @@ craps::craps(int X, int Y) : maquina(X, Y, (float)10, (float)10, (float)30, (flo
 }
 
 craps::~craps(){
-
+    delete Jogadores;
 }
 
 string craps::getTipo(){
@@ -17,7 +17,7 @@ void craps::addCl(Cliente *utl){
     Jogadores->push_back(utl);
 }
 
-void craps::removeCl(){
+void craps::removeTodosCl(){
     for (auto it = Jogadores->end(); it != Jogadores->end(); --it){
         Jogadores->erase(it);
     }
@@ -51,3 +51,11 @@ list<Cliente *>* craps::getCl(){
     return Jogadores;
 }
 
+void craps::removeCl(Cliente *Cl){
+    for (auto it = Jogadores->begin(); it != Jogadores->end(); ++it){
+        if ((*it)->getNumero() == Cl->getNumero()){
+            Jogadores->erase(it);
+            break;
+        }
+    }
+}

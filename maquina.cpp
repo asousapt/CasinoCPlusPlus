@@ -123,7 +123,7 @@ void maquina::addCl(Cliente *utl){
 
 }
 
-void maquina::removeCl(){
+void maquina::removeTodosCl(){
     
 }
 
@@ -150,5 +150,13 @@ float maquina::getTemperaturaMax() {
 
 float maquina::getPercentagemAviso() {
     return this->percentagemAviso;
+}
+
+void maquina::incrVezesJogadas() {
+    nUsos = nUsos+1;
+}
+
+void maquina::removeCl(Cliente *Cl){
+    
 }
 

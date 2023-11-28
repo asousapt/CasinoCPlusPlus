@@ -6,7 +6,7 @@ roleta::roleta(int X, int Y) : maquina(X, Y, 47.7, (float)20, (float)100, (float
 }
 
 roleta::~roleta(){
-
+    delete Jogadores;
 }
 
 string roleta::getTipo(){
@@ -17,7 +17,7 @@ void roleta::addCl(Cliente *utl){
     Jogadores->push_back(utl);
 }
 
-void roleta::removeCl(){
+void roleta::removeTodosCl(){
     for (auto it = Jogadores->end(); it != Jogadores->end(); --it){
         Jogadores->erase(it);
     }
@@ -49,5 +49,14 @@ int roleta::contagemCl(){
 
 list<Cliente *>* roleta::getCl(){
     return Jogadores;
+}
+
+void roleta::removeCl(Cliente *Cl){
+    for (auto it = Jogadores->begin(); it != Jogadores->end(); ++it){
+        if ((*it)->getNumero() == Cl->getNumero()){
+            Jogadores->erase(it);
+            break;
+        }
+    }
 }
 
