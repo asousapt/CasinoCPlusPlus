@@ -611,7 +611,7 @@ void casino::ApostasUsers(){
 bool casino::ExportCasino() {
     Uteis ut = Uteis();
     // cria o objecto XML
-    XmlReader xmlWR =  XmlReader(this->nome, nullptr);
+    XmlReader xmlWR =  XmlReader("casino", nullptr);
     // Vai buscar a hora de abertura
     std::time_t abertura = this->hora_abertura;
     std::tm *ltm = std::localtime(&abertura);
@@ -621,11 +621,12 @@ bool casino::ExportCasino() {
     std::time_t fecho = this->hora_fecho;
     ltm = std::localtime(&fecho);
     string hora_fecho = ut.retornaStrHoras(ltm->tm_hour, ltm->tm_min);
-    
+
+    xmlWR.adicionarDados("nome", this->nome, &xmlWR);
     xmlWR.adicionarDados("horaAbertura", hora_abertura, &xmlWR);
     xmlWR.adicionarDados("horaFecho", hora_fecho, &xmlWR);
     xmlWR.adicionarDados("posicaoesX", to_string(this->comprimento), &xmlWR);
-    xmlWR.adicionarDados("posicaoesX", to_string(this->largura), &xmlWR);
+    xmlWR.adicionarDados("posicaoesY", to_string(this->largura), &xmlWR);
     
     //Gera o no da lista de clientes
     XmlReader * filloClientes = new XmlReader("clienteslista", &xmlWR);
@@ -658,7 +659,7 @@ bool casino::ExportCasino() {
         objmq->adicionarDados("percentagemAviso", to_string(mq->getPercentagemAviso()), objmq);
         filloMaquinas->addFilho(objmq);
     }
-
+    xmlWR.saveAsXML("casino2.xml");
     return true;
 
 }

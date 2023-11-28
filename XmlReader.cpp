@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <stack>
 #include "XmlReader.h"
 
 XmlReader::XmlReader(){};
@@ -192,3 +193,56 @@ string XmlReader::extractDataFromMap(string key) {
 list<XmlReader*> XmlReader::getFilhos() {
     return this->filhos;
 }
+
+ bool XmlReader::saveAsXML(string nomeFicheiro) {
+    std::stack<string> tags;
+    //abre o ficheiro 
+    std::ofstream outputFile(nomeFicheiro);
+
+    // Garante que o ficheiro está aberto
+    if (outputFile.is_open()) {         
+        writeXMLRecursive(outputFile, this, 0);
+        outputFile.close();
+    }
+    return true;
+ }
+
+// funcao recursiva que trata de escrever o no filho
+
+void XmlReader::writeXMLRecursive(std::ofstream& outputFile, XmlReader* no, int profundidade) {
+        // Add indentation based on the depth of the node
+        for (int i = 0; i < profundidade; ++i) {
+            outputFile << "  ";
+        }
+
+        // Write opening tag
+        outputFile << "<" << no->getNome() << ">" << endl;
+
+        // Write attributes if any
+
+        map<string,string>  *dados = no->getDados();
+        for (const auto& dado : *dados) {
+            outputFile << "<" << dado.first << ">" << dado.second << "<" << dado.first << "/>" << endl;
+        }
+
+        if (no->getFilhos().empty()) {
+            // Node has no children, write as self-closing tag
+            outputFile << "/>" << std::endl;
+        } else {
+            // Node has children, write closing bracket for opening tag
+            outputFile << ">" << std::endl;
+
+            // Recursively write children
+            for (auto child : no->getFilhos()) {
+                writeXMLRecursive(outputFile, child, profundidade + 1);
+            }
+
+            // Add indentation for closing tag
+            for (int i = 0; i < profundidade; ++i) {
+                outputFile << "  ";
+            }
+
+            // Write closing tag
+            outputFile << "</" << no->getNome() << ">" << std::endl;
+        }
+    }

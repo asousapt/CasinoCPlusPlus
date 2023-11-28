@@ -35,7 +35,12 @@ class XmlReader {
         void mostraDados();
         XmlReader* getNodeBlockByTagName(string tagName); 
         string extractDataFromMap(string key);
-      
+        bool saveAsXML(string nomeFicheiro);
+        string writeOpening(string tag, int tabs);
+        string writeClosing(string tag, int tabs);
+        string writeData(string tag, string valor, int tabs);
+        string Tabulacoes(int N);
+        void writeXMLRecursive(std::ofstream& outputFile, XmlReader* no, int profundidade);
 
 };
 
