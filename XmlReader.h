@@ -40,7 +40,7 @@ class XmlReader {
         string writeClosing(string tag, int tabs);
         string writeData(string tag, string valor, int tabs);
         string Tabulacoes(int N);
-        void writeXMLRecursive(std::ofstream& outputFile, XmlReader* no, int profundidade);
+        void writeXMLRecursive(std::ofstream& outputFile, XmlReader* no);
 
 };
 

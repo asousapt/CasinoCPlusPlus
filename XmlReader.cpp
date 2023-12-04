@@ -201,7 +201,7 @@ list<XmlReader*> XmlReader::getFilhos() {
 
     // Garante que o ficheiro está aberto
     if (outputFile.is_open()) {         
-        writeXMLRecursive(outputFile, this, 0);
+        writeXMLRecursive(outputFile, this);
         outputFile.close();
     }
     return true;
@@ -209,11 +209,8 @@ list<XmlReader*> XmlReader::getFilhos() {
 
 // funcao recursiva que trata de escrever o no filho
 
-void XmlReader::writeXMLRecursive(std::ofstream& outputFile, XmlReader* no, int profundidade) {
-        // Add indentation based on the depth of the node
-        for (int i = 0; i < profundidade; ++i) {
-            outputFile << "  ";
-        }
+void XmlReader::writeXMLRecursive(std::ofstream& outputFile, XmlReader* no) {
+        
 
         // Write opening tag
         outputFile << "<" << no->getNome() << ">" << endl;
@@ -222,27 +219,15 @@ void XmlReader::writeXMLRecursive(std::ofstream& outputFile, XmlReader* no, int 
 
         map<string,string>  *dados = no->getDados();
         for (const auto& dado : *dados) {
-            outputFile << "<" << dado.first << ">" << dado.second << "<" << dado.first << "/>" << endl;
+            outputFile << "<" << dado.first << ">" << dado.second << "</" << dado.first << ">" << endl;
         }
-
-        if (no->getFilhos().empty()) {
-            // Node has no children, write as self-closing tag
-            outputFile << "/>" << std::endl;
-        } else {
-            // Node has children, write closing bracket for opening tag
-            outputFile << ">" << std::endl;
 
             // Recursively write children
             for (auto child : no->getFilhos()) {
-                writeXMLRecursive(outputFile, child, profundidade + 1);
-            }
-
-            // Add indentation for closing tag
-            for (int i = 0; i < profundidade; ++i) {
-                outputFile << "  ";
+                writeXMLRecursive(outputFile, child);
             }
 
             // Write closing tag
             outputFile << "</" << no->getNome() << ">" << std::endl;
-        }
+        // }
     }

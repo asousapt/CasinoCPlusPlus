@@ -659,7 +659,7 @@ bool casino::ExportCasino() {
         filloClientes->addFilho(objCl);
     }
 
-    XmlReader * filloMaquinas = new XmlReader("clienteslista", &xmlWR);
+    XmlReader * filloMaquinas = new XmlReader("maquinasLista", &xmlWR);
     xmlWR.addFilho(filloMaquinas);
     
     list<maquina *> * lm = this->ListaMq;
