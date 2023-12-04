@@ -1,0 +1,691 @@
+<casino>
+<horaAbertura>19:00</horaAbertura>
+<horaFecho>04:00</horaFecho>
+<nome>hhh</nome>
+<posicaoesX>40</posicaoesX>
+<posicaoesY>40</posicaoesY>
+<clienteslista>
+<cliente>
+<nome>Luís Almeida</nome>
+<numero>1</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Carla Oliveira</nome>
+<numero>2</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Rodrigo Dias</nome>
+<numero>3</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Marta Gomes</nome>
+<numero>4</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Gabriel Martins</nome>
+<numero>5</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Lara Rodrigues</nome>
+<numero>6</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Miguel Correia</nome>
+<numero>7</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Sofia Cardoso</nome>
+<numero>8</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Rafael Nunes</nome>
+<numero>9</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Bruna Marques</nome>
+<numero>10</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Gustavo Rocha</nome>
+<numero>11</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Leticia Lima</nome>
+<numero>12</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Vinicius Costa</nome>
+<numero>13</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Alice Monteiro</nome>
+<numero>14</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Beatriz Ribeiro</nome>
+<numero>15</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Lucas Carvalho</nome>
+<numero>16</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Isabela Moreira</nome>
+<numero>17</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Arthur Teixeira</nome>
+<numero>18</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Laura Pereira</nome>
+<numero>19</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Matheus Oliveira</nome>
+<numero>20</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Júlia Mendes</nome>
+<numero>21</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Davi Santos</nome>
+<numero>22</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Lara Fernandes</nome>
+<numero>23</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Gabriel Silva</nome>
+<numero>24</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>João Ferreira</nome>
+<numero>25</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Clara Sousa</nome>
+<numero>26</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Leonardo Silva</nome>
+<numero>27</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Bianca Santos</nome>
+<numero>28</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Felipe Costa</nome>
+<numero>29</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Maria Silva</nome>
+<numero>30</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>João Santos</nome>
+<numero>31</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Ana Ferreira</nome>
+<numero>32</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Carlos Dias</nome>
+<numero>33</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Rita Sousa</nome>
+<numero>34</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Pedro Martins</nome>
+<numero>35</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Paulo Ribeiro</nome>
+<numero>36</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Beatriz Lima</nome>
+<numero>37</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Leonardo Nunes</nome>
+<numero>38</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Isabel Cardoso</nome>
+<numero>39</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Fernando Mendes</nome>
+<numero>40</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Juliana Moreira</nome>
+<numero>41</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Rafael Correia</nome>
+<numero>42</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Lara Monteiro</nome>
+<numero>43</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Gabriel Fonseca</nome>
+<numero>44</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Alice Vieira</nome>
+<numero>45</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Vinicius Barros</nome>
+<numero>46</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Mariana Costa</nome>
+<numero>47</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Guilherme Oliveira</nome>
+<numero>48</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Bianca Castro</nome>
+<numero>49</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Mateus Sousa</nome>
+<numero>50</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Leticia Carvalho</nome>
+<numero>51</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Gustavo Silva</nome>
+<numero>52</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Camila Santos</nome>
+<numero>53</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Lucas Pinto</nome>
+<numero>54</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Julia Ferreira</nome>
+<numero>55</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Miguel Rodrigues</nome>
+<numero>56</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Laura Lima</nome>
+<numero>57</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Daniel Alves</nome>
+<numero>58</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Amanda Souza</nome>
+<numero>59</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Arthur Costa</nome>
+<numero>60</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Bruna Oliveira</nome>
+<numero>61</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Felipe Dias</nome>
+<numero>62</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Larissa Martins</nome>
+<numero>63</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Rodrigo Silva</nome>
+<numero>64</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Nicole Castro</nome>
+<numero>65</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Eduardo Nunes</nome>
+<numero>66</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Melissa Carvalho</nome>
+<numero>67</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Thiago Araújo</nome>
+<numero>68</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Renata Lopes</nome>
+<numero>69</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Diego Santos</nome>
+<numero>70</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Isadora Reis</nome>
+<numero>71</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Fábio Gomes</nome>
+<numero>72</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Tatiana Ribeiro</nome>
+<numero>73</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Ricardo Almeida</nome>
+<numero>74</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Júlia Marques</nome>
+<numero>75</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Bruno Fernandes</nome>
+<numero>76</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Aline Freitas</nome>
+<numero>77</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Rafaela Silva</nome>
+<numero>78</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Marcos Oliveira</nome>
+<numero>79</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Fernanda Souza</nome>
+<numero>80</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Gabriela Costa</nome>
+<numero>81</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Vitor Dias</nome>
+<numero>82</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Carolina Rocha</nome>
+<numero>83</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Leonardo Silva</nome>
+<numero>84</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Isabela Santos</nome>
+<numero>85</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Matheus Costa</nome>
+<numero>86</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Lorena Lima</nome>
+<numero>87</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Henrique Oliveira</nome>
+<numero>88</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Natália Alves</nome>
+<numero>89</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Lucas Dias</nome>
+<numero>90</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Sara Gomes</nome>
+<numero>91</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Gabriel Araújo</nome>
+<numero>92</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Amanda Lopes</nome>
+<numero>93</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Bruno Pinto</nome>
+<numero>94</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Maria Eduarda Ferreira</nome>
+<numero>95</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Pedro Henrique Martins</nome>
+<numero>96</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Larissa Reis</nome>
+<numero>97</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>João Silva</nome>
+<numero>98</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Maria Santos</nome>
+<numero>99</numero>
+<saldo>100.000000</saldo>
+</cliente>
+<cliente>
+<nome>Pedro Costa</nome>
+<numero>100</numero>
+<saldo>100.000000</saldo>
+</cliente>
+</clienteslista>
+<maquinasLista>
+<maquina>
+<percentAvaria>40.000000</percentAvaria>
+<percentGanhar>10.000000</percentGanhar>
+<percentagemAviso>30.000000</percentagemAviso>
+<posX>3</posX>
+<posY>16</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>slots</tipo>
+</maquina>
+<maquina>
+<percentAvaria>40.000000</percentAvaria>
+<percentGanhar>10.000000</percentGanhar>
+<percentagemAviso>30.000000</percentagemAviso>
+<posX>8</posX>
+<posY>7</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>slots</tipo>
+</maquina>
+<maquina>
+<percentAvaria>40.000000</percentAvaria>
+<percentGanhar>10.000000</percentGanhar>
+<percentagemAviso>30.000000</percentagemAviso>
+<posX>36</posX>
+<posY>3</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>slots</tipo>
+</maquina>
+<maquina>
+<percentAvaria>40.000000</percentAvaria>
+<percentGanhar>10.000000</percentGanhar>
+<percentagemAviso>30.000000</percentagemAviso>
+<posX>14</posX>
+<posY>23</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>slots</tipo>
+</maquina>
+<maquina>
+<percentAvaria>40.000000</percentAvaria>
+<percentGanhar>10.000000</percentGanhar>
+<percentagemAviso>30.000000</percentagemAviso>
+<posX>11</posX>
+<posY>9</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>slots</tipo>
+</maquina>
+<maquina>
+<percentAvaria>40.000000</percentAvaria>
+<percentGanhar>10.000000</percentGanhar>
+<percentagemAviso>30.000000</percentagemAviso>
+<posX>4</posX>
+<posY>5</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>slots</tipo>
+</maquina>
+<maquina>
+<percentAvaria>20.000000</percentAvaria>
+<percentGanhar>47.700001</percentGanhar>
+<percentagemAviso>60.000000</percentagemAviso>
+<posX>34</posX>
+<posY>31</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>roleta</tipo>
+</maquina>
+<maquina>
+<percentAvaria>20.000000</percentAvaria>
+<percentGanhar>47.700001</percentGanhar>
+<percentagemAviso>60.000000</percentagemAviso>
+<posX>15</posX>
+<posY>37</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>roleta</tipo>
+</maquina>
+<maquina>
+<percentAvaria>20.000000</percentAvaria>
+<percentGanhar>47.700001</percentGanhar>
+<percentagemAviso>60.000000</percentagemAviso>
+<posX>39</posX>
+<posY>38</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>roleta</tipo>
+</maquina>
+<maquina>
+<percentAvaria>20.000000</percentAvaria>
+<percentGanhar>47.700001</percentGanhar>
+<percentagemAviso>60.000000</percentagemAviso>
+<posX>0</posX>
+<posY>6</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>roleta</tipo>
+</maquina>
+<maquina>
+<percentAvaria>20.000000</percentAvaria>
+<percentGanhar>47.700001</percentGanhar>
+<percentagemAviso>60.000000</percentagemAviso>
+<posX>14</posX>
+<posY>24</posY>
+<temperaturaMax>100.000000</temperaturaMax>
+<tipo>roleta</tipo>
+</maquina>
+<maquina>
+<percentAvaria>10.000000</percentAvaria>
+<percentGanhar>10.000000</percentGanhar>
+<percentagemAviso>20.000000</percentagemAviso>
+<posX>22</posX>
+<posY>17</posY>
+<temperaturaMax>30.000000</temperaturaMax>
+<tipo>craps</tipo>
+</maquina>
+<maquina>
+<percentAvaria>10.000000</percentAvaria>
+<percentGanhar>10.000000</percentGanhar>
+<percentagemAviso>20.000000</percentagemAviso>
+<posX>37</posX>
+<posY>36</posY>
+<temperaturaMax>30.000000</temperaturaMax>
+<tipo>craps</tipo>
+</maquina>
+<maquina>
+<percentAvaria>10.000000</percentAvaria>
+<percentGanhar>10.000000</percentGanhar>
+<percentagemAviso>20.000000</percentagemAviso>
+<posX>37</posX>
+<posY>0</posY>
+<temperaturaMax>30.000000</temperaturaMax>
+<tipo>craps</tipo>
+</maquina>
+<maquina>
+<percentAvaria>10.000000</percentAvaria>
+<percentGanhar>10.000000</percentGanhar>
+<percentagemAviso>20.000000</percentagemAviso>
+<posX>36</posX>
+<posY>19</posY>
+<temperaturaMax>30.000000</temperaturaMax>
+<tipo>craps</tipo>
+</maquina>
+<maquina>
+<percentAvaria>10.000000</percentAvaria>
+<percentGanhar>1.000000</percentGanhar>
+<percentagemAviso>10.000000</percentagemAviso>
+<posX>21</posX>
+<posY>1</posY>
+<temperaturaMax>30.000000</temperaturaMax>
+<tipo>blackjack</tipo>
+</maquina>
+<maquina>
+<percentAvaria>10.000000</percentAvaria>
+<percentGanhar>1.000000</percentGanhar>
+<percentagemAviso>10.000000</percentagemAviso>
+<posX>37</posX>
+<posY>31</posY>
+<temperaturaMax>30.000000</temperaturaMax>
+<tipo>blackjack</tipo>
+</maquina>
+<maquina>
+<percentAvaria>10.000000</percentAvaria>
+<percentGanhar>1.000000</percentGanhar>
+<percentagemAviso>10.000000</percentagemAviso>
+<posX>10</posX>
+<posY>32</posY>
+<temperaturaMax>30.000000</temperaturaMax>
+<tipo>blackjack</tipo>
+</maquina>
+<maquina>
+<percentAvaria>10.000000</percentAvaria>
+<percentGanhar>1.000000</percentGanhar>
+<percentagemAviso>10.000000</percentagemAviso>
+<posX>34</posX>
+<posY>24</posY>
+<temperaturaMax>30.000000</temperaturaMax>
+<tipo>blackjack</tipo>
+</maquina>
+<maquina>
+<percentAvaria>10.000000</percentAvaria>
+<percentGanhar>1.000000</percentGanhar>
+<percentagemAviso>10.000000</percentagemAviso>
+<posX>17</posX>
+<posY>5</posY>
+<temperaturaMax>30.000000</temperaturaMax>
+<tipo>blackjack</tipo>
+</maquina>
+</maquinasLista>
+</casino>

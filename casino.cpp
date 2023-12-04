@@ -98,27 +98,26 @@ bool casino::Load(const string &ficheiro){
     XmlReader* listaMaquinas = xmlObj.getNodeBlockByTagName("maquinasLista");
     if (listaMaquinas != nullptr) {
         list<XmlReader*> filhos = listaMaquinas->getFilhos();
+       
         if (!filhos.empty()) { 
-            for (auto it = filhos.begin(); it != filhos.end(); ++it) {
+            for (auto it = filhos.begin(); it != filhos.end(); ++it) {    
                 XmlReader* temp = (*it);
                 string tipo = temp->extractDataFromMap("tipo");
 
-                int max,min = this->largura;
-                if (min > this->comprimento){
-                    min = this->comprimento;
-                    max = this->largura;
-                }else{
-                    max = this->comprimento;
-                }
+                int min = 0;
+                int max_comprimento = this->comprimento;
+                int max_largura = this->largura;
                 
                 //Loop para encontrar uma posicao vazia
                 int X,Y;
-                maquina* MQ = 0;
-                while(MQ != nullptr) {
-                    X = util.valorRand(min,max);
-                    Y = util.valorRand(min,max);
+                maquina* MQ = nullptr;
+
+                do { 
+                    X = util.valorRand(min,max_comprimento);
+                    Y = util.valorRand(min,max_largura);
                     MQ = getMaquinaPorPos(X,Y);
-                }
+                } while(MQ != nullptr );
+                
 
                 if (tipo.compare("SLOTS") == 0) {
                     slots *S = new slots(X,Y);
@@ -428,14 +427,16 @@ int casino::getLargura() {
 
 // Procura e devolve uma maquina numa determinada posição
 maquina* casino::getMaquinaPorPos(int X, int Y){
-    maquina* MQ = nullptr;
-    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+    maquina* MQ ;
+    
+    for (auto it = this->ListaMq->begin(); it != this->ListaMq->end(); ++it){
         MQ = (*it);
         if (MQ->getPosY() == Y && MQ->getPosX() == X){
             return MQ;
         }
     }
-    return MQ;
+    
+    return nullptr;
 }
 
 // Verifica se utilizador ganhou
