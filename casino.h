@@ -33,7 +33,6 @@ public:
     list<maquina *>* Ranking_Das_Mais_Trabalhadores();
     list<Cliente *>* Jogadores_Mais_Frequentes();
     list<Cliente *>* Jogadores_Mais_Ganhos();
-    void Relatorio(string fich_xml);
     void SubirProbabilidadeVizinhas(maquina *M_ganhou, float R,list<maquina *>* &lmvizinhas);
     void Listar(float X, ostream &f = std::cout);
     void Run(bool Debug = true);

@@ -33,7 +33,9 @@ int main(){
         cout << "Erro ao carregar os dados do casino!" << endl;
     }
 
-   cas.ExportCasino();
+    cas.Run(false);
+
+   //cas.ExportCasino();
    
     
     //  cout << xmlObj.temFilhos() << endl ;
