@@ -10,7 +10,7 @@ craps::~craps(){
 }
 
 string craps::getTipo(){
-    return "craps";
+    return "CRAPS";
 }
 
 void craps::addCl(Cliente *utl){

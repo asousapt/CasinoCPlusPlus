@@ -10,7 +10,7 @@ blackJack::~blackJack(){
 }
 
 string blackJack::getTipo(){
-    return "blackjack";
+    return "BLACKJACK";
 }
 
 void blackJack::addCl(Cliente *utl){

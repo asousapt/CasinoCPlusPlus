@@ -10,7 +10,7 @@ roleta::~roleta(){
 }
 
 string roleta::getTipo(){
-    return "roleta";
+    return "ROLETA";
 }
 
 void roleta::addCl(Cliente *utl){

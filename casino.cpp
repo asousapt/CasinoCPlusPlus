@@ -40,7 +40,9 @@ bool casino::Load(const string &ficheiro){
     // Faz o parse do ficheiro e coloca os dados da árvore
     xmlObj.parseXML(textoXml, nullptr);
     string horaAbertura = xmlObj.extractDataFromMap("horaAbertura");
+  
     string horafecho = xmlObj.extractDataFromMap("horafecho");
+    int primeiroInicio = stoi(xmlObj.extractDataFromMap("primeiroInicio"));
     
     //faz set do tamanho da matriz
     int posX = stoi(xmlObj.extractDataFromMap("posicaoesX"));
@@ -98,27 +100,33 @@ bool casino::Load(const string &ficheiro){
     XmlReader* listaMaquinas = xmlObj.getNodeBlockByTagName("maquinasLista");
     if (listaMaquinas != nullptr) {
         list<XmlReader*> filhos = listaMaquinas->getFilhos();
-       
+      
         if (!filhos.empty()) { 
             for (auto it = filhos.begin(); it != filhos.end(); ++it) {    
                 XmlReader* temp = (*it);
                 string tipo = temp->extractDataFromMap("tipo");
-
+                string posX1 = temp->extractDataFromMap("posX");
+                cout << tipo <<  posX1 << endl;
                 int min = 0;
                 int max_comprimento = this->comprimento;
                 int max_largura = this->largura;
                 
                 //Loop para encontrar uma posicao vazia
                 int X,Y;
-                maquina* MQ = nullptr;
-
-                do { 
-                    X = util.valorRand(min,max_comprimento);
-                    Y = util.valorRand(min,max_largura);
-                    MQ = getMaquinaPorPos(X,Y);
-                } while(MQ != nullptr );
                 
-
+                if (primeiroInicio == 1) {
+                    maquina* MQ = nullptr;
+                    do { 
+                        X = util.valorRand(min,max_comprimento);
+                        Y = util.valorRand(min,max_largura);
+                        MQ = getMaquinaPorPos(X,Y);
+                    } while(MQ != nullptr);
+                }
+                else {
+                    X = stoi(temp->extractDataFromMap("posX"));
+                    Y = stoi(temp->extractDataFromMap("posY"));
+                }
+                
                 if (tipo.compare("SLOTS") == 0) {
                     slots *S = new slots(X,Y);
                     if (this->Add(S) == false ) {
@@ -651,9 +659,10 @@ bool casino::ExportCasino() {
 
     xmlWR.adicionarDados("nome", this->nome, &xmlWR);
     xmlWR.adicionarDados("horaAbertura", hora_abertura, &xmlWR);
-    xmlWR.adicionarDados("horaFecho", hora_fecho, &xmlWR);
+    xmlWR.adicionarDados("horafecho", hora_fecho, &xmlWR);
     xmlWR.adicionarDados("posicaoesX", to_string(this->comprimento), &xmlWR);
     xmlWR.adicionarDados("posicaoesY", to_string(this->largura), &xmlWR);
+    xmlWR.adicionarDados("primeiroInicio", "0", &xmlWR);
     
     //Gera o no da lista de clientes
     XmlReader * filloClientes = new XmlReader("clienteslista", &xmlWR);

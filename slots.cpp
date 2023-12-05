@@ -10,7 +10,7 @@ slots::~slots(){
 }
 
 string slots::getTipo(){
-    return "slots";
+    return "SLOTS";
 }
 
 void slots::setCl(Cliente *utl){
