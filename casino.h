@@ -52,6 +52,7 @@ public:
     Cliente* randomCl();
     Cliente* randomClCasino();
     Cliente* getClCasino(int numero);
+    Cliente* getCl(int numero);
     void AddUsersCasinoBatch();
     void AddUsersMaquinaBatch();
     void ApostasUsers();
@@ -60,5 +61,8 @@ public:
     void saidaUsersMaquinas();
     int contagemUsersMaquinas();
     Cliente* randomClMaquina();
+    maquina* getMaquina(int cod);
+    bool getEstado();
+    int contagemClNoCasino();
 };
 

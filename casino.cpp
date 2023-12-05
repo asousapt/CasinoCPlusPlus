@@ -569,6 +569,16 @@ Cliente* casino::getClCasino(int numero){
     return nullptr;
 }
 
+// Pesquisa e devolve um cliente pelo numero
+Cliente* casino::getCl(int numero){
+    for (auto it = ListaCl->begin(); it != ListaCl->end(); ++it){
+        if ((*it)->getNumero() == numero){
+            return (*it);
+        }
+    }
+    return nullptr;
+}
+
 // Adiciona vários clientes ao casino
 void casino::AddUsersCasinoBatch(){
     Uteis U;
@@ -750,5 +760,26 @@ Cliente* casino::randomClMaquina(){
     }
 
     return nullptr;
+}
+
+// Devolve maquina baseado no codigo
+maquina* casino::getMaquina(int cod){
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        if ((*it)->compareId(cod) == 1){
+            return (*it);
+        }
+    }
+
+    return nullptr;
+}
+
+// Devolve estado casino
+bool casino::getEstado(){
+    return aberto;
+}
+
+// Devolve contagem de clientes no casino
+int casino::contagemClNoCasino(){
+    return ClNoCasino->size();
 }
 
