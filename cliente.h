@@ -29,6 +29,7 @@ public:
     float percentSaldo();
     void setApostaPendente(float aposta);
     float getApostaPendente();
+    void mostrar();
 };
 
 #endif // CLIENTE_H

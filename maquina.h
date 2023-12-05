@@ -46,6 +46,7 @@ public:
     float getPercentagemAviso();
     void incrVezesJogadas();
     virtual void removeCl(Cliente *Cl);
+    void mostrar();
 };
 #endif
 

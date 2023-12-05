@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include "cliente.h"
 #include "uteis.h"
@@ -68,4 +69,9 @@ void Cliente::setApostaPendente(float aposta){
 float Cliente::getApostaPendente(){
     return apostaPendente;
 }
+
+//funcao que mostra um cliente 
+void Cliente::mostrar() {
+    cout << this->numero << "\t" << this->nome << left << setw(35) << "\t" << this->saldo << endl;
+} 
 

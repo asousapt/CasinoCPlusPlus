@@ -63,5 +63,7 @@ public:
     maquina* getMaquina(int cod);
     bool getEstado();
     int contagemClNoCasino();
+    void listarMaquinas();
+    void listarClientes();
 };
 

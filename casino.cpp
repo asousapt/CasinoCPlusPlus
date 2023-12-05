@@ -782,3 +782,31 @@ int casino::contagemClNoCasino(){
     return ClNoCasino->size();
 }
 
+// funcao que lista maquinas do casino
+void casino::listarMaquinas() {
+    cout << "######################################" << endl;
+    cout << "########## LISTA DE MAQUINAS #########" << endl;
+    cout << endl;
+    cout << std::left << setw(10) << "TIPO" << "\t\t" << "POS X" << "\t" << "POS Y" << "\t" << "ESTADO" << endl;
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        maquina* MQ = (*it);
+        MQ->mostrar();
+    }
+    cout << endl;
+    cout << "######################################" << endl;
+}
+
+// funcao que lista maquinas do casino
+void casino::listarClientes() {
+    cout << "######################################" << endl;
+    cout << "########## LISTA DE CLIENTES #########" << endl;
+    cout << endl;
+    cout << "No"<< "\t" << "NOME" << left << setw(35) << "\t" << "SALDO" << endl;
+    for (auto it = ListaCl->begin(); it != ListaCl->end(); ++it){
+        Cliente* CL = (*it);
+        CL->mostrar();
+    }
+    cout << endl;
+    cout << "######################################" << endl;
+}
+
