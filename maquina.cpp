@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include "maquina.h"
 #include "uteis.h"
@@ -158,5 +159,24 @@ void maquina::incrVezesJogadas() {
 
 void maquina::removeCl(Cliente *Cl){
     
+}
+
+//mostra unma maquina isolada
+void maquina::mostrar() {
+    string estadoStr;
+    estado est = this->getEstado();
+    switch (est)
+    {
+    case 1:
+       estadoStr = "ON";
+        break;
+    case 0:
+        estadoStr = "OFF";
+        break;
+    case 2:
+       estadoStr = "AVARIADA";
+        break;
+    }
+    cout << std::left << setw(10) << this->getTipo() << "\t\t" << to_string(this->posX) << "\t" << to_string(this->posY) << "\t" << estadoStr << endl;
 }
 
