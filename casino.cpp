@@ -303,11 +303,6 @@ list<Cliente *>* casino::Jogadores_Mais_Ganhos(){
     return listaR;
 }
 
-// Enviar um relatório em XML, do estado do Casino; Exporta a informação do estado atual de cada máquina nesse dia
-void casino::Relatorio(string fich_xml){
-
-}
-
 // Subir a probabilidade da ganho das maquinas vizinhas de uma determinada distancia 
 void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float distancia,list<maquina *>* &lmvizinhas){
     int y2,y1 = M_ganhou->getPosY();
@@ -348,23 +343,9 @@ void casino::Listar(float prob, ostream &f){
 
 // Função da simulação com e relogio e operações a fazer, ao clicar na tecla 'M' mostra o menu com várias operações a fazer
 void casino::Run(bool Debug){
-    time_t inicio;
-    time_t fim;
-    if (Debug){
-        //Hora inicio do casino
-        struct tm *tmp;
-        tmp->tm_hour = 9;
-        tmp->tm_min = 0;
-        inicio = mktime(tmp);
-        
-        //Hora Fim do casino
-        tmp->tm_hour = 14;
-        tmp->tm_min = 0;
-        fim = mktime(tmp);
-    }else{
-        inicio = hora_abertura;
-        fim = hora_fecho;
-    }
+    //Set horas do casino
+    time_t inicio = hora_abertura;
+    time_t fim = hora_fecho;
     
     //Cria relogio 
     relogio *R = new relogio(120,inicio);
@@ -376,8 +357,21 @@ void casino::Run(bool Debug){
     while (encerrar == 0) {
         //Conteudo Loop
         bool FazProcessos = VerificarHoras(horaRelogio);
-
+        if (FazProcessos){
+        cout << "Inicio Processos \n";
+            AddUsersCasinoBatch();
+            AddUsersMaquinaBatch();
+            VerificaUsersTemSaldo();
+            ApostasUsers();
+            checkGanhou();
+            checkAvarias();
+            checkTemp();
+            saidaUsersMaquinas();
+        }
+        cout << "Faz Processos: " << FazProcessos << endl;
         R->verHoraAtual();
+        cout << ClNoCasino->size() << " jogadores no casino\n";
+        Listar();
         horaRelogio = R->getHoraAtual();
 
         R->Wait(2);
@@ -386,31 +380,36 @@ void casino::Run(bool Debug){
 
 // Verifica se o casino esta aberto
 bool casino::VerificarHoras(time_t horas){
-    double diffFecho = difftime(hora_fecho, horas);
     double diffAbrir = difftime(horas,hora_abertura);
+    double diffFecho = difftime(hora_fecho, horas);
 
-    if(diffFecho > 0 && diffAbrir > 0){
-        if (diffFecho <= 30){
-            cout << "Falta "<<diffFecho<<" minutos para fechar o casino!\n";
-        }
-
+    if (diffAbrir >= 0){
         aberto = 1;
-        return 1;
-    }else if (diffAbrir < 0){
-        double diff = diffAbrir*(-1);
+    }else if (diffAbrir < 0 && diffFecho >= 0){
+        double diff = diffFecho;
 
+        if(diff < 0) diff * (-1);
         diff = diff/60;
-        if (diff <= 30){
-            cout << "Falta "<<diff<<" minutos para abrir o casino!\n";
-        }
 
-        aberto = 0;
-        return 0;
+        if (diff <= (double)30){
+            cout << "Falta "<<(int)diff<<" minutos para fechar o casino!\n";
+        }
+        
+        aberto = 1;
     }else{
+        double diff = diffAbrir;
+
+        if(diff < 0) diff * (-1);
+        diff = diff/60;
+
+        if (diff <= (double)30){
+            cout << "Falta "<<(int)diff<<" minutos para abrir o casino!\n";
+        }
+        
         aberto = 0;
-        return 0;
     }
 
+    return aberto;
 }
 
 //Determina o comprimento

@@ -34,7 +34,9 @@ int main(){
     }
     cas.listarMaquinas();
     //cas.listarClientes();
-   cas.ExportCasino();
+    cas.Run(false);
+
+   //cas.ExportCasino();
    
     
     //  cout << xmlObj.temFilhos() << endl ;
