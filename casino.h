@@ -65,5 +65,6 @@ public:
     int contagemClNoCasino();
     void listarMaquinas();
     void listarClientes();
+    void saidaUersCasino();
 };
 

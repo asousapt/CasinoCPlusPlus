@@ -32,7 +32,7 @@ int main(){
     if (cas.Load(nomeFicheiro) == false) {
         cout << "Erro ao carregar os dados do casino!" << endl;
     }
-    cas.listarMaquinas();
+    //cas.listarMaquinas();
     //cas.listarClientes();
     cas.Run(false);
 

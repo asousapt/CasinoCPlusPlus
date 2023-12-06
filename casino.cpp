@@ -105,8 +105,7 @@ bool casino::Load(const string &ficheiro){
             for (auto it = filhos.begin(); it != filhos.end(); ++it) {    
                 XmlReader* temp = (*it);
                 string tipo = temp->extractDataFromMap("tipo");
-                string posX1 = temp->extractDataFromMap("posX");
-                cout << tipo <<  posX1 << endl;
+               
                 int min = 0;
                 int max_comprimento = this->comprimento;
                 int max_largura = this->largura;
@@ -360,13 +359,19 @@ void casino::Run(bool Debug){
         if (FazProcessos){
         cout << "Inicio Processos \n";
             AddUsersCasinoBatch();
+            cout << "Adicionei users no casino \n";
             AddUsersMaquinaBatch();
+            cout << "Adicionei users as maquinas \n";
             VerificaUsersTemSaldo();
+            cout << "Verifiquei se os utilizadores tem saldo \n";
             ApostasUsers();
+            cout << "fIZERAM APOSTAS \n";
             checkGanhou();
             checkAvarias();
             checkTemp();
+            cout << "SAIDA" << endl;
             saidaUsersMaquinas();
+            saidaUersCasino();
         }
         cout << "Faz Processos: " << FazProcessos << endl;
         R->verHoraAtual();
@@ -504,17 +509,18 @@ maquina* casino::randomMaquina(){
 
 // Associa um utilizador à máquina
 bool casino::AssociarUsersMaquina(Cliente *utl){
+    
     maquina* MQ;
     estado e;
 
-    if(getMaquinaPorCliente(utl)){
+    if(getMaquinaPorCliente(utl) != nullptr){
         return false;
     }
     
     while(e != 1){
         MQ = randomMaquina();
         if (!MQ) break;
-        if (MQ->getTipo().compare("blackjack") != 0 && MQ->contagemCl() < 5){
+        if (MQ->getTipo().compare("BLACKJACK") != 0 && MQ->contagemCl() < 5){
             e = Get_Estado(MQ->id);
         }else{
             e = OFF;
@@ -531,11 +537,18 @@ bool casino::AssociarUsersMaquina(Cliente *utl){
 
 // Devolve a maquina onde o cliente esta a jogar
 maquina* casino::getMaquinaPorCliente(Cliente *utl){
+    maquina* MQ;
+    
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
-        if((*it)->pesquisaCl(utl->getNumero())){
+       
+        MQ = (*it);
+        // O erro esta algures aqui
+        if(MQ->pesquisaCl(utl->getNumero()) != nullptr){
+            
             return (*it);
         }
     }
+    cout << "Cliente sem maquina " << endl;
     return nullptr;
 }
 
@@ -554,11 +567,12 @@ Cliente* casino::randomCl(){
 }
 
 Cliente* casino::randomClCasino(){
-    Uteis U;
+    Uteis U = Uteis();
     int icr = 1,valor = U.valorRand(1,ClNoCasino->size());
     
     for (auto it = ClNoCasino->begin(); it != ClNoCasino->end(); ++it){
         if (icr == valor){
+            cout << "retornei o cliente" << endl;
             return (*it);
         }
         icr++;
@@ -588,31 +602,31 @@ Cliente* casino::getCl(int numero){
 
 // Adiciona vários clientes ao casino
 void casino::AddUsersCasinoBatch(){
-    Uteis U;
+    Uteis U = Uteis();
     Cliente* Cl,*ClTemp;
     
-    int valor = U.valorRand(1,10);
+    int valor = U.valorRand(0, ListaCl->size());
+    
+    if (valor > 0) {
+        for(int i = 1; i <= valor; i++){
 
-    for(int i = 1; i <= valor; i++){
-        Cl = randomCl();
-        if (!Cl) break;
-        ClTemp = getClCasino(Cl->getNumero());
-
-        while(ClTemp){
+          do
+          {
             Cl = randomCl();
             if (!Cl) break;
             ClTemp = getClCasino(Cl->getNumero());
+          } while (ClTemp != nullptr);
+                      
+            if (!Cl) break;
+            AddUserCasino(Cl);
         }
-        
-        if (!Cl) break;
-        AddUserCasino(Cl);
     }
 }
 
 // Adiciona vários clientes às maquinas
 void casino::AddUsersMaquinaBatch(){
-    Uteis U;
-    Cliente* Cl,*ClTemp;
+    Uteis U = Uteis();
+    Cliente* Cl, ClTemp;
 
     int valor = U.valorRand(1,ClNoCasino->size());
     
@@ -704,15 +718,21 @@ void casino::VerificaUsersTemSaldo(){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         if ((*it)->getEstado() == ON){
             list<Cliente *>* Lista = (*it)->getCl();
-            
-            for (auto it2 = Lista->begin(); it2 != Lista->end(); ++it2){
-                if((*it2)->getApostaPendente() == 0 && (*it2)->getSaldo() == 0){
-                    (*it)->removeCl((*it2));
-                }
-
-                for (auto it3 = ClNoCasino->begin(); it3 != ClNoCasino->end(); ++it3){
-                    if ((*it3)->getNumero() == (*it2)->getNumero()){
-                        ClNoCasino->erase(it3);
+            if (Lista->size() > 0) {
+                for (auto it2 = Lista->begin(); it2 != Lista->end(); ++it2){
+                    Cliente * cl = (*it2);
+                    
+                    if(cl->getApostaPendente() == 0 && cl->getSaldo() == 0){
+                        (*it)->removeCl(cl);
+                        // retira utilizadores do casino
+                        for (auto it3 = ClNoCasino->begin(); it3 != ClNoCasino->end();) {
+                            if ((*it3)->getNumero() == (*it2)->getNumero()) {
+                                cout << "retirei gajos do casino" << endl;
+                                it3 = ClNoCasino->erase(it3);
+                            } else {
+                                ++it3;
+                            }
+                        }
                     }
                 }
             }
@@ -722,9 +742,11 @@ void casino::VerificaUsersTemSaldo(){
 
 // Faz a saida de clientes das maquinas random
 void casino::saidaUsersMaquinas(){
-    Uteis U;
-    int valor = U.valorRand(1,contagemUsersMaquinas());
-
+    Uteis U = Uteis();
+    int jogadoresMaquinas = this->contagemUsersMaquinas();
+   
+    int valor = U.valorRand(1,jogadoresMaquinas);
+    cout << " Tenho "<< jogadoresMaquinas << "# retiro " << valor<< endl;
     Cliente *Cl;
     maquina *Mq;
 
@@ -738,14 +760,14 @@ void casino::saidaUsersMaquinas(){
 
 // Devolve uma Contagem de Clientes nas Máquinas
 int casino::contagemUsersMaquinas(){
-    int icr;
+    int icr =0;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         if ((*it)->getEstado() == ON){
             list<Cliente *>* Lista = (*it)->getCl();
             icr = icr + Lista->size();
         }
     }
-
+    
     return icr;
 }
 
@@ -817,5 +839,13 @@ void casino::listarClientes() {
     }
     cout << endl;
     cout << "######################################" << endl;
+}
+
+void casino::saidaUersCasino() {
+    Uteis util = Uteis();
+    list<Cliente *>* lcc = ClNoCasino;
+    int numeroAtualClientes = lcc->size();
+    cout << numeroAtualClientes << endl;
+    
 }
 

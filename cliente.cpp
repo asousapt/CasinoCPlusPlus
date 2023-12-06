@@ -17,7 +17,7 @@ Cliente::Cliente(int numeroCl, string nomeCl, int saldoCl) {
     nome = nomeCl;
     saldo = saldoCl;
 
-    Uteis U;
+    Uteis U = Uteis();
     int valor = U.valorRand(25,100);
     percentAposta = valor;
 }

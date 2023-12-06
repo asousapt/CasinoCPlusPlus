@@ -33,11 +33,12 @@ void slots::incrementarTemp(){
 }
 
 Cliente* slots::pesquisaCl(int numero){
-    if (C->getNumero() == numero){
-        return C;
-    }else{
-        return nullptr;
+    if (C != nullptr) {
+        if (C->getNumero() == numero){
+            return C;
+        }
     }
+    return nullptr;
 }
 
 int slots::contagemCl(){
@@ -50,7 +51,9 @@ int slots::contagemCl(){
 
 list<Cliente *>* slots::getCl(){
     list<Cliente *>* ListaRtn = new list<Cliente*>;
-    ListaRtn->push_back(C);
+    if (C != nullptr) {
+        ListaRtn->push_back(C);
+    }
     return ListaRtn;
 }
 

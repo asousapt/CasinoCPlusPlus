@@ -70,7 +70,7 @@ string maquina::getTipo() {
 }
 
 bool maquina::ganhou(){
-    Uteis U;
+    Uteis U = Uteis();
 
     int valor = U.valorRand(0,100);
     if (valor <= percentGanhar){
@@ -129,6 +129,7 @@ void maquina::removeTodosCl(){
 }
 
 Cliente* maquina::pesquisaCl(int numero){
+    cout << "passei na funcao generica " << endl;
     return nullptr;
 }
 
