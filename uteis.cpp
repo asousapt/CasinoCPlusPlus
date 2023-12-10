@@ -33,6 +33,19 @@ string Uteis::pedeValor(string mensagem) {
     return valor;
 }
 
+string Uteis::getTimestamp() {
+        // Get the current time
+        std::time_t currentTime = std::time(nullptr);
+        std::tm* localTime = std::localtime(&currentTime);
+
+        // Format the timestamp as a string
+        char buffer[20];
+        std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", localTime);
+
+        return buffer;
+    }
+
+
  int Uteis::valorRand(int min,int max){
     auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
     std::mt19937 gen(seed);

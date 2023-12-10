@@ -4,6 +4,7 @@
 #include <fstream>
 #include <stack>
 #include "XmlReader.h"
+#include "uteis.h"
 
 XmlReader::XmlReader(){};
 
@@ -16,6 +17,14 @@ XmlReader::~XmlReader() {
 XmlReader::XmlReader(string nome, XmlReader *anterior) {
     this->nome = nome;
     this->anterior = anterior;
+};
+
+XmlReader::XmlReader(string nome, string mensagem, XmlReader *anterior) {
+    Uteis ut = Uteis();
+    this->nome = nome;
+    this->anterior = anterior;
+    this->adicionarDados("Detail", mensagem, this); 
+    this->adicionarDados("timestamp", ut.getTimestamp(), this); 
 };
 
 // Obtém o atributo nome

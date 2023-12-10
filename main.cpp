@@ -34,8 +34,8 @@ int main(){
     }
     //cas.listarMaquinas();
     //cas.listarClientes();
-    cas.Run(false);
-
+    //cas.Run(false);
+    cas.exporLlog();
    //cas.ExportCasino();
    
     

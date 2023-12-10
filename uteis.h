@@ -12,7 +12,7 @@ class Uteis {
         string pedeValor(string mensagem);
         int valorRand(int min,int max);
         string retornaStrHoras(int hora, int minutos);
-
+        string getTimestamp();
 };
 
 #endif

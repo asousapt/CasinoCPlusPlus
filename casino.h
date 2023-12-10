@@ -4,6 +4,8 @@
 #include "cliente.h"
 #include "maquina.h"
 
+class XmlReader;
+
 using namespace std;
 
 class casino{
@@ -17,6 +19,7 @@ private:
     list<Cliente *>* ClNoCasino;
     list<maquina *>* ListaMq;
     bool aberto = 0;
+    XmlReader* XmlLog;
 public:
     casino(string _nome);
     ~casino();
@@ -73,5 +76,6 @@ public:
     int nmrClientesCasinoSemMaquina();
     maquina* maquinaLivre();
     bool todosSemSaldo();
+    bool exporLlog();
 };
 

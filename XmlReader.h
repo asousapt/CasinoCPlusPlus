@@ -18,6 +18,7 @@ class XmlReader {
         XmlReader();
         ~XmlReader();
         XmlReader(string nome, XmlReader* anterior);
+        XmlReader(string nome, string mensagem, XmlReader *anterior);
         string getNome();
         void setNome(string nome);
         void parseXML(string textoXml, XmlReader* parent);

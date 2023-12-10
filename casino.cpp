@@ -18,18 +18,25 @@ casino::casino(string _nome){
     nome = _nome;
     ListaCl = new list<Cliente*>;
     ClNoCasino = new list<Cliente*>;
-    ListaMq = new list<maquina*>;
+    ListaMq = new list<maquina*>; 
+    XmlLog = new XmlReader("Log", nullptr);
+    XmlReader * xml = new XmlReader("logdata", "Casino " + _nome + " criado com sucesso", XmlLog);
+    XmlLog->addFilho(xml);
 }
 
 casino::~casino(){
     delete ListaCl;
     delete ClNoCasino;
     delete ListaMq;
+    delete XmlLog;
 }
 
 // As configurações do Casino dadas em ficheiro XML, com todas as informações
 bool casino::Load(const string &ficheiro){
     Uteis util = Uteis();
+    
+    XmlReader * xml = new XmlReader("logdata", "Load do ficheiro " + ficheiro + " no casino", XmlLog);
+    XmlLog->addFilho(xml);
 
     // Carrega o ficheiro XML para dentro de uma string
     string textoXml = util.loadFileToString(ficheiro);
@@ -154,6 +161,8 @@ bool casino::Load(const string &ficheiro){
             }
         }
     }
+    XmlReader * xmlf = new XmlReader("logdata", "Importacao termninada com sucesso!", XmlLog);
+    XmlLog->addFilho(xmlf);
     return true;
 }
 
@@ -1000,4 +1009,9 @@ bool casino::todosSemSaldo() {
        }
     }
     return numeroClnoCasino == clientesSemSaldo;
+}
+
+bool casino::exporLlog() {
+    XmlReader * xmlLogger = XmlLog;
+    return xmlLogger->saveAsXML("log.xml");
 }
