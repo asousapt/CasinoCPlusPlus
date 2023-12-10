@@ -73,6 +73,7 @@ bool maquina::ganhou(){
     Uteis U = Uteis();
 
     int valor = U.valorRand(0,100);
+    //cout << "PERC GANHAR MAQ " << percentGanhar << " valor " << valor << endl;
     if (valor <= percentGanhar){
         return true;
     }else{
@@ -84,6 +85,7 @@ bool maquina::avaria(){
     Uteis U;
 
     int valor = U.valorRand(0,100);
+    //cout << "Percentagem: " << percentAvaria << " || Valor: " << valor << endl;
     if (valor <= percentAvaria){
         nAvarias = nAvarias + 1;
         return true;
@@ -129,7 +131,6 @@ void maquina::removeTodosCl(){
 }
 
 Cliente* maquina::pesquisaCl(int numero){
-    cout << "passei na funcao generica " << endl;
     return nullptr;
 }
 

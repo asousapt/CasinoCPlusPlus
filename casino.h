@@ -66,5 +66,12 @@ public:
     void listarMaquinas();
     void listarClientes();
     void saidaUersCasino();
+    void removeClCasino(Cliente* cliente);
+    int nmrMaquinasActivas();
+    Cliente* clienteCasinoSemMaquina();
+    void listaJogagoresMaquinas();
+    int nmrClientesCasinoSemMaquina();
+    maquina* maquinaLivre();
+    bool todosSemSaldo();
 };
 

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <chrono>
+#include <random>
 #include <cstdlib> 
 #include "uteis.h"
 
@@ -31,8 +33,11 @@ string Uteis::pedeValor(string mensagem) {
     return valor;
 }
 
-int Uteis::valorRand(int min,int max){
-    return min + std::rand() % (max - min + 1);
+ int Uteis::valorRand(int min,int max){
+    auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+    std::mt19937 gen(seed);
+    std::uniform_int_distribution<int> distribution(min, max);
+    return distribution(gen);
 }
 
  string Uteis::retornaStrHoras(int hora, int minutos) {

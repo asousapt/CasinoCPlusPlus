@@ -13,7 +13,7 @@ string slots::getTipo(){
     return "SLOTS";
 }
 
-void slots::setCl(Cliente *utl){
+void slots::addCl(Cliente *utl){
     C = utl;
 }
 

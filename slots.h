@@ -8,7 +8,7 @@ public:
     slots(int X, int Y);
     ~slots();
     string getTipo();
-    void setCl(Cliente *utl);
+    void addCl(Cliente *utl);
     void removeTodosCl();
     void incrementarTemp();
     Cliente* pesquisaCl(int numero);
