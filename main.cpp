@@ -43,7 +43,7 @@ int main(){
     //xmlObj.showlista();
     // xmlObj.mostraDados();
 
-    
+    delete(cas);
 
     return 0;
 }
