@@ -248,7 +248,7 @@ list<string>* casino::Ranking_Dos_Fracos(){
     list<string>* listaR;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina *mQ = *it;
-        string id = to_string(mQ->id);
+        string id = to_string(mQ->getID());
         listaR->push_back(id);
     }
     
@@ -412,15 +412,13 @@ void casino::Run(bool Debug){
         std::cout << "Hora Atual: " << std::asctime(&localTimeStruct);
         cout << "Estao " << ClNoCasino->size() << " jogadores no casino\n";
         Listar();
+        cout << endl;
 
         // Sleep de 2 segundos 
         std::this_thread::sleep_for(std::chrono::seconds(2));
     
     
 }
-
-
-// Verifica se o casino esta aberto
 
 
 //Determina o comprimento
@@ -482,16 +480,18 @@ void casino::checkGanhou(){
 // Verifica se as maquinas avariáram
 void casino::checkAvarias(){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
-        if ((*it)->avaria()){
-            (*it)->removeTodosCl();
+        if ((*it)->getEstado() == ON){
+            if ((*it)->avaria()){
+                (*it)->removeTodosCl();
 
-            estado e = AVARIADA;
-            (*it)->setEstado(e);
-        } else {
-            estado estadoAct = (*it)->getEstado();
-            if (estadoAct == AVARIADA) {
-                estado e = ON;
+                estado e = AVARIADA;
                 (*it)->setEstado(e);
+            } else {
+                estado estadoAct = (*it)->getEstado();
+                if (estadoAct == AVARIADA) {
+                    estado e = ON;
+                    (*it)->setEstado(e);
+                }
             }
         }
     }
@@ -529,7 +529,7 @@ bool casino::AssociarUsersMaquina(Cliente *utl){
         MQ = maquinaLivre();
         if (!MQ) break;
         if (MQ->getTipo().compare("BLACKJACK") != 0 && MQ->contagemCl() < 5){
-            e = Get_Estado(MQ->id);
+            e = Get_Estado(MQ->getID());
         }else{
             e = OFF;
         }
@@ -551,6 +551,20 @@ bool casino::AssociarUsersMaquina(Cliente *utl){
         return false;
     }
 }
+
+// Devolve a maquina pelo ID
+maquina* casino::getMaquinaPorID(int id){
+    maquina* MQ;
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        MQ = (*it);
+        if(MQ->compareId(id)){
+            return (*it);
+        }
+    }
+    
+    return nullptr;
+}
+
 
 // Devolve a maquina onde o cliente esta a jogar
 maquina* casino::getMaquinaPorCliente(Cliente *utl){
@@ -650,7 +664,6 @@ void casino::AddUsersMaquinaBatch(){
     if(ClNoCasino->size() < valor ) {
         valor = ClNoCasino->size();
     }
-    
     //cout << ClNoCasino->size() << " Numero a associar de clientes as maquinas " << valor << endl;
     for(int i = 1; i <= valor; i++){
         do
@@ -658,7 +671,9 @@ void casino::AddUsersMaquinaBatch(){
             Cl = clienteCasinoSemMaquina();
         } while (Cl == nullptr);
         //cout << "CLIENTE"<< Cl->getNome()<< endl;
-        AssociarUsersMaquina(Cl);
+        if(Cl){
+            AssociarUsersMaquina(Cl);
+        }
     }
 }
 
@@ -857,7 +872,7 @@ void casino::listarMaquinas() {
     cout << "######################################" << endl;
     cout << "########## LISTA DE MAQUINAS #########" << endl;
     cout << endl;
-    cout << std::left << setw(10) << "TIPO" << "\t\t" << "POS X" << "\t" << "POS Y" << "\t" << "ESTADO" << endl;
+    cout << std::left << setw(10) << "TIPO" << "\t\t" << "POS X" << "\t" << "POS Y" << "\t" << "ESTADO" << "\t" << "ID" << endl;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
         maquina* MQ = (*it);
         MQ->mostrar();
@@ -922,11 +937,11 @@ void casino::removeClCasino(Cliente* cliente) {
 int casino::nmrMaquinasActivas() {
     int nmrMaquinasAct = 0;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
-       maquina* mq = (*it); 
-       estado est = mq->getEstado(); 
-       if (est == 1) {
-        nmrMaquinasAct++;
-       }
+        maquina* mq = (*it); 
+        estado est = mq->getEstado(); 
+        if (est == 1) {
+            nmrMaquinasAct++;
+        }
     }
     return nmrMaquinasAct;
 }
@@ -935,25 +950,25 @@ Cliente* casino::clienteCasinoSemMaquina() {
     Uteis ut = Uteis();
     Cliente * cl = nullptr;
    
-        do
-        {
-            int valor = ut.valorRand(1, ClNoCasino->size());
-            int incr = 1;
-            for (auto it = ClNoCasino->begin(); it != ClNoCasino->end(); ++it) {
-                if (incr == valor) {
-                    Cliente* cl = (*it);
-                    maquina* mq = getMaquinaPorCliente(cl);
-            
-                    if (mq == nullptr) {
-                        return cl;
-                    }
+    do
+    {
+        int valor = ut.valorRand(1, ClNoCasino->size());
+        int incr = 1;
+        for (auto it = ClNoCasino->begin(); it != ClNoCasino->end(); ++it) {
+            if (incr == valor) {
+                Cliente* cl = (*it);
+                maquina* mq = getMaquinaPorCliente(cl);
+        
+                if (mq == nullptr) {
+                    return cl;
                 }
-                incr++;
             }
-            if (todosSemSaldo() == true) {
-                return nullptr;
-            }
-        } while (cl == nullptr);
+            incr++;
+        }
+        if (todosSemSaldo() == true) {
+            return nullptr;
+        }
+    } while (cl == nullptr);
         
         
     return nullptr;
@@ -987,7 +1002,8 @@ maquina* casino::maquinaLivre() {
     int maquinasLigadas = nmrMaquinasActivas();
     do
     {
-        int valor = ut.valorRand(1,nmrMaquinasActivas());
+        int valor = ut.valorRand(0,nmrMaquinasActivas());
+        if (valor == 0) return nullptr;
         int incr = 1;
         for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it) {
             if (valor == incr) {

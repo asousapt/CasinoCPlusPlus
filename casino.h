@@ -75,6 +75,7 @@ public:
     void listaJogagoresMaquinas();
     int nmrClientesCasinoSemMaquina();
     maquina* maquinaLivre();
+    maquina* getMaquinaPorID(int id);
     bool todosSemSaldo();
     bool exporLlog();
     bool verificaHoras(const std::tm& timeStruct);
