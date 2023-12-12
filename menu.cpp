@@ -2,6 +2,8 @@
 #include <list>
 #include "menu.h"
 
+class casino;
+
 using namespace std;
 
 

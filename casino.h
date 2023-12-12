@@ -1,3 +1,5 @@
+#ifndef CASINO_H
+#define CASINO_H
 #include <iostream>
 #include <list>
 #include <ctime>
@@ -81,3 +83,4 @@ public:
     bool verificaHoras(const std::tm& timeStruct);
 };
 
+#endif

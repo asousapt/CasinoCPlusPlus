@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <ncurses.h>
 #include <termios.h>
+#include "menu.h"
 
 using namespace std;
 
@@ -42,20 +43,24 @@ int main(){
     
     cout << "Pressione M para sair do programa\n";
 
+    do
+    {
+        while (true) {
+            if (ut.TeclaPressionada())
+            {
+                cout << "Tecla pressionada. Programa encerrado\n";
+                break;
+            }
 
-    while (true) {
-        if (ut.TeclaPressionada())
-        {
-            cout << "Tecla pressionada. Programa encerrado\n";
-            break;
-        }
+            cas.Run(false);
 
-        cas.Run(false);
+            usleep(10000); // Sleep for 10 milliseconds (requires #include <unistd.h>)
+        };
+    } while (menuPrincipal(&cas) == 1);
+    
+    
+   
 
-        usleep(10000); // Sleep for 10 milliseconds (requires #include <unistd.h>)
-    }
-
-    // Abre o menu do programa
 
         
   
