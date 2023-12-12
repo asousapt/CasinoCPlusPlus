@@ -72,3 +72,10 @@ string Uteis::getTimestamp() {
     return horasTemp + ":" + minutosTemp;
  }
 
+int Uteis::diferencaHoras(time_t horaInicio, time_t horaFim) {
+    std::tm *ltm = std::localtime(&horaInicio);
+    int horas_Ini = (ltm->tm_hour *60) + ltm->tm_min;
+    std::tm *ltm1 = std::localtime(&horaFim);
+    int horas_fim = (ltm1->tm_hour *60) + ltm1->tm_min;
+    return horas_Ini - horas_fim;
+}

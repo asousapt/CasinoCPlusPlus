@@ -51,6 +51,11 @@
         "typeinfo": "cpp",
         "optional": "cpp",
         "cinttypes": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "chrono": "cpp",
+        "ratio": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     }
 }

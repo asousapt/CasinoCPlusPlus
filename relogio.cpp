@@ -1,43 +1,17 @@
-#include <iostream>
-#include <ctime>
+// relogio.cpp
 #include "relogio.h"
-using namespace std;
 
-relogio::relogio(){}
+relogio::relogio(int salto) : incr(salto), start_time(std::chrono::system_clock::now()) {}
 
-relogio::~relogio(){}
+std::chrono::system_clock::time_point relogio::now() {
+    // Get the current time
+    auto real_now = std::chrono::system_clock::now();
 
-relogio::relogio(int salto, time_t hora_abertura){
-    InicioReal = time(0);
-    incr = salto;
-    InicioSim = hora_abertura;
-}
+    // Calculate the elapsed real-world time
+    auto elapsed_real_time = std::chrono::duration_cast<std::chrono::milliseconds>(real_now - start_time);
 
-//Faz display da hora Simulada
-void relogio::verHoraAtual(){
-    time_t Dif = difftime(time(0), InicioReal);
-    time_t Simulada = InicioSim + Dif * incr;
-    
-    struct tm *tmp = localtime(&Simulada);
+    // Calculate the accelerated time
+    auto accelerated_time = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_real_time * incr);
 
-    cout << tmp->tm_hour << "h " << tmp->tm_min << "m\n";
-}
-
-//Retorna a hora Simulada
-time_t relogio::getHoraAtual(){
-    time_t Dif = difftime(time(0), InicioReal);
-    time_t Simulada = InicioSim + Dif * incr;
-    return Simulada;
-}
-
-// Funcão de esperar em segundos
-void relogio::WaitSegundos(int s){
-    clock_t T0 = clock();
-    clock_t T1 = T0 + s;
-    while (clock() < T1);
-}
-
-// Funcão de esperar que transforma o enviado para segundos e chama a função anterior
-void relogio::Wait(int s){
-    WaitSegundos(s*CLOCKS_PER_SEC);
+    return start_time + accelerated_time;
 }

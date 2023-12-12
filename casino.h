@@ -77,5 +77,6 @@ public:
     maquina* maquinaLivre();
     bool todosSemSaldo();
     bool exporLlog();
+    bool verificaHoras(const std::tm& timeStruct);
 };
 

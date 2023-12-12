@@ -2,6 +2,8 @@
 #include <cmath>
 #include <ctime>
 #include <sstream>
+#include <chrono>
+#include <thread>
 #include <iomanip>
 #include "casino.h"
 #include "uteis.h"
@@ -169,7 +171,10 @@ bool casino::Load(const string &ficheiro){
 // Entrada de um Cliente no Casino
 bool casino::AddUserCasino(Cliente *ut){
     ClNoCasino->push_back(ut);
-    //cout << "Adicionei o cliente n " << ut->getNumero() << endl;
+    // faz log
+    string mensagem = "O cliente " + to_string(ut->getNumero()) + " deu entrada no casino";
+    XmlReader * xml = new XmlReader("logdata", mensagem, XmlLog);
+    XmlLog->addFilho(xml);
     return true;
 }
 
@@ -351,29 +356,38 @@ void casino::Listar(float prob, ostream &f){
 }
 
 // Função da simulação com e relogio e operações a fazer, ao clicar na tecla 'M' mostra o menu com várias operações a fazer
-void casino::Run(bool Debug){
-    //Set horas do casino
-    time_t inicio = hora_abertura;
-    time_t fim = hora_fecho;
-    
-    //Cria relogio 
-    relogio *R = new relogio(120,inicio);
-    
-    //Cria hora de comparação 
-    time_t horaRelogio = R->getHoraAtual();
-
+void casino::Run(bool Debug){    
+    relogio accelerated_clock(900);
     bool encerrar = 0;
+    bool FazProcessos = false;
+
     while (encerrar == 0) {
-        //Conteudo Loop
-        bool FazProcessos = VerificarHoras(horaRelogio);
-        if (FazProcessos){
-        cout << "Inicio Processos \n";
+        auto accelerated_time = accelerated_clock.now();
+        auto timeStruct = std::chrono::system_clock::to_time_t(accelerated_time);
+        auto localTimeStruct = *std::localtime(&timeStruct);
+        
+        // Faz a verificacao da hora atual e decide o que fazer 
+        if (verificaHoras(localTimeStruct)) {
+            // o casino esta aberto
+            FazProcessos = true;
+            this->aberto = true;
+            //std::cout << "Casino Aberto!\n";
+        } else {
+            //o casino esta fechado 
+            FazProcessos = false;
+            this->aberto = false;
+            //std::cout << "Casino Fechado.\n";
+        }
+
+        // trata dos processos do casino 
+        if (FazProcessos == true){
+            cout << "Inicio Processos \n";
             AddUsersCasinoBatch();
             cout << "Adicionei users no casino \n";
             
             AddUsersMaquinaBatch();
             cout << "Adicionei users as maquinas \n";
-            listaJogagoresMaquinas();
+            //listaJogagoresMaquinas();
             ApostasUsers();
             cout << "fIZERAM APOSTAS \n";
             checkGanhou();
@@ -383,50 +397,26 @@ void casino::Run(bool Debug){
             cout << "SAIDA" << endl;
             saidaUsersMaquinas();
             saidaUersCasino();
-        }
-        cout << "Faz Processos: " << FazProcessos << endl;
-        R->verHoraAtual();
-        cout << ClNoCasino->size() << " jogadores no casino\n";
-        Listar();
-        horaRelogio = R->getHoraAtual();
+        } 
+        else {
+            // TODO
+            // Tem de excluir toda a gente do casino
+            // Tem de verificar se ha pessoas que ganharam apostas, atualizar os saldos
 
-        R->Wait(2);
+        }
+        std::cout << "Hora Atual: " << std::asctime(&localTimeStruct);
+        cout << "Estao " << ClNoCasino->size() << " jogadores no casino\n";
+        Listar();
+
+        // Sleep de 2 segundos 
+        std::this_thread::sleep_for(std::chrono::seconds(2));
     }
+    return;
 }
+
 
 // Verifica se o casino esta aberto
-bool casino::VerificarHoras(time_t horas){
-    double diffAbrir = difftime(horas,hora_abertura);
-    double diffFecho = difftime(hora_fecho, horas);
 
-    if (diffAbrir >= 0){
-        aberto = 1;
-    }else if (diffAbrir < 0 && diffFecho >= 0){
-        double diff = diffFecho;
-
-        if(diff < 0) diff * (-1);
-        diff = diff/60;
-
-        if (diff <= (double)30){
-            cout << "Falta "<<(int)diff<<" minutos para fechar o casino!\n";
-        }
-        
-        aberto = 1;
-    }else{
-        double diff = diffAbrir;
-
-        if(diff < 0) diff * (-1);
-        diff = diff/60;
-
-        if (diff <= (double)30){
-            cout << "Falta "<<(int)diff<<" minutos para abrir o casino!\n";
-        }
-        
-        aberto = 0;
-    }
-
-    return aberto;
-}
 
 //Determina o comprimento
 void casino::setComprimento(int posX) {
@@ -548,8 +538,9 @@ bool casino::AssociarUsersMaquina(Cliente *utl){
     
     if(MQ){
         MQ->addCl(utl);
-        cout << "passei aqui "<< endl;
-        cout << "adicionei o cliente " << utl->getNumero() << " A maquina " << MQ->getTipo() <<" -- " << MQ->getPosX() <<","<< MQ->getPosY() << endl;
+        string mensagem = "O cliente " + to_string(utl->getNumero()) + " na maquina " + MQ->getTipo() + " na posicao " + to_string(MQ->getPosX()) + "," + to_string(MQ->getPosY());
+        XmlReader * xml = new XmlReader("logdata", mensagem, XmlLog);
+        XmlLog->addFilho(xml);
         return true;
     }else{
         return false;
@@ -629,7 +620,6 @@ void casino::AddUsersCasinoBatch(){
 
     int valor = U.valorRand(0, valorMaximoAleatorio);
     
-    cout << "Total: " << numeroClientesTotal << " No Casino: " << numeroClientesNoCasino << " A adicionar: " << valor << endl;
     if (valor > 0) {
         for(int i = 1; i <= valor; i++){
 
@@ -650,19 +640,19 @@ void casino::AddUsersCasinoBatch(){
 void casino::AddUsersMaquinaBatch(){
     Uteis U = Uteis();
     Cliente* Cl = nullptr;
-    int valor = U.valorRand(1, this->nmrMaquinasActivas());
+    int valor = U.valorRand(0, this->nmrMaquinasActivas());
     
     if(ClNoCasino->size() < valor ) {
         valor = ClNoCasino->size();
     }
     
-    cout << ClNoCasino->size() << " Numero a associar de clientes as maquinas " << valor << endl;
+    //cout << ClNoCasino->size() << " Numero a associar de clientes as maquinas " << valor << endl;
     for(int i = 1; i <= valor; i++){
         do
         {
             Cl = clienteCasinoSemMaquina();
         } while (Cl == nullptr);
-        cout << "CLIENTE"<< Cl->getNome()<< endl;
+        //cout << "CLIENTE"<< Cl->getNome()<< endl;
         AssociarUsersMaquina(Cl);
     }
 }
@@ -670,7 +660,7 @@ void casino::AddUsersMaquinaBatch(){
 // Faz as apostas dos Clientes nas maquinas
 void casino::ApostasUsers(){
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
-        cout << (*it)->getTipo()<< " || " << (*it)->getPosX() << ","<< (*it)->getPosY() << endl;
+        //cout << (*it)->getTipo()<< " || " << (*it)->getPosX() << ","<< (*it)->getPosY() << endl;
         if ((*it)->getEstado() == ON){
             list<Cliente *>* Lista = (*it)->getCl();
             
@@ -754,19 +744,23 @@ void casino::VerificaUsersTemSaldo(){
             // carrega a lista de clientes 
             list<Cliente *>* Lista = (*it)->getCl();
             if (Lista->size() > 0) {
-            //itera sobre a lista de clientes 
-                for (auto it2 = Lista->begin(); it2 != Lista->end(); ++it2){
-                    Cliente * cl = (*it2);
-                    
-                    if(cl->getApostaPendente() == 0 && cl->getSaldo() == 0){
+                //itera sobre a lista de clientes 
+                for (auto it2 = Lista->begin(); it2 != Lista->end(); ) {
+                    Cliente* cl = *it2;
+
+                    if (cl->getApostaPendente() == 0 && cl->getSaldo() == 0) {
                         cout << "REMOVI O CLIENTE " << cl->getNumero() << endl;
+
+                        auto nextIt = std::next(it2);
                         (*it)->removeCl(cl);
+                        it2 = nextIt;
+                    } else {
+                        ++it2;
                     }
                 }
             }
         }
     }
-
 }
 
 // Faz a saida de clientes das maquinas random
@@ -781,7 +775,6 @@ void casino::saidaUsersMaquinas(){
             int jogadoresMaquinas = this->contagemUsersMaquinas();
             
             int valor = U.valorRand(1,jogadoresMaquinas);
-            cout << " TENHO "<< jogadoresMaquinas << " # RETIRO " << valor<< endl;
             Cliente *Cl;
             maquina *Mq;
 
@@ -790,6 +783,10 @@ void casino::saidaUsersMaquinas(){
                 if (!Cl) break;
                 Mq = getMaquinaPorCliente(Cl);
                 Mq->removeCl(Cl);
+
+                string mensagem = "O cliente " + to_string(Cl->getNumero()) + " na maquina " + Mq->getTipo() + " na posicao " + to_string(Mq->getPosX()) + "," + to_string(Mq->getPosY());
+                XmlReader * xml = new XmlReader("logdata", mensagem, XmlLog);
+                XmlLog->addFilho(xml);
             }
         }
     }
@@ -885,7 +882,7 @@ void casino::saidaUersCasino() {
 
     int numeroAtualClientes = nmrClientesCasinoSemMaquina();
     int numeroRetirar = util.valorRand(0, numeroAtualClientes);
-    cout << "EStAO " << numeroAtualClientes << " saem " << numeroRetirar <<  endl;
+    //cout << "EStAO " << numeroAtualClientes << " saem " << numeroRetirar <<  endl;
     
     int i = 1;
     while (i <= numeroRetirar)
@@ -903,7 +900,7 @@ void casino::saidaUersCasino() {
         }
         i++;
     }
-    cout << "fiquei com -> " << ClNoCasino->size() << endl;
+    //cout << "fiquei com -> " << ClNoCasino->size() << endl;
 }
 
 void casino::removeClCasino(Cliente* cliente) {
@@ -922,7 +919,7 @@ int casino::nmrMaquinasActivas() {
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
        maquina* mq = (*it); 
        estado est = mq->getEstado(); 
-       if (est == ON) {
+       if (est == 1) {
         nmrMaquinasAct++;
        }
     }
@@ -1014,4 +1011,30 @@ bool casino::todosSemSaldo() {
 bool casino::exporLlog() {
     XmlReader * xmlLogger = XmlLog;
     return xmlLogger->saveAsXML("log.xml");
+}
+
+// retorna se deve fechar o casino ou nao 
+bool casino::verificaHoras(const std::tm& timeStruct) {
+    int horas_atuais = timeStruct.tm_hour;
+    int minutos_atuais = timeStruct.tm_min;
+
+    std::time_t abertura = this->hora_abertura;
+    std::tm *ltm = std::localtime(&abertura);
+    int hora_abertura_h = ltm->tm_hour;
+    int hora_abertura_m = ltm->tm_min;
+
+    std::time_t fecho = this->hora_fecho;
+    std::tm *ltm1 = std::localtime(&fecho);
+    int hora_fecho_h = ltm1->tm_hour;
+    int hora_fecho_m = ltm1->tm_min;
+
+    // Check if it is within the opening and closing hours
+    if ((horas_atuais == hora_abertura_h && minutos_atuais >= hora_abertura_m) ||
+        (horas_atuais > hora_abertura_h) ||
+        (horas_atuais < hora_fecho_h) ||
+        (horas_atuais == hora_fecho_h && minutos_atuais <= hora_fecho_m)) {
+        return true;
+    }
+
+    return false;
 }

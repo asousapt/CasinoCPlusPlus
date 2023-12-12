@@ -1,21 +1,19 @@
-#include <iostream>
-#include <ctime>
-using namespace std;
+// relogio.h
+#ifndef RELOGIO_H
+#define RELOGIO_H
+#pragma once
 
-class relogio{
-private:
-    time_t InicioReal; //Hora Inicio do computador 
-    int incr; //Incremento do relogio
-    time_t InicioSim; //Hora Inicio da Simulacao
+#include <chrono>
+
+class relogio {
 public:
-    relogio();
-    relogio(int salto, time_t hora_abertura);
-    ~relogio();
-    void verHoraAtual();
-    time_t getHoraAtual();
-    void WaitSegundos(int s);
-    void Wait(int s);
+    relogio(int salto);
+    std::chrono::system_clock::time_point now();
+
+private:
+    int incr;
+    std::chrono::system_clock::time_point start_time;
 };
 
 
-
+#endif // RELOGIO_H
