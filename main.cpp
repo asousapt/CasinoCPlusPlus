@@ -43,8 +43,7 @@ int main(){
     cout << "Pressione M para sair do programa\n";
 
 
-    while (true)
-    {
+    while (true) {
         if (ut.TeclaPressionada())
         {
             cout << "Tecla pressionada. Programa encerrado\n";
@@ -53,9 +52,11 @@ int main(){
 
         cas.Run(false);
 
-        // Optional: Sleep for a short duration to avoid busy-waiting
         usleep(10000); // Sleep for 10 milliseconds (requires #include <unistd.h>)
     }
+
+    // Abre o menu do programa
+
         
   
     
