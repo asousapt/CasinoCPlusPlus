@@ -5,12 +5,13 @@
 using namespace std;
 
 
-void menuPrincipal(casino *C){
+int menuPrincipal(casino *C){
     cout << "---------- MENU PRINCIPAL ---------\n";
     cout << "1 - Utilizadores\n";
     cout << "2 - Máquinas\n";
     cout << "3 - Casino\n";
-    cout << "0 - Terminar Simulação\n";
+    cout << "4 - Terminar Simulação\n";
+    cout << "0 - Voltar a Simulação\n";
 
     int op;
     cin >> op;
@@ -25,7 +26,11 @@ void menuPrincipal(casino *C){
             case 3:
                 MenuCasino(C);
                 break;
+            case 4:
+                return 0;
+                break;
             case 0:
+                return 1;
                 break;
             default: 
                 cout << "Opção Inválida\n";
