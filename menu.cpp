@@ -1,5 +1,6 @@
 #include <iostream>
 #include <list>
+#include <unistd.h>
 #include "menu.h"
 
 class casino;
@@ -8,6 +9,8 @@ using namespace std;
 
 
 int menuPrincipal(casino *C){
+    system("clear");
+
     cout << "---------- MENU PRINCIPAL ---------\n";
     cout << "1 - Utilizadores\n";
     cout << "2 - Máquinas\n";
@@ -37,12 +40,13 @@ int menuPrincipal(casino *C){
                 cout << "Opção Inválida\n";
                 break;
         }
-        system ("clear");
+        usleep(2000000);
     }
     return 1;
 }
 
 void MenuUsers(casino *C){
+    system ("clear");
     cout << "---------- MENU UTILIZADORES ---------\n";
     cout << "1 - Pesquisar e Mostrar Utilizador\n";
     cout << "2 - Utilizadores mais Frequentes\n";
@@ -55,13 +59,17 @@ void MenuUsers(casino *C){
         switch(op){
             case 1:
             {
-                bool noCasino = true;
+                bool noCasino = false;
                 int numCl = 0;
+                Cliente* Cl = nullptr;
+                do
+                {
+                    cout << "Numero Cliente: ";
+                    cin >> numCl;
+                    Cl = C->getCl(numCl);
+                } while (Cl == nullptr);
                 
-                cout << "Numero Cliente: ";
-                cin >> numCl;
-
-                Cliente *Cl = C->getClCasino(numCl);
+                Cl = C->getClCasino(numCl);
                 if (!Cl){
                     noCasino = false;
                     Cl = C->getCl(numCl);
@@ -84,17 +92,38 @@ void MenuUsers(casino *C){
             case 2:
             {
                 list<Cliente *>* LC = C->Jogadores_Mais_Frequentes();
+                int i = 0; 
+                int res = -1;
+                system("clear");
+                cout << "### UTILIZADORES MAIS FREQUENTES ###" << endl;
 
                 for (auto it = LC->begin(); it != LC->end(); ++it){
+                    res = i % 20;
+                    if(res == 0) {
+                        usleep(1000000);
+                        system("clear");
+                        cout << "### UTILIZADORES MAIS FREQUENTES ###" << endl;
+                    }
                     (*it)->exportCl();
+                    i++;
                 }
                 break;
             }
             case 3:
             {
                 list<Cliente *>* LC = C->Jogadores_Mais_Ganhos();
+                int i = 0; 
+                int res = -1;
+                system("clear");
 
+                cout << "### UTILIZADORES MAIS GANHADORES ###" << endl;
                 for (auto it = LC->begin(); it != LC->end(); ++it){
+                    res = i % 20;
+                    if(res == 0) {
+                        usleep(1000000);
+                        system("clear");
+                        cout << "### UTILIZADORES MAIS GANHADORES ###" << endl;
+                    }
                     (*it)->exportCl();
                 }
                 break;
@@ -105,7 +134,9 @@ void MenuUsers(casino *C){
                 cout << "Opção Inválida\n";
                 break;
         }
-        system ("clear");
+        op = 0;
+        usleep(1000000);
+        //system ("clear");
     }
 }
 
@@ -263,7 +294,7 @@ void MenuMaquinas(casino *C){
                 cout << "Opção Inválida\n";
                 break;
         }
-        system ("clear");
+        //system ("clear");
     }
 }
 
@@ -292,6 +323,6 @@ void MenuCasino(casino *C){
                 cout << "Opção Inválida\n";
                 break;
         }
-        system ("clear");
+       //system ("clear");
     }
 }

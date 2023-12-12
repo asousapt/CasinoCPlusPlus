@@ -8,7 +8,6 @@
 #include "casino.h"
 #include "maquina.h"
 #include <unistd.h>
-#include <ncurses.h>
 #include <termios.h>
 #include "menu.h"
 
@@ -41,8 +40,6 @@ int main(){
     //cas.listarClientes();
     cout << "Use a tecla M para parar a simulacao" << endl;
     
-    cout << "Pressione M para sair do programa\n";
-
     do
     {
         while (true) {

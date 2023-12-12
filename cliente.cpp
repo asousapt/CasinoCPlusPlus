@@ -16,6 +16,10 @@ Cliente::Cliente(int numeroCl, string nomeCl, int saldoCl) {
     numero = numeroCl;
     nome = nomeCl;
     saldo = saldoCl;
+    nVezesGanhou = 0;
+    apostaPendente = 0;
+    nJogadas = 0;
+
 
     Uteis U = Uteis();
     int valor = U.valorRand(25,100);
