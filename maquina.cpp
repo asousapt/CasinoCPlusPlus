@@ -5,7 +5,9 @@
 #include "uteis.h"
 
 maquina::maquina(int X, int Y, float percGanhar, float percAvaria, float tempMax, float tempAtual, float percAviso){
-    id = id+1;
+    nSeq++;
+
+    id = nSeq;
     estadoMaq = ON;
     percentGanhar = percGanhar;
     percentAvaria = percAvaria;
@@ -38,7 +40,20 @@ estado maquina::getEstado(){
 
 void maquina::setEstado(estado stt){
     estadoMaq = stt;
-    cout << "Estado mudado para ["<< stt <<"]\n";
+    string estadoStr;
+    switch (stt)
+    {
+    case 1:
+       estadoStr = "ON";
+        break;
+    case 0:
+        estadoStr = "OFF";
+        break;
+    case 2:
+       estadoStr = "AVARIADA";
+        break;
+    }
+    cout << "Maquina ["<< id <<"] estado mudado para ["<< estadoStr <<"]\n";
 }
 
 void maquina::exportMQ(ostream &f){
@@ -63,6 +78,10 @@ int maquina::getPosY(){
 
 int maquina::getPosX(){
     return posX;
+}
+
+int maquina::getID(){
+    return id;
 }
 
 string maquina::getTipo() {
@@ -179,6 +198,6 @@ void maquina::mostrar() {
        estadoStr = "AVARIADA";
         break;
     }
-    cout << std::left << setw(10) << this->getTipo() << "\t\t" << to_string(this->posX) << "\t" << to_string(this->posY) << "\t" << estadoStr << endl;
+    cout << std::left << setw(10) << this->getTipo() << "\t\t" << to_string(this->posX) << "\t" << to_string(this->posY) << "\t" << estadoStr << "\t" << id << endl;
 }
 

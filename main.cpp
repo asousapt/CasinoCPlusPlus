@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int maquina::id = 0;
+int maquina::nSeq = 0;
 
 int main(){
     /** INICIO DO PROGRAMA **/

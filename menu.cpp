@@ -30,7 +30,6 @@ int menuPrincipal(casino *C){
                 return 0;
                 break;
             case 0:
-                return 1;
                 break;
             default: 
                 cout << "Opção Inválida\n";
@@ -38,6 +37,7 @@ int menuPrincipal(casino *C){
         }
         system ("clear");
     }
+    return 1;
 }
 
 void MenuUsers(casino *C){
@@ -114,6 +114,7 @@ void MenuMaquinas(casino *C){
     cout << "3 - Mostrar Máquinas por Tipo\n";
     cout << "4 - Máquinas que Avariaram Mais\n";
     cout << "5 - Mostrar Estado da Máquina\n";
+    cout << "6 - Mudar o Estado da Máquina\n";
     cout << "0 - Voltar\n";
 
     int op;
@@ -167,6 +168,10 @@ void MenuMaquinas(casino *C){
                         break;
                     case 0:
                         break;
+                    default:
+                        op2 = 0;
+                        cout << "Tipo Inválido\n";
+                        break;
                 }
 
                 if (op2 > 0){
@@ -202,6 +207,52 @@ void MenuMaquinas(casino *C){
                 if (Mq){
                     C->Get_Estado(numMq);
                 }
+                break;
+            }
+            case 6: 
+            {
+                estado e;
+                int numMq;
+                cout << "Numero Máquina: ";
+                cin >> numMq;
+
+                maquina *MQ = C->getMaquinaPorID(numMq);
+
+                if (!MQ){
+                    cout << "Máquina não existe!\n";
+                    break;
+                }
+
+                int op2 = 0;
+                cout << "---------- ESTADOS ---------\n";
+                cout << "1 - ON\n";
+                cout << "2 - OFF\n";
+                cout << "3 - AVARIADO\n";
+                cout << "0 - Voltar\n";
+                cin >> op2;
+                switch (op2){
+                    case 1:
+                        e = ON;
+                        break;
+                    case 2:
+                        e = OFF;
+                        break;
+                    case 3:
+                        e = AVARIADA;
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        op2 = 0;
+                        cout << "Estado Inválido\n";
+                        break;
+                }
+
+                if (op2 > 0){
+                    MQ->setEstado(e);
+                    delete(MQ);
+                }
+
                 break;
             }
             case 0:

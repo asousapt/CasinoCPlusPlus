@@ -13,9 +13,9 @@ class maquina{
 private:
     estado estadoMaq;
     float percentGanhar, percentAvaria, percentagemAviso, temperaturaMax, temperaturaAtual;
-    int nAvarias, nUsos, posX, posY;
+    int nAvarias, nUsos, posX, posY, id;
+    static int nSeq;
 public:
-    static int id;
     maquina(int X, int Y, float percGanhar, float percAvaria, float tempMax, float tempAtual, float percAviso);
     ~maquina();
     virtual string getTipo();
@@ -33,6 +33,7 @@ public:
     void setPercentagemGanhar(float percent);
     int getPosY();
     int getPosX();
+    int getID();
     bool ganhou();
     bool avaria();
     void reparar();
