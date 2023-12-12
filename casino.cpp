@@ -356,16 +356,21 @@ void casino::Listar(float prob, ostream &f){
 }
 
 // Função da simulação com e relogio e operações a fazer, ao clicar na tecla 'M' mostra o menu com várias operações a fazer
-void casino::Run(bool Debug){    
+void casino::Run(bool Debug){
+    Uteis ut = Uteis();
+    cout << endl<< "Use a tecla M para parar a simulacao..." << endl;  
     relogio accelerated_clock(900);
-    bool encerrar = 0;
+    bool encerrar = false;
     bool FazProcessos = false;
+    
+    
 
-    while (encerrar == 0) {
         auto accelerated_time = accelerated_clock.now();
         auto timeStruct = std::chrono::system_clock::to_time_t(accelerated_time);
         auto localTimeStruct = *std::localtime(&timeStruct);
         
+
+
         // Faz a verificacao da hora atual e decide o que fazer 
         if (verificaHoras(localTimeStruct)) {
             // o casino esta aberto
@@ -411,8 +416,8 @@ void casino::Run(bool Debug){
 
         // Sleep de 2 segundos 
         std::this_thread::sleep_for(std::chrono::seconds(2));
-    }
-    return;
+    
+    
 }
 
 

@@ -7,12 +7,16 @@
 #include "uteis.h"
 #include "casino.h"
 #include "maquina.h"
+#include <unistd.h>
+#include <ncurses.h>
+#include <termios.h>
 
 using namespace std;
 
 int maquina::nSeq = 0;
 
 int main(){
+    Uteis ut = Uteis();
     /** INICIO DO PROGRAMA **/
     srand(time(nullptr));
 
@@ -34,7 +38,28 @@ int main(){
     }
     //cas.listarMaquinas();
     //cas.listarClientes();
-    cas.Run(false);
+    cout << "Use a tecla M para parar a simulacao" << endl;
+    
+    cout << "Pressione M para sair do programa\n";
+
+
+    while (true) {
+        if (ut.TeclaPressionada())
+        {
+            cout << "Tecla pressionada. Programa encerrado\n";
+            break;
+        }
+
+        cas.Run(false);
+
+        usleep(10000); // Sleep for 10 milliseconds (requires #include <unistd.h>)
+    }
+
+    // Abre o menu do programa
+
+        
+  
+    
     //cas.exporLlog();
    //cas.ExportCasino();
    

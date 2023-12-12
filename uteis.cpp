@@ -5,6 +5,9 @@
 #include <random>
 #include <cstdlib> 
 #include "uteis.h"
+#include <unistd.h>
+#include <termios.h>
+#include <fcntl.h>
 
 // Funcao que carrega ficheiro para string passando apemas o nome do ficheiro
  string Uteis::loadFileToString(string nomeFicheiro) {
@@ -78,4 +81,32 @@ int Uteis::diferencaHoras(time_t horaInicio, time_t horaFim) {
     std::tm *ltm1 = std::localtime(&horaFim);
     int horas_fim = (ltm1->tm_hour *60) + ltm1->tm_min;
     return horas_Ini - horas_fim;
+}
+
+bool Uteis::TeclaPressionada() {
+    struct termios oldt, newt;
+    int ch;
+
+    // Get the current terminal settings
+    tcgetattr(STDIN_FILENO, &oldt);
+
+    // Set the terminal to non-canonical mode
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+    // Set the file descriptor for standard input to non-blocking
+    int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+    fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
+
+    // Check if a key is pressed
+    ch = getchar();
+
+    // Restore the terminal settings
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+
+    // Reset the file descriptor for standard input to blocking
+    fcntl(STDIN_FILENO, F_SETFL, flags);
+
+    return (ch == 'M' || ch == 'm');
 }
