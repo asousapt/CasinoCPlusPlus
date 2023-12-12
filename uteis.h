@@ -14,6 +14,7 @@ class Uteis {
         string retornaStrHoras(int hora, int minutos);
         string getTimestamp();
         int diferencaHoras(time_t horaInicio, time_t horaFim);
+        bool TeclaPressionada();
 };
 
 #endif
