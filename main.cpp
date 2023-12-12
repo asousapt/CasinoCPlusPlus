@@ -73,7 +73,5 @@ int main(){
     //xmlObj.showlista();
     // xmlObj.mostraDados();
 
-    
-
     return 0;
 }
