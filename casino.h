@@ -81,6 +81,8 @@ public:
     bool exporLlog();
     bool verificaHoras(const std::tm& timeStruct);
     void alterarEstadoMaquina(int ID, estado e);
+    void removerClientesMaquinas();
+    void removerClientesCasino();
 };
 
 #endif

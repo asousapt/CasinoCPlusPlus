@@ -152,6 +152,9 @@ void MenuMaquinas(casino *C){
                 maquina *Mq = C->getMaquina(numMq);
                 if (Mq){
                     Mq->exportMQ();
+                    delete(Mq);
+                }else{
+                    cout << "Maquina não existe\n";
                 }
 
                 break;

@@ -14,6 +14,9 @@
 #include "roleta.h"
 #include "craps.h"
 #include "blackJack.h"
+#include <unistd.h>
+#include <termios.h>
+#include "menu.h"
 
 
 casino::casino(string _nome){
@@ -367,16 +370,14 @@ void casino::Run(bool Debug){
     Uteis ut = Uteis();
     cout << endl<< "Use a tecla M para parar a simulacao..." << endl;  
     relogio accelerated_clock(900);
-    bool encerrar = false;
     bool FazProcessos = false;
+    int fechar = 1;
     
-    
-
+    do
+    {
         auto accelerated_time = accelerated_clock.now();
         auto timeStruct = std::chrono::system_clock::to_time_t(accelerated_time);
         auto localTimeStruct = *std::localtime(&timeStruct);
-        
-
 
         // Faz a verificacao da hora atual e decide o que fazer 
         if (verificaHoras(localTimeStruct)) {
@@ -403,18 +404,20 @@ void casino::Run(bool Debug){
             ApostasUsers();
             cout << "fIZERAM APOSTAS \n";
             checkGanhou();
-             cout << "VERIFICOU GANHOS \n";
+            cout << "VERIFICOU GANHOS \n";
             checkAvarias();
             checkTemp();
             cout << "SAIDA" << endl;
             saidaUsersMaquinas();
             saidaUersCasino();
-        } 
-        else {
+        }else {
             // TODO
             // Tem de excluir toda a gente do casino
             // Tem de verificar se ha pessoas que ganharam apostas, atualizar os saldos
 
+            checkGanhou();
+            removerClientesMaquinas();
+            removerClientesCasino();
         }
         std::cout << "Hora Atual: " << std::asctime(&localTimeStruct);
         cout << "Estao " << ClNoCasino->size() << " jogadores no casino\n";
@@ -423,8 +426,14 @@ void casino::Run(bool Debug){
 
         // Sleep de 2 segundos 
         std::this_thread::sleep_for(std::chrono::seconds(2));
-    
-    
+
+        if (ut.TeclaPressionada()){
+            fechar = menuPrincipal(this);
+        }
+
+        //usleep(10000); // Sleep for 10 milliseconds (requires #include <unistd.h>)
+
+    } while (fechar == 1);    
 }
 
 
@@ -1063,4 +1072,15 @@ void casino::alterarEstadoMaquina(int ID, estado e){
     MQ->setEstado(e);
 }
 
+void casino::removerClientesMaquinas(){
+    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it) {
+        (*it)->removeTodosCl();
+    }
+}
+
+void casino::removerClientesCasino(){
+    for (auto it = ClNoCasino->end(); it != ClNoCasino->begin(); --it) {
+        ClNoCasino->erase(it);
+    }
+}
 

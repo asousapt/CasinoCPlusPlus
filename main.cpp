@@ -7,9 +7,6 @@
 #include "uteis.h"
 #include "casino.h"
 #include "maquina.h"
-#include <unistd.h>
-#include <termios.h>
-#include "menu.h"
 
 using namespace std;
 
@@ -40,20 +37,21 @@ int main(){
     //cas.listarClientes();
     cout << "Use a tecla M para parar a simulacao" << endl;
     
-    int fechar = 1;
-    do
-    {
-        while (true) {
-            if (ut.TeclaPressionada())
-            {
-                fechar = menuPrincipal(&cas);
-            }
+    cas.Run(false);
+    
+    // int fechar = 1;
+    // do
+    // {
+    //     while (true) {
+    //         if (ut.TeclaPressionada())
+    //         {
+    //             fechar = menuPrincipal(&cas);
+    //         }
 
-            cas.Run(false);
 
-            usleep(10000); // Sleep for 10 milliseconds (requires #include <unistd.h>)
-        };
-    } while (fechar == 1);
+    //         usleep(10000); // Sleep for 10 milliseconds (requires #include <unistd.h>)
+    //     };
+    // } while (fechar == 1);
     
     
    
