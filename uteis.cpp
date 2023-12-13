@@ -110,3 +110,17 @@ bool Uteis::TeclaPressionada() {
 
     return (ch == 'M' || ch == 'm');
 }
+
+bool Uteis::e_numero(const std::string& s){
+    bool digito = true;
+
+    auto it = s.begin();
+    while (it != s.end()){
+        if(!isdigit(*it) && digito == true){
+            digito = false;
+        }
+        ++it;
+    } 
+
+    return digito;
+}

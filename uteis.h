@@ -15,6 +15,7 @@ class Uteis {
         string getTimestamp();
         int diferencaHoras(time_t horaInicio, time_t horaFim);
         bool TeclaPressionada();
+        bool e_numero(const std::string& s);
 };
 
 #endif

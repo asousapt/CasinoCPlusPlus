@@ -1080,7 +1080,10 @@ void casino::removerClientesMaquinas(){
 
 void casino::removerClientesCasino(){
     for (auto it = ClNoCasino->end(); it != ClNoCasino->begin(); --it) {
-        ClNoCasino->erase(it);
+        ClNoCasino->pop_back();
+    }
+    if (ClNoCasino->size() > 0){
+        ClNoCasino->pop_front();
     }
 }
 

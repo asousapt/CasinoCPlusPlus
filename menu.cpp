@@ -2,13 +2,17 @@
 #include <list>
 #include <unistd.h>
 #include "menu.h"
+#include "uteis.h"
 
 class casino;
 
 using namespace std;
 
 int menuPrincipal(casino *C){
+    Uteis U;
+
     int op = -1;
+    string opcao;
     while (op != 0) {
 
         system("clear");
@@ -18,8 +22,12 @@ int menuPrincipal(casino *C){
         cout << "3 - Casino\n";
         cout << "4 - Terminar Simulação\n";
         cout << "0 - Voltar a Simulação\n";
-        cin >> op;
-        cin.clear();
+        cin >> opcao;
+        if (!U.e_numero(opcao)){
+            op = 999999;
+        }else{
+            op = stoi(opcao);
+        }
         system("clear");
 
         switch(op){
@@ -46,49 +54,67 @@ int menuPrincipal(casino *C){
 }
 
 void MenuUsers(casino *C){
+    Uteis U;
+
     int op = -1;
+    string opcao;
     while (op != 0) {
 
         cout << "\n---------- MENU UTILIZADORES ---------\n";
         cout << "1 - Pesquisar e Mostrar Utilizador\n";
         cout << "2 - Utilizadores mais Frequentes\n";
         cout << "3 - Utilizadores com Mais Ganhos\n";
+        cout << "4 - Mostrar Todos os Utilizadores\n";
         cout << "0 - Voltar\n";
-        cin >> op;
-        cin.clear();
+        cin >> opcao;
+        if (!U.e_numero(opcao)){
+            op = 999999;
+        }else{
+            op = stoi(opcao);
+        }
         system ("clear");
 
         switch(op){
             case 1:
             {
                 bool noCasino = false;
-                int numCl = 0;
+                string numCl;
             
                 cout << "Numero Cliente: ";
                 cin >> numCl;
-                Cliente* Cl = C->getCl(numCl);
+                
+                if (!U.e_numero(numCl)){
+                    cout << "Cliente não existe\n";
+                    break;
+                }
+
+                Cliente* Cl = C->getCl(stoi(numCl));
                 if (!Cl){
                     cout << "Cliente não existe\n";
+                    break;
+                }
+
+                Cl = C->getClCasino(stoi(numCl));
+                if (!Cl){
+                    noCasino = false;
+                    Cl = C->getCl(stoi(numCl));
+                }
+
+                Cl->exportCl();
+                if (noCasino){
+                    cout << "Encontra no casino no máquina:\n";
+                    maquina *MQ = C->getMaquinaPorCliente(Cl);
+                    MQ->exportMQ();
                 }else{
-                    Cl = C->getClCasino(numCl);
-                    if (!Cl){
-                        noCasino = false;
-                        Cl = C->getCl(numCl);
-                    }
+                    cout << "Não se encontra no casino.\n";
+                }
 
-                    Cl->exportCl();
-                    if (noCasino){
-                        cout << "Encontra no casino no máquina:\n";
-                        maquina *MQ = C->getMaquinaPorCliente(Cl);
-                        MQ->exportMQ();
-
-                    }else{
-                        cout << "Não se encontra no casino\n";
-                    }
-
-                    cout << "Ganhou " << Cl->getNVezesGanhou() << " vezes\n";
-                    cout << "Jogou " << Cl->getNJogadas() << " vezes\n";
-                    cout << "Saldo: " << Cl->getSaldo() << " €. Com " << Cl->getApostaPendente() << " numa aposta.\n";
+                cout << "Ganhou " << Cl->getNVezesGanhou() << " vezes\n";
+                cout << "Jogou " << Cl->getNJogadas() << " vezes\n";
+                cout << "Saldo: " << Cl->getSaldo() << " €. Com " << Cl->getApostaPendente() << "€ numa aposta.\n";
+            
+                if(Cl){
+                    delete(Cl);
                 }
                 
                 break;
@@ -117,6 +143,9 @@ void MenuUsers(casino *C){
                 cout << "### UTILIZADORES MAIS GANHADORES ###\n" << endl;
                 break;
             }
+            case 4:
+                C->listarClientes();
+                break;
             case 0:
                 break;
             default: 
@@ -128,7 +157,10 @@ void MenuUsers(casino *C){
 }
 
 void MenuMaquinas(casino *C){
+    Uteis U;
+
     int op = -1;
+    string opcao;
     while (op != 0) {
         cout << "\n---------- MENU MÁQUINAS ---------\n";
         cout << "1 - Pesquisar e Mostrar Máquina\n";
@@ -137,19 +169,29 @@ void MenuMaquinas(casino *C){
         cout << "4 - Máquinas que Avariaram Mais\n";
         cout << "5 - Mostrar Estado da Máquina\n";
         cout << "6 - Mudar o Estado da Máquina\n";
+        cout << "7 - Mostrar Todas as Máquinas\n";
         cout << "0 - Voltar\n";
-        cin >> op;
-        cin.clear();
+        cin >> opcao;
+        if (!U.e_numero(opcao)){
+            op = 999999;
+        }else{
+            op = stoi(opcao);
+        }
         system ("clear");
 
         switch(op){
             case 1:
             {
-                int numMq;
+                string numMq;
                 cout << "Numero Máquina: ";
                 cin >> numMq;
+
+                if (!U.e_numero(numMq)){
+                    cout << "Maquina não existe\n";
+                    break;
+                }
                 
-                maquina *Mq = C->getMaquina(numMq);
+                maquina *Mq = C->getMaquina(stoi(numMq));
                 if (Mq){
                     Mq->exportMQ();
                     delete(Mq);
@@ -174,13 +216,19 @@ void MenuMaquinas(casino *C){
             {
                 string tipo;
                 int op2 = 0;
+                string opcao2;
                 cout << "---------- TIPO ---------\n";
                 cout << "1 - SLOTS\n";
                 cout << "2 - ROLETA\n";
                 cout << "3 - CRAPS\n";
                 cout << "4 - BLACKJACK\n";
                 cout << "0 - Voltar\n";
-                cin >> op2;
+                cin >> opcao2;
+                if (!U.e_numero(opcao2)){
+                    op2 = 999999;
+                }else{
+                    op2 = stoi(opcao2);
+                }
                 switch (op2){
                     case 1:
                         tipo = "SLOTS";
@@ -197,7 +245,6 @@ void MenuMaquinas(casino *C){
                     case 0:
                         break;
                     default:
-                        op2 = 0;
                         cout << "Tipo Inválido\n";
                         break;
                 }
@@ -214,13 +261,18 @@ void MenuMaquinas(casino *C){
             }
             case 5:
             {
-                int numMq;
+                string numMq;
                 cout << "Numero Máquina: ";
                 cin >> numMq;
+                
+                if (!U.e_numero(numMq)){
+                    cout << "Maquina não existe\n";
+                    break;
+                }
 
-                maquina *Mq = C->getMaquina(numMq);
+                maquina *Mq = C->getMaquina(stoi(numMq));
                 if (Mq){
-                    estado e = C->Get_Estado(numMq);
+                    estado e = C->Get_Estado(stoi(numMq));
                     cout << "Estado da maquina ["<<numMq<<"]: ";
                     switch(e){
                         case 1:
@@ -233,6 +285,7 @@ void MenuMaquinas(casino *C){
                             cout << "AVARIADA\n";
                             break;
                     }
+                    delete(Mq);
                 }else{
                     cout << "Maquina não existe\n";
                 }
@@ -241,17 +294,28 @@ void MenuMaquinas(casino *C){
             case 6: 
             {
                 estado e;
-                int numMq;
+                string numMq;
                 cout << "Numero Máquina: ";
                 cin >> numMq;
 
+                if (!U.e_numero(numMq)){
+                    cout << "Maquina não existe\n";
+                    break;
+                }
+
+                string opcao2;
                 int op2 = 0;
                 cout << "---------- ESTADOS ---------\n";
                 cout << "1 - ON\n";
                 cout << "2 - OFF\n";
                 cout << "3 - AVARIADO\n";
                 cout << "0 - Voltar\n";
-                cin >> op2;
+                cin >> opcao2;
+                if (!U.e_numero(opcao2)){
+                    op2 = 999999;
+                }else{
+                    op2 = stoi(opcao2);
+                }
                 switch (op2){
                     case 1:
                         e = ON;
@@ -271,11 +335,14 @@ void MenuMaquinas(casino *C){
                 }
 
                 if (op2 > 0){
-                    C->alterarEstadoMaquina(numMq,e);
+                    C->alterarEstadoMaquina(stoi(numMq),e);
                 }
 
                 break;
             }
+            case 7:
+                C->listarMaquinas();
+                break;
             case 0:
                 break;
             default: 
@@ -287,7 +354,10 @@ void MenuMaquinas(casino *C){
 }
 
 void MenuCasino(casino *C){
+    Uteis U;
+
     int op = -1;
+    string opcao;
     while (op != 0) {
         cout << "\n---------- MENU CASINO ---------\n";
         cout << "1 - Exportar\n";
@@ -295,8 +365,12 @@ void MenuCasino(casino *C){
         cout << "3 - Contagem de Jogadores no Casino\n";
         cout << "4 - Tamanho do Casino\n";
         cout << "0 - Voltar\n";
-        cin >> op;
-        cin.clear();
+        cin >> opcao;
+        if (!U.e_numero(opcao)){
+            op = 999999;
+        }else{
+            op = stoi(opcao);
+        }
         system ("clear");
 
         switch(op){
