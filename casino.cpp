@@ -2,6 +2,7 @@
 #include <cmath>
 #include <ctime>
 #include <sstream>
+#include <string>
 #include <chrono>
 #include <thread>
 #include <iomanip>
@@ -166,6 +167,7 @@ bool casino::Load(const string &ficheiro){
             }
         }
     }
+
     XmlReader * xmlf = new XmlReader("logdata", "Importacao termninada com sucesso!", XmlLog);
     XmlLog->addFilho(xmlf);
     return true;
@@ -178,6 +180,7 @@ bool casino::AddUserCasino(Cliente *ut){
     string mensagem = "O cliente " + to_string(ut->getNumero()) + " deu entrada no casino";
     XmlReader * xml = new XmlReader("logdata", mensagem, XmlLog);
     XmlLog->addFilho(xml);
+
     return true;
 }
 
@@ -208,6 +211,9 @@ void casino::Desligar(int id_maq){
         maquina *mQ = *it;
         if (mQ->compareId(id_maq) == 1){
             mQ->desligarMq();
+            string mensagem = "A maquina com do tipo " + mQ->getTipo() + " na posicao " + to_string(mQ->getPosX()) + "," + to_string(mQ->getPosY()) + " foi desligada";
+            XmlReader * xml = new XmlReader("logdata", mensagem, XmlLog);
+            XmlLog->addFilho(xml);
         }
     }
 }
@@ -349,6 +355,10 @@ void casino::SubirProbabilidadeVizinhas(maquina *M_ganhou, float distancia,list<
             percent = percent+2;
             (*it)->setPercentagemGanhar(percent);
 
+            string mensagem = "A maquina " + (*it)->getTipo() + " na posicao " + to_string((*it)->getPosX()) + "," + to_string((*it)->getPosY()) + " foi incrementada a percentagem para " + to_string(percent);
+            XmlReader * xml = new XmlReader("logdata", mensagem, XmlLog);
+            XmlLog->addFilho(xml);
+
             (*it)->AvisarPercentGanhar();
         }
     }
@@ -394,24 +404,22 @@ void casino::Run(bool Debug){
 
         // trata dos processos do casino 
         if (FazProcessos == true){
-            cout << "Inicio Processos \n";
+            //Adiciona utilizadores ao casino
             AddUsersCasinoBatch();
-            cout << "Adicionei users no casino \n";
-            
+           //Adiciona utilizadores as maquinas do casino            
             AddUsersMaquinaBatch();
-            cout << "Adicionei users as maquinas \n";
+            //cout << "Adicionei users as maquinas \n";
             //listaJogagoresMaquinas();
             ApostasUsers();
-            cout << "fIZERAM APOSTAS \n";
+            //cout << "fIZERAM APOSTAS \n";
             checkGanhou();
-            cout << "VERIFICOU GANHOS \n";
+            //cout << "VERIFICOU GANHOS \n";
             checkAvarias();
             checkTemp();
-            cout << "SAIDA" << endl;
+            //cout << "SAIDA" << endl;
             saidaUsersMaquinas();
             saidaUersCasino();
         }else {
-            // TODO
             // Tem de excluir toda a gente do casino
             // Tem de verificar se ha pessoas que ganharam apostas, atualizar os saldos
 
@@ -653,6 +661,10 @@ void casino::AddUsersCasinoBatch(){
                       
             if (!Cl) break;
             AddUserCasino(Cl);
+            // LOG
+            string mensagem = "O cliente " + to_string(Cl->getNumero()) + " foi adicionado ao casino";
+            XmlReader * xml = new XmlReader("logdata", mensagem, XmlLog);
+            XmlLog->addFilho(xml);
         }
     }
 }
@@ -701,6 +713,10 @@ void casino::ApostasUsers(){
 }
 
 bool casino::ExportCasino() {
+    string mensagem = "A iniciar exportacao dos dados do casinos";
+    XmlReader * xml = new XmlReader("logdata", mensagem, XmlLog);
+    XmlLog->addFilho(xml);
+
     Uteis ut = Uteis();
     // cria o objecto XML
     XmlReader xmlWR =  XmlReader("casino", nullptr);
@@ -753,6 +769,10 @@ bool casino::ExportCasino() {
         filloMaquinas->addFilho(objmq);
     }
     xmlWR.saveAsXML("casino2.xml");
+    string mensagem2 = "Exportacao do casino feita com sucesso";
+    XmlReader * xml2 = new XmlReader("logdata", mensagem, XmlLog);
+    XmlLog->addFilho(xml2);
+
     return true;
 
 }
@@ -761,6 +781,7 @@ bool casino::ExportCasino() {
 void casino::VerificaUsersTemSaldo(){
     //itera sobre a lista de máquinas
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
+        maquina * Mq = (*it);
         // caso a maquina esteja ligada
         if ((*it)->getEstado() == ON){
             // carrega a lista de clientes 
@@ -771,8 +792,10 @@ void casino::VerificaUsersTemSaldo(){
                     Cliente* cl = *it2;
 
                     if (cl->getApostaPendente() == 0 && cl->getSaldo() == 0) {
-                        cout << "REMOVI O CLIENTE " << cl->getNumero() << endl;
-
+                        string mensagem = "O cliente " + to_string(cl->getNumero()) + " na maquina " + Mq->getTipo() + " na posicao " + to_string(Mq->getPosX()) + "," + to_string(Mq->getPosY()) + " saiu da maquina.";
+                        XmlReader * xml = new XmlReader("logdata", mensagem, XmlLog);
+                        XmlLog->addFilho(xml);
+                        
                         auto nextIt = std::next(it2);
                         (*it)->removeCl(cl);
                         it2 = nextIt;
@@ -806,7 +829,7 @@ void casino::saidaUsersMaquinas(){
                 Mq = getMaquinaPorCliente(Cl);
                 Mq->removeCl(Cl);
 
-                string mensagem = "O cliente " + to_string(Cl->getNumero()) + " na maquina " + Mq->getTipo() + " na posicao " + to_string(Mq->getPosX()) + "," + to_string(Mq->getPosY());
+                string mensagem = "O cliente " + to_string(Cl->getNumero()) + " na maquina " + Mq->getTipo() + " na posicao " + to_string(Mq->getPosX()) + "," + to_string(Mq->getPosY()) + " saiu da maquina.";
                 XmlReader * xml = new XmlReader("logdata", mensagem, XmlLog);
                 XmlLog->addFilho(xml);
             }

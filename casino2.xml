@@ -1,7 +1,7 @@
 <casino>
 <horaAbertura>19:00</horaAbertura>
-<horafecho>04:00</horafecho>
-<nome>SSS</nome>
+<horafecho>02:00</horafecho>
+<nome>fewsf</nome>
 <posicaoesX>40</posicaoesX>
 <posicaoesY>40</posicaoesY>
 <primeiroInicio>0</primeiroInicio>
@@ -9,7 +9,7 @@
 <cliente>
 <nome>Luís Almeida</nome>
 <numero>1</numero>
-<saldo>100.000000</saldo>
+<saldo>31.443199</saldo>
 </cliente>
 <cliente>
 <nome>Carla Oliveira</nome>
@@ -24,7 +24,7 @@
 <cliente>
 <nome>Marta Gomes</nome>
 <numero>4</numero>
-<saldo>100.000000</saldo>
+<saldo>31.000000</saldo>
 </cliente>
 <cliente>
 <nome>Gabriel Martins</nome>
@@ -59,7 +59,7 @@
 <cliente>
 <nome>Gustavo Rocha</nome>
 <numero>11</numero>
-<saldo>100.000000</saldo>
+<saldo>57.000000</saldo>
 </cliente>
 <cliente>
 <nome>Leticia Lima</nome>
@@ -124,7 +124,7 @@
 <cliente>
 <nome>Gabriel Silva</nome>
 <numero>24</numero>
-<saldo>100.000000</saldo>
+<saldo>195.000000</saldo>
 </cliente>
 <cliente>
 <nome>João Ferreira</nome>
@@ -154,17 +154,17 @@
 <cliente>
 <nome>Maria Silva</nome>
 <numero>30</numero>
-<saldo>100.000000</saldo>
+<saldo>8.000000</saldo>
 </cliente>
 <cliente>
 <nome>João Santos</nome>
 <numero>31</numero>
-<saldo>100.000000</saldo>
+<saldo>0.800000</saldo>
 </cliente>
 <cliente>
 <nome>Ana Ferreira</nome>
 <numero>32</numero>
-<saldo>100.000000</saldo>
+<saldo>31.000000</saldo>
 </cliente>
 <cliente>
 <nome>Carlos Dias</nome>
@@ -204,7 +204,7 @@
 <cliente>
 <nome>Fernando Mendes</nome>
 <numero>40</numero>
-<saldo>100.000000</saldo>
+<saldo>23.000000</saldo>
 </cliente>
 <cliente>
 <nome>Juliana Moreira</nome>
@@ -244,7 +244,7 @@
 <cliente>
 <nome>Guilherme Oliveira</nome>
 <numero>48</numero>
-<saldo>100.000000</saldo>
+<saldo>14.000000</saldo>
 </cliente>
 <cliente>
 <nome>Bianca Castro</nome>
@@ -319,7 +319,7 @@
 <cliente>
 <nome>Larissa Martins</nome>
 <numero>63</numero>
-<saldo>100.000000</saldo>
+<saldo>44.000000</saldo>
 </cliente>
 <cliente>
 <nome>Rodrigo Silva</nome>
@@ -344,7 +344,7 @@
 <cliente>
 <nome>Thiago Araújo</nome>
 <numero>68</numero>
-<saldo>100.000000</saldo>
+<saldo>54.760002</saldo>
 </cliente>
 <cliente>
 <nome>Renata Lopes</nome>
@@ -369,17 +369,17 @@
 <cliente>
 <nome>Tatiana Ribeiro</nome>
 <numero>73</numero>
-<saldo>100.000000</saldo>
+<saldo>18.490000</saldo>
 </cliente>
 <cliente>
 <nome>Ricardo Almeida</nome>
 <numero>74</numero>
-<saldo>100.000000</saldo>
+<saldo>54.760002</saldo>
 </cliente>
 <cliente>
 <nome>Júlia Marques</nome>
 <numero>75</numero>
-<saldo>100.000000</saldo>
+<saldo>32.000000</saldo>
 </cliente>
 <cliente>
 <nome>Bruno Fernandes</nome>
@@ -404,7 +404,7 @@
 <cliente>
 <nome>Fernanda Souza</nome>
 <numero>80</numero>
-<saldo>100.000000</saldo>
+<saldo>37.000000</saldo>
 </cliente>
 <cliente>
 <nome>Gabriela Costa</nome>
@@ -454,12 +454,12 @@
 <cliente>
 <nome>Lucas Dias</nome>
 <numero>90</numero>
-<saldo>100.000000</saldo>
+<saldo>56.250000</saldo>
 </cliente>
 <cliente>
 <nome>Sara Gomes</nome>
 <numero>91</numero>
-<saldo>100.000000</saldo>
+<saldo>39.000000</saldo>
 </cliente>
 <cliente>
 <nome>Gabriel Araújo</nome>
@@ -474,7 +474,7 @@
 <cliente>
 <nome>Bruno Pinto</nome>
 <numero>94</numero>
-<saldo>100.000000</saldo>
+<saldo>69.000000</saldo>
 </cliente>
 <cliente>
 <nome>Maria Eduarda Ferreira</nome>
@@ -573,7 +573,7 @@
 </maquina>
 <maquina>
 <percentAvaria>20.000000</percentAvaria>
-<percentGanhar>47.700001</percentGanhar>
+<percentGanhar>49.700001</percentGanhar>
 <percentagemAviso>60.000000</percentagemAviso>
 <posX>12</posX>
 <posY>13</posY>
