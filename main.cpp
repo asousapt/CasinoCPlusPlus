@@ -40,20 +40,20 @@ int main(){
     //cas.listarClientes();
     cout << "Use a tecla M para parar a simulacao" << endl;
     
+    int fechar = 1;
     do
     {
         while (true) {
             if (ut.TeclaPressionada())
             {
-                cout << "Tecla pressionada. Programa encerrado\n";
-                break;
+                fechar = menuPrincipal(&cas);
             }
 
             cas.Run(false);
 
             usleep(10000); // Sleep for 10 milliseconds (requires #include <unistd.h>)
         };
-    } while (menuPrincipal(&cas) == 1);
+    } while (fechar == 1);
     
     
    

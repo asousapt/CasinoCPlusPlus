@@ -228,43 +228,50 @@ int casino::Memoria_Total(){
     return sizeof(this);
 }
 
-// Listar e devolver todas as máquinas de um dado Tipo
+// Mostrar e devolver todas as máquinas de um dado Tipo
 list<maquina *>* casino::Listar_Tipo(string Tipo, ostream &f){
-    list<maquina *>* listaR;
+    list<maquina *>* listaR = new list<maquina*>;
     for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
-        maquina *mQ = *it;
+        maquina *mQ = (*it);
         string mqTipo = mQ->getTipo();
-        if (mqTipo.compare(Tipo) == 1){
+
+        if (mqTipo.compare(Tipo) == 0){
             listaR->push_back(mQ);
             mQ->exportMQ(f);
         }
     }
 
-    return listaR;
+    list<maquina *>* listaR2 = listaR;
+    delete(listaR);
+
+    return listaR2;
 }
 
 // Devolver uma lista (ordenada) das maquinas que mais avariáram para a mais fiável
 list<string>* casino::Ranking_Dos_Fracos(){
-    list<string>* listaR;
-    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
-        maquina *mQ = *it;
-        string id = to_string(mQ->getID());
-        listaR->push_back(id);
-    }
-    
-    for (auto it = listaR->begin(); it != listaR->end(); ++it){
-        string idIT = *it;
-        int id1 = stoi(idIT);
-        for (auto it2 = it; it2 != listaR->end(); ++it2){
-            string idIT2 = *it2;
-            int id2 = stoi(idIT2);
-            if (id1 < id2){
+    list<maquina *>* listaMaq = ListaMq;
+    for (auto it = listaMaq->begin(); it != listaMaq->end(); ++it){
+        int nAva1 = (*it)->getNAvarias();
+        for (auto it2 = it; it2 != listaMaq->end(); ++it2){
+            int nAva2 = (*it2)->getNAvarias();
+
+            if (nAva1 > nAva2){
                 swap(*it2,*it);
             }
         }
     }
 
-    return listaR;
+    list<string>* listaR = new list<string>;
+    for (auto it3 = listaMaq->begin(); it3 != listaMaq->end(); ++it3){
+        int ID = (*it3)->getID();
+        listaR->push_back(to_string(ID));
+        (*it3)->exportMQ();
+    }
+    
+    list<string>* listaR2 = listaR;
+    delete(listaR);
+
+    return listaR2;
 }
 
 // Devolver uma lista (ordenada) das máquinas mais usadas para as menos usadas
@@ -551,20 +558,6 @@ bool casino::AssociarUsersMaquina(Cliente *utl){
         return false;
     }
 }
-
-// Devolve a maquina pelo ID
-maquina* casino::getMaquinaPorID(int id){
-    maquina* MQ;
-    for (auto it = ListaMq->begin(); it != ListaMq->end(); ++it){
-        MQ = (*it);
-        if(MQ->compareId(id)){
-            return (*it);
-        }
-    }
-    
-    return nullptr;
-}
-
 
 // Devolve a maquina onde o cliente esta a jogar
 maquina* casino::getMaquinaPorCliente(Cliente *utl){
@@ -1059,3 +1052,15 @@ bool casino::verificaHoras(const std::tm& timeStruct) {
 
     return false;
 }
+
+void casino::alterarEstadoMaquina(int ID, estado e){
+    maquina *MQ = getMaquina(ID);
+
+    if (!MQ){
+        cout << "Máquina não existe!\n";
+    }
+
+    MQ->setEstado(e);
+}
+
+

@@ -48,6 +48,7 @@ public:
     void incrVezesJogadas();
     virtual void removeCl(Cliente *Cl);
     void mostrar();
+    int getNAvarias();
 };
 #endif
 

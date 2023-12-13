@@ -44,20 +44,33 @@ void maquina::setEstado(estado stt){
     switch (stt)
     {
     case 1:
-       estadoStr = "ON";
+        estadoStr = "ON";
         break;
     case 0:
         estadoStr = "OFF";
         break;
     case 2:
-       estadoStr = "AVARIADA";
+        estadoStr = "AVARIADA";
         break;
     }
     cout << "Maquina ["<< id <<"] estado mudado para ["<< estadoStr <<"]\n";
 }
 
 void maquina::exportMQ(ostream &f){
-    f <<  "ID: [" << id << "]  Tipo: ["<< this->getTipo() << "]  Estado [" << estadoMaq << "]\n";
+    string estadoStr;
+    estado est = this->getEstado();
+    switch (est){
+        case 1:
+            estadoStr = "ON";
+            break;
+        case 0:
+            estadoStr = "OFF";
+            break;
+        case 2:
+            estadoStr = "AVARIADA";
+            break;
+    }
+    f <<  "ID: [" << id << "]  Tipo: ["<< this->getTipo() << "]  Estado [" << estadoStr << "]\n";
 }
 
 int maquina::compareNUsos(maquina *MQ){
@@ -199,5 +212,10 @@ void maquina::mostrar() {
         break;
     }
     cout << std::left << setw(10) << this->getTipo() << "\t\t" << to_string(this->posX) << "\t" << to_string(this->posY) << "\t" << estadoStr << "\t" << id << endl;
+}
+
+
+int maquina::getNAvarias(){
+    return nAvarias;
 }
 
