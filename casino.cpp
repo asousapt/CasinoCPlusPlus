@@ -287,13 +287,15 @@ list<string>* casino::Ranking_Dos_Fracos(){
 list<maquina *>* casino::Ranking_Das_Mais_Trabalhadores(){
     list<maquina *>* listaR = ListaMq;
     for (auto it = listaR->begin(); it != listaR->end(); ++it){
-        maquina *mQ1 = *it;
         for (auto it2 = it; it2 != listaR->end(); ++it2){
-            maquina *mQ2 = *it2;
-            if (mQ1->compareNUsos(mQ2) > 0){
+            if ((*it2)->compareNUsos((*it)) > 0){
                 swap(*it2,*it);
             }
         }
+    }
+
+    for (auto it3 = listaR->begin(); it3 != listaR->end(); ++it3){
+        (*it3)->exportMQ();
     }
 
     return listaR;
@@ -312,7 +314,12 @@ list<Cliente *>* casino::Jogadores_Mais_Frequentes(){
             }
         }
     }
+        cout << "teste3\n";
 
+    for (auto it3 = listaR->begin(); it3 != listaR->end(); ++it3){
+        (*it3)->exportCl();
+    }
+    
     return listaR;
 }
 
@@ -330,6 +337,10 @@ list<Cliente *>* casino::Jogadores_Mais_Ganhos(){
         }
     }
 
+    for (auto it3 = listaR->begin(); it3 != listaR->end(); ++it3){
+        (*it3)->exportCl();
+    }
+    
     return listaR;
 }
 

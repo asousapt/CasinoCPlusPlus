@@ -121,26 +121,20 @@ void MenuUsers(casino *C){
             }
             case 2:
             {
-                list<Cliente *>* LC = C->Jogadores_Mais_Frequentes();
                 system("clear");
                 cout << "### UTILIZADORES MAIS FREQUENTES ###" << endl;
-
-                for (auto it = LC->begin(); it != LC->end(); ++it){
-                    (*it)->exportCl();
-                }
+                list<Cliente *>* LC = C->Jogadores_Mais_Frequentes();
                 cout << "### UTILIZADORES MAIS FREQUENTES ###\n" << endl;
+
                 break;
             }
             case 3:
             {
-                list<Cliente *>* LC = C->Jogadores_Mais_Ganhos();
                 system("clear");
-
                 cout << "### UTILIZADORES MAIS GANHADORES ###" << endl;
-                for (auto it = LC->begin(); it != LC->end(); ++it){
-                    (*it)->exportCl();
-                }
+                list<Cliente *>* LC = C->Jogadores_Mais_Ganhos();
                 cout << "### UTILIZADORES MAIS GANHADORES ###\n" << endl;
+
                 break;
             }
             case 4:
@@ -194,7 +188,6 @@ void MenuMaquinas(casino *C){
                 maquina *Mq = C->getMaquina(stoi(numMq));
                 if (Mq){
                     Mq->exportMQ();
-                    delete(Mq);
                 }else{
                     cout << "Maquina não existe\n";
                 }
@@ -203,13 +196,11 @@ void MenuMaquinas(casino *C){
             }
             case 2:
             {
-                list<maquina *>* LM = C->Ranking_Das_Mais_Trabalhadores();
-
+                system("clear");
                 cout << "### MAQUINAS MAIS UTILIZADAS ###" << endl;
-                for (auto it = LM->begin(); it != LM->end(); ++it){
-                    (*it)->exportMQ();
-                }
+                list<maquina *>* LM = C->Ranking_Das_Mais_Trabalhadores();
                 cout << "### MAQUINAS MAIS UTILIZADAS ###\n" << endl;
+
                 break;
             }
             case 3:
@@ -285,7 +276,6 @@ void MenuMaquinas(casino *C){
                             cout << "AVARIADA\n";
                             break;
                     }
-                    delete(Mq);
                 }else{
                     cout << "Maquina não existe\n";
                 }
