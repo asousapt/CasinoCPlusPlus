@@ -350,6 +350,7 @@ void MenuCasino(casino *C){
         cout << "2 - Saber Estado\n";
         cout << "3 - Contagem de Jogadores no Casino\n";
         cout << "4 - Tamanho do Casino\n";
+        cout << "5 - Exportar Logs\n";
         cout << "0 - Voltar\n";
         cin >> opcao;
         if (!U.e_numero(opcao)){
@@ -370,7 +371,10 @@ void MenuCasino(casino *C){
                 break; 
             case 4:
                 cout << "O tamanho: " << C->Memoria_Total() << ".\n";
-                break;     
+                break;  
+            case 5:
+                C->ExportCasino();
+                 break;
             case 0:
                 break;
             default: 
