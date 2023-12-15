@@ -112,10 +112,6 @@ void MenuUsers(casino *C){
                 cout << "Ganhou " << Cl->getNVezesGanhou() << " vezes\n";
                 cout << "Jogou " << Cl->getNJogadas() << " vezes\n";
                 cout << "Saldo: " << Cl->getSaldo() << " €. Com " << Cl->getApostaPendente() << "€ numa aposta.\n";
-            
-                if(Cl){
-                    delete(Cl);
-                }
                 
                 break;
             }
